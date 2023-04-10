@@ -1,0 +1,121 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+.tier {
+    text-decoration: none;
+    color: black;
+    margin: 0 .2rem;
+    margin-bottom: .2rem;
+    display: inline-block;
+    /*width: 100%;*/
+    background-color: #fff;
+}
+.tier .img-box {
+    text-align: center;
+}
+.tier .img-box img {
+    max-width: 100%;
+}
+
+.tier .info-box {
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #e7e7e7;
+    border-radius: 3px;
+    font-size: 3vw;
+}
+
+.tier .ib-head {
+    padding: 3px 0px;
+    font-size: 4.3vw;
+    border-bottom: 1px solid #e7e7e7;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.tier .ib-head .index {
+    background: #54a500;
+    width: 7vw;
+    height: 7vw;
+    display: inline-block;
+    text-align: center;
+    line-height: 7vw;
+    color: white;
+    border-radius: 3.5vw;
+    margin: 0px 2vw;
+}
+.tier .ib-doc {
+    font-size: 4.3vw;
+    border-bottom: 1px solid #e7e7e7;
+    padding: 5vw 4vw;
+}
+.tier .ib-body {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    padding: 0px 4vw;
+}
+
+.tier .ib-body .red {
+    color: #dc4c43;
+    font-size: 5vw;
+}
+
+.tier .ib-body .cl-3 {
+    padding: 1.5vw 0px;
+}
+
+.tier .ib-body .cl-3 p {
+    margin: 1vw 0px;
+}
+
+.tier .ib-foot {
+    padding: 0px 4vw;
+    display: flex;
+    justify-content: space-between;
+}
+
+.tier .ib-foot p {
+    color: #ccc6c6;
+    margin: 0.5vw 0px;
+    font-size: 3.5vw;
+}
+
+.tier .ib-foot .now-btn {
+    margin-top: 1vw;
+    background: #3485ff;
+    border: none;
+    color: white;
+    font-size: 3.5vw;
+    width: 25vw;
+    height: 8vw;
+    border-radius: 1vw;
+}
+.tier .plan {
+    display: flex;
+    font-size: 3vw;
+    padding: 0px 4vw;
+    align-items: center;
+    color: #666666c9;
+    justify-content: space-between;
+}
+
+.tier .plan-wrap {
+    width: 56vw;
+    height: 0.9vw;
+    border-radius: 0.45vw;
+    background: #e7e7e7;
+}
+
+.tier .plan-con {
+    height: 100%;
+    border-radius: 0.45vw;
+    background: #3485ff;
+}
+.tier .plan-text {
+    margin-left: 0.5vw;
+    font-size: 4.5vw;
+}
