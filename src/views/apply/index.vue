@@ -1,63 +1,76 @@
 <template>
   <div class="mobile">
-    <div style="height: 3.9rem;position: absolute;">
-      <img src="@/assets/image/apply/apply_bg.png">
+    <div style="height: 3.9rem">
+      <img src="@/assets/image/apply/apply_bg.png" />
     </div>
     <div class="apply">
       <div class="tabs">
-        <div v-for="(item, index) in tabList" :key="index" :class="activeVal === item.value ? 'active' : ''"
-          @click="tabClick(item.value, index)">{{ item.label
-          }}</div>
+        <div
+          v-for="(item, index) in tabList"
+          :key="index"
+          :class="activeVal === item.value ? 'active' : ''"
+          @click="tabClick(item.value, index)"
+        >
+          {{ item.label }}
+        </div>
       </div>
 
       <component :is="showComponent"></component>
-
-
     </div>
-
   </div>
 </template>
 
 <script setup>
 import { ref, shallowRef } from 'vue'
 
-import FundList from './compoents/FundList.vue'; // 2023二期
-import FundEndlist from './compoents/FundEndlist.vue'; // 2023一期
-import EnsureHouse from './compoents/EnsureHouse.vue'; // 提现专属卡
-import WithoutCard from './compoents/WithoutCard.vue'; //2023保障住房
+import FundList from './compoents/FundList.vue' // 2023二期
+import FundEndlist from './compoents/FundEndlist.vue' // 2023一期
+import EnsureHouse from './compoents/EnsureHouse.vue' // 提现专属卡
+import WithoutCard from './compoents/WithoutCard.vue' //2023保障住房
+import CouponList from './compoents/CouponList.vue' // 提现免费券
 
-const tabList = [{
-  label: '2023二期',
-  value: 0,
-  component: FundList
-}, {
-  label: '2023保障住房',
-  value: 3,
-  component: EnsureHouse
-}, {
-  label: '提现专属卡',
-  value: 2,
-  component: WithoutCard
-}, {
-  label: '2023一期',
-  value: 1,
-  component: FundEndlist
-}]
+const tabList = [
+  {
+    label: '2023二期',
+    value: 0,
+    component: FundList
+  },
+  {
+    label: '提现免费券',
+    value: 4,
+    component: CouponList
+  },
+  {
+    label: '2023保障住房',
+    value: 3,
+    component: EnsureHouse
+  },
+  {
+    label: '提现专属卡',
+    value: 2,
+    component: WithoutCard
+  },
+  {
+    label: '2023一期',
+    value: 1,
+    component: FundEndlist
+  }
+]
 
-const defIndex = 0
-const activeVal = ref(defIndex)
-const showComponent = shallowRef(tabList[defIndex]['component'])
-
+const activeVal = ref(0)
+const showComponent = shallowRef(tabList[0]['component'])
 
 const tabClick = (val, index) => {
   activeVal.value = val
   showComponent.value = tabList[index]['component']
 }
-
-
 </script>
 
 <style lang="scss">
+.apply {
+  position: relative;
+  top: -3.9rem;
+}
 .apply .tabs div {
   -webkit-box-flex: 2;
   -webkit-flex: 2 0 auto;
@@ -79,7 +92,7 @@ const tabClick = (val, index) => {
 }
 
 .apply .tabs::-webkit-scrollbar {
-  display: none
+  display: none;
 }
 
 .apply .tabs .active {
@@ -104,14 +117,14 @@ const tabClick = (val, index) => {
   overflow-y: auto;
 }
 
-.rectangle_447 .item_c>.haveEnded:nth-last-of-type(1) {
+.rectangle_447 .item_c > .haveEnded:nth-last-of-type(1) {
   background: #999;
 }
 
 .rectangle_447 .item-btn-money {
   border-radius: 3rem;
-  font-size: .28rem;
-  background: #4F7CF3;
+  font-size: 0.28rem;
+  background: #4f7cf3;
   color: #fff;
   font-weight: 300;
   padding: 0.18rem 0.3rem;
@@ -120,7 +133,6 @@ const tabClick = (val, index) => {
   text-align: center;
   margin: 10px auto 0;
 }
-
 
 .houseItemBox {
   position: relative;
@@ -170,6 +182,17 @@ const tabClick = (val, index) => {
   color: #fff;
   margin-top: 20px;
   background: linear-gradient(to right, #0162ff, #19b0ff);
+}
+
+.item_c .itemLeftImg {
+  width: 180px;
+}
+.introduce {
+  font-size: 0.28rem;
+  font-weight: bold;
+  padding-top: 10px;
+  line-height: 30px;
+  padding: 10px 15px;
 }
 
 .houseBtnGray {

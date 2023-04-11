@@ -1,9 +1,9 @@
 <template>
   <div class="rectangle_447 rectangleShow">
-    <a class="item" href="https://71yunduan.com/mobile/details/id/32.html">
+    <a class="item" @click="goPage({ name: 'applyNow' })">
       <div class="item_t">
         <div>A档</div>
-        <div style="color: red;font-weight: bold;">申请时间截止到3月21日22时</div>
+        <div style="color: red; font-weight: bold">申请时间截止到3月21日22时</div>
       </div>
       <div class="item_c">
         <!--<div>-->
@@ -33,14 +33,14 @@
           <div>99%</div>
         </div>
         <div class="progress">
-          <div class="jindu" style="width:99%"></div>
+          <div class="jindu" style="width: 99%"></div>
         </div>
       </div>
-      <!-- </a> -->
-    </a><a class="item" href="https://71yunduan.com/mobile/details/id/31.html">
+      <!-- </a> --> </a
+    ><a class="item" @click="goPage({ name: 'applyNow' })">
       <div class="item_t">
         <div>B档</div>
-        <div style="color: red;font-weight: bold;">申请时间截止到3月21日22时</div>
+        <div style="color: red; font-weight: bold">申请时间截止到3月21日22时</div>
       </div>
       <div class="item_c">
         <!--<div>-->
@@ -70,14 +70,14 @@
           <div>72%</div>
         </div>
         <div class="progress">
-          <div class="jindu" style="width:72%"></div>
+          <div class="jindu" style="width: 72%"></div>
         </div>
       </div>
-      <!-- </a> -->
-    </a><a class="item" href="https://71yunduan.com/mobile/details/id/30.html">
+      <!-- </a> --> </a
+    ><a class="item" @click="goPage({ name: 'applyNow' })">
       <div class="item_t">
         <div>C档</div>
-        <div style="color: red;font-weight: bold;">申请时间截止到3月21日22时</div>
+        <div style="color: red; font-weight: bold">申请时间截止到3月21日22时</div>
       </div>
       <div class="item_c">
         <!--<div>-->
@@ -107,14 +107,14 @@
           <div>86%</div>
         </div>
         <div class="progress">
-          <div class="jindu" style="width:86%"></div>
+          <div class="jindu" style="width: 86%"></div>
         </div>
       </div>
-      <!-- </a> -->
-    </a><a class="item" href="https://71yunduan.com/mobile/details/id/29.html">
+      <!-- </a> --> </a
+    ><a class="item" @click="goPage({ name: 'applyNow' })">
       <div class="item_t">
         <div>D档</div>
-        <div style="color: red;font-weight: bold;">申请时间截止到3月21日22时</div>
+        <div style="color: red; font-weight: bold">申请时间截止到3月21日22时</div>
       </div>
       <div class="item_c">
         <!--<div>-->
@@ -144,14 +144,14 @@
           <div>62%</div>
         </div>
         <div class="progress">
-          <div class="jindu" style="width:62%"></div>
+          <div class="jindu" style="width: 62%"></div>
         </div>
       </div>
-      <!-- </a> -->
-    </a><a class="item" href="https://71yunduan.com/mobile/details/id/28.html">
+      <!-- </a> --> </a
+    ><a class="item" @click="goPage({ name: 'applyNow' })">
       <div class="item_t">
         <div>E档</div>
-        <div style="color: red;font-weight: bold;">申请时间截止到3月21日22时</div>
+        <div style="color: red; font-weight: bold">申请时间截止到3月21日22时</div>
       </div>
       <div class="item_c">
         <!--<div>-->
@@ -181,7 +181,7 @@
           <div>54%</div>
         </div>
         <div class="progress">
-          <div class="jindu" style="width:54%"></div>
+          <div class="jindu" style="width: 54%"></div>
         </div>
       </div>
       <!-- </a> -->
@@ -190,14 +190,14 @@
 </template>
 
 <script setup>
-
+import { useRouteHook } from '@/hook/routeHook.js'
+const { goPage } = useRouteHook()
 const props = defineProps({
   fundList: {
     type: Array,
     default: () => []
   }
 })
-
 </script>
 
 <style lang="scss" scoped></style>

@@ -8,7 +8,7 @@ let base = {}
 base.showToast = function (message, options = { duration: 1500 }) {
   showToast({
     message,
-    ...options,
+    ...options
   })
 }
 
@@ -16,10 +16,13 @@ base.showToast = function (message, options = { duration: 1500 }) {
  * 显示Loading
  * forbidClick: 是否显示透明蒙层，防止触摸穿透
  */
-base.showLoadingToast = function (message = '加载中...', options = { duration: 0, forbidClick: false }) {
+base.showLoadingToast = function (
+  message = '加载中...',
+  options = { duration: 0, forbidClick: false }
+) {
   showLoadingToast({
     message,
-    ...options,
+    ...options
   })
 }
 

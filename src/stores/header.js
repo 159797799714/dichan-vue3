@@ -5,6 +5,5 @@ export const useCounterStore = defineStore('header', () => {
   const title = ref('')
   const rightInfo = ref({})
 
-
   return { title, rightInfo }
 })

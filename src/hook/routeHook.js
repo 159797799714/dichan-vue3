@@ -14,10 +14,10 @@ export function useRouteHook() {
     router.push(args)
   }
 
-  function goPage(path) {
-    console.log('path', path)
-    if (!path) return $base.showToast('升级中')
-    router.push({ path })
+  function goPage(to) {
+    console.log('path', to)
+    if (!to) return $base.showToast('升级中')
+    router.push(to)
   }
 
   return {

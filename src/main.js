@@ -6,7 +6,7 @@ import router from './router'
 
 import './assets/style/common.css'
 
-import 'vant/es/toast/style';
+import 'vant/es/toast/style'
 
 import base from './utils/base'
 window.$base = base

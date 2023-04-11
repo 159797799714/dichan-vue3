@@ -1,7 +1,7 @@
 <template>
   <div class="mobile">
-    <div style="height: 3.9rem;">
-      <img src="@/assets/image/team/team_bg.png">
+    <div style="height: 3.9rem">
+      <img src="@/assets/image/team/team_bg.png" />
     </div>
     <div class="team">
       <div class="rectangle_357">
@@ -33,26 +33,20 @@
       </div>
       <div class="rectangle_444">
         <div class="row">
-
           <div>14714755555</div>
-          <div style="color:#4F7CF3">一级</div>
-          <div>申请&nbsp;<span style="color:#000">¥ 0</span></div>
-
+          <div style="color: #4f7cf3">一级</div>
+          <div>申请&nbsp;<span style="color: #000">¥ 0</span></div>
         </div>
         <div class="row">
-
           <div>16600029554</div>
-          <div style="color:#4F7CF3">一级</div>
-          <div>申请&nbsp;<span style="color:#000">¥ 100.00</span></div>
-
+          <div style="color: #4f7cf3">一级</div>
+          <div>申请&nbsp;<span style="color: #000">¥ 100.00</span></div>
         </div>
       </div>
     </div>
   </div>
 </template>
 
-<script setup>
-
-</script>
+<script setup></script>
 
 <style lang="scss" scoped></style>

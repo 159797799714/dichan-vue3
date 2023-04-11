@@ -1,6 +1,5 @@
 <template>
-  <div class="mobile">
-    <div class="header-nbsp"></div>
+  <div>
     <div class="record_outer">
       <table>
         <tbody>
@@ -14,15 +13,13 @@
             <td>100.00</td>
             <td>地产支付宝</td>
             <td>2023-03-19 14:46:25</td>
-            <td>
-              处理中 </td>
+            <td>处理中</td>
           </tr>
           <tr>
             <td>100.00</td>
             <td>地产微信</td>
             <td>2023-03-19 14:44:30</td>
-            <td>
-              处理中 </td>
+            <td>处理中</td>
           </tr>
         </tbody>
       </table>
@@ -30,8 +27,6 @@
   </div>
 </template>
 
-<script setup>
-
-</script>
+<script setup></script>
 
 <style lang="scss" scoped></style>
