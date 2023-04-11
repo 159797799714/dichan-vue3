@@ -1,6 +1,6 @@
 <template>
-  <MsgDialog ref="MsgDialogRef">1111111111</MsgDialog>
-  <div class="mobile">
+
+  <div class="">
     <div class="my_total">
       <div style="display: flex">
         <div class="my_icon">
@@ -95,11 +95,11 @@
     <!--    <a href="/user/cash.html"  style = "color: #3582b3;">提现</a>-->
     <!--</div>-->
     <div class="rectangle_333">
-      <a href="https://71yunduan.com/user/cash.html"
+      <a @click="goPage({ name: 'cash'})"
         ><img src="@/assets/image/user/nav11.png" />
         <font>提现申请</font>
       </a>
-      <a href="https://71yunduan.com/user/recharge.html"
+      <a @click="goPage({ name: 'recharge'})"
         ><img src="@/assets/image/user/nav15.png" />
         <font>在线充值</font>
       </a>
@@ -163,6 +163,11 @@
     <div class="go_top" id="go_top" style="display: none">
       <img src="@/assets/image/user/top.png" />
     </div>
+
+    
+    <!-- 弹窗toast -->
+    <MsgDialog ref="MsgDialogRef">1111111111</MsgDialog>
+
   </div>
 </template>
 
