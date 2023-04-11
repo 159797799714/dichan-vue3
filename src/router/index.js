@@ -114,14 +114,6 @@ const router = createRouter({
           }
         },
         {
-          path: 'myWallet',
-          name: 'myWallet',
-          component: () => import('../views/user/myWallet.vue'),
-          meta: {
-            title: '资产管理'
-          }
-        },
-        {
           path: 'cashRecord',
           name: 'cashRecord',
           component: () => import('../views/user/cashRecord.vue'),
@@ -149,6 +141,63 @@ const router = createRouter({
             }
           }
         },
+        {
+          path: 'zhuanzhang',
+          name: 'zhuanzhang',
+          component: () => import('../views/user/zhuanzhang.vue'),
+          meta: {
+            title: '转账',
+          }
+        },
+        {
+          path: 'properties',
+          name: 'properties',
+          component: () => import('../views/user/properties.vue'),
+          meta: {
+            title: '产权办理',
+          }
+        },
+        {
+          path: 'policy',
+          name: 'policy',
+          component: () => import('../views/user/policy.vue'),
+          meta: {
+            title: '政策文件',
+          }
+        },
+        {
+          path: 'myApply',
+          name: 'myApply',
+          component: () => import('../views/user/myApply.vue'),
+          meta: {
+            title: '我的申请',
+          }
+        },
+        {
+          path: 'certification',
+          name: 'certification',
+          component: () => import('../views/user/certification.vue'),
+          meta: {
+            title: '实名认证',
+          }
+        },
+        {
+          path: 'addCard',
+          name: 'addCard',
+          component: () => import('../views/user/addCard.vue'),
+          meta: {
+            title: '绑定银行卡',
+          }
+        },
+        {
+          path: 'uploadCertificate',
+          name: 'uploadCertificate',
+          component: () => import('../views/user/uploadCertificate.vue'),
+          meta: {
+            title: '身份验证',
+          }
+        },
+
       ]
     },
     {
@@ -176,6 +225,29 @@ const router = createRouter({
       meta: {
         title: '数字人民币'
       }
+    },
+
+    {
+      path: '/myWallet',
+      name: 'myWallet',
+      component: () => import('../views/user/myWallet.vue'),
+    },
+
+
+    {
+      path: '/editPassword',
+      name: 'editPassword',
+      component: () => import('../views/user/editPassword.vue'),
+    },
+    {
+      path: '/editPayPassword',
+      name: 'editPayPassword',
+      component: () => import('../views/user/editPayPassword.vue'),
+    },
+    {
+      path: '/addAddress',
+      name: 'addAddress',
+      component: () => import('../views/user/addAddress.vue'),
     },
 
     {

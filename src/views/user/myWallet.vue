@@ -1,5 +1,6 @@
 <template>
   <div class="record_outer">
+    <HeadBar :popTitle="popTitle"></HeadBar>
     <table>
       <tbody>
         <tr>
@@ -35,6 +36,16 @@
 
 <script setup>
 import { ref } from 'vue'
+import HeadBar from '@/components/HeadBar.vue'
+
+import { useRouteHook } from '@/hook/routeHook.js'
+const { route } = useRouteHook()
+
+const popTitle = ref('')
+
+const { title } = route.query || {}
+popTitle.value = title
+
 </script>
 
 <style lang="scss" scoped>
@@ -42,14 +53,17 @@ import { ref } from 'vue'
   padding: 0.3rem 0;
   border-bottom: 1px solid #f6f6f6;
 }
+
 .record_outer .item .row {
   display: flex;
   justify-content: space-between;
 }
+
 .record_outer .item .row:nth-of-type(1) {
   font-size: 0.28rem;
   font-weight: 500;
 }
+
 .record_outer .item .row:nth-of-type(2) {
   margin-top: 0.3rem;
   flex-wrap: wrap;
@@ -57,6 +71,7 @@ import { ref } from 'vue'
   color: #999999;
   font-size: 0.2rem;
 }
+
 .record_outer .item .row:nth-of-type(2) span {
   color: #4f7cf3;
 }

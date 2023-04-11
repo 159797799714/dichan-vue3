@@ -13,9 +13,19 @@ window.$base = base
 
 // import './assets/base.css'
 
+
+import HeadBar from '@/components/HeadBar.vue'
+const componentObj = {
+  install(app) {
+    app.component('HeadBar', HeadBar)
+  }
+}
+
+
 const app = createApp(App)
 
 app.use(createPinia())
 app.use(router)
+app.use(componentObj)
 
 app.mount('#app')
