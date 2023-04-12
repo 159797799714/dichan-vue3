@@ -8,7 +8,7 @@
           <div class="angle"></div>
           <div class="angle"></div>
           <div class="qrcode" id="qrcode1">
-            <img src="./官方社群_files/20230315151413.jpg" width="100" />
+            <img src="" width="100" />
           </div>
         </div>
         <p>官方微核群</p>
@@ -21,7 +21,7 @@
           <div class="angle"></div>
           <div class="angle"></div>
           <div class="qrcode" id="qrcode1">
-            <img src="./官方社群_files/20230315151428.jpg" width="100" />
+            <img src="" width="100" />
           </div>
         </div>
         <p>官方微核群</p>

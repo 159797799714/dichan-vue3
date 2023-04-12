@@ -3,7 +3,7 @@
     <div class="mobile">
       <div style="position: relative; z-index: 0">
         <video
-          src="/Public/mobile/video/home.mp4"
+          src="@/assets/demo.mp4"
           controls=""
           autoplay=""
           height="220px"
@@ -18,19 +18,7 @@
           x5-video-orientation="portraint"
         ></video>
       </div>
-      <div class="indexbanner">
-        <div class="slide_01" id="slide_01">
-          <div class="mod_01" style="border-radius: 10px; overflow: hidden">
-            <a href=""><img src="/Public/uploads/slide/20201119132729.jpg" /></a>
-          </div>
-          <div class="mod_01" style="border-radius: 10px; overflow: hidden">
-            <a href=""><img src="/Public/uploads/slide/20201119132742.jpg" /></a>
-          </div>
-        </div>
-        <div class="dotModule_new">
-          <div id="slide_01_dot"></div>
-        </div>
-      </div>
+
       <!--end banner-->
       <div class="indexnav" style="padding: 0.3rem 0">
         <a @click="showToast"
@@ -89,7 +77,7 @@
               </div>
             </div>
             <div class="item_right">
-              <img src="@/assets/image/index/image_2023-01-31_08-22-12.png" />
+              <img src="" />
             </div>
           </a>
         </div>

@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="headBar">
     <div class="icon" @click="goBack"><img src="@/assets/image/goback.png" /></div>
     <div class="navigate-title">{{ popTitle || title }}</div>
     <a class="bill" @click="goPage({ path: rightInfo.path })">{{ rightInfo.name }}</a>
@@ -46,10 +46,16 @@ const goBack = () => {
 </script>
 
 <style lang="scss" scoped>
-.header {
+.headBar {
   position: relative;
   display: flex;
   justify-content: space-between;
+  width: 100vw;
+  text-align: center;
+  z-index: 200;
+  line-height: 0.9rem;
+  font-size: 0.3rem;
+  color: #000;
 
   .icon {
     height: 0.8rem;

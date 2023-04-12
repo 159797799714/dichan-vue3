@@ -4,32 +4,32 @@
     <form action="https://71yunduan.com/user/cash.html" method="post" id="ifr">
       <div class="blank_card" style="display: none">
         <label>卡号</label><input id="chose_input" type="text" placeholder="请选择银行卡" />
-        <div class="jt_xz"><img class="down" src="./提现_files/jtx.png" /></div>
+        <div class="jt_xz"><img class="down" src="@/assets/image/user/cash/jtx.png" /></div>
         <div id="chose_bank" class="bank_xljt1"></div>
         <ul class="bank_xl">
           <li>
             <a href="javascript:;" title="中国工商银行">
-              <img src="./提现_files/bank_ICBC.jpg" alt="" />
+              <img src="@/assets/image/user/cash/bank_ICBC.jpg" alt="" />
             </a>
           </li>
           <li>
             <a href="javascript:;" title="中国农业银行">
-              <img src="./提现_files/bank_ABC.jpg" alt="" />
+              <img src="@/assets/image/user/cash/bank_ABC.jpg" alt="" />
             </a>
           </li>
           <li>
             <a href="javascript:;" title="中国建设银行">
-              <img src="./提现_files/bank_CCB.jpg" alt="" />
+              <img src="@/assets/image/user/cash/bank_CCB.jpg" alt="" />
             </a>
           </li>
           <li>
             <a href="javascript:;" title="招商银行">
-              <img src="./提现_files/bank_CMB.jpg" alt="" />
+              <img src="@/assets/image/user/cash/bank_CMB.jpg" alt="" />
             </a>
           </li>
           <li>
             <a href="javascript:;" title="中国银行">
-              <img src="./提现_files/bank_BOC.jpg" alt="" />
+              <img src="@/assets/image/user/cash/bank_BOC.jpg" alt="" />
             </a>
           </li>
         </ul>

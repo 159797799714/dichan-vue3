@@ -27,7 +27,7 @@
             <input type="text" name="code" placeholder="请输入验证码" style="width: 60%" />
             <div class="pull-left codeImg">
               <img
-                src="./注册_files/verify.html"
+                src=""
                 id="verify_img"
                 alt="点击刷新"
                 title="点击刷新"

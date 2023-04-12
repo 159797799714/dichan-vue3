@@ -55,7 +55,7 @@
     <div class="transfer_record">
       <div style="font-size: .3rem;">最近转账记录</div>
       <div class="no_record">
-        <img src="./转账_files/no_record.png" style="height: 3rem;">
+        <img src="@/assets/image/user/no_record.png" style="height: 3rem;">
       </div>
       <div class="record_list">
       </div>

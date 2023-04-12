@@ -3,7 +3,6 @@
 
     <HeadBar popTitle="我的收货地址"></HeadBar>
 
-    <div style="height:45px;"></div>
     <section class="aui-myOrder-content">
       <div class="aui-prompt"><i class="iconfont"></i>填写您的地址信息</div>
       <div class="aui-Address-box">
@@ -59,8 +58,7 @@ import MsgDialog from '@/components/MsgDialog.vue'
 </script>
 
 <style scoped>
-@import url('@/assets/style/swiper.min.css');
-/* @import url('@/assets/style/web.css'); */
+@import url('@/assets/style/web.css');
 
 .address-box::after {
   content: '';

@@ -304,7 +304,7 @@ background:#4f79bc; /* 标准的语法 */}
 .catr_top .catr_right{ width:calc(100% - 110px); margin-top:40px;}
 .catr_top .catr_right span{ color:#fe7320; font-size:16px; line-height:2em;}
 .catr_top .catr_right h3{ color:#666; font-size:12px; line-height:1.5em;}
-.canshu_container{ position:relative; top:-35px; height:122px; overf low-y:scroll}
+.canshu_container{ position:relative; top:-35px; height:122px; overflow-y:scroll;}
 .canshu{ border-bottom:1px solid #e6e6e6; padding-bottom:10px;}
 .canshu .canshu_tite{ color:#333; font-size:14px;position:relative;}
 .canshu ul { margin-top:5px;}
