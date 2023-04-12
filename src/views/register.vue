@@ -26,24 +26,13 @@
           <div class="input_text" style="position: relative">
             <input type="text" name="code" placeholder="请输入验证码" style="width: 60%" />
             <div class="pull-left codeImg">
-              <img
-                src=""
-                id="verify_img"
-                alt="点击刷新"
-                title="点击刷新"
-                style="cursor: pointer; margin-left: 10px"
-              />
+              <img :src="codeImgUrl" id="verify_img" alt="点击刷新" title="点击刷新" style="cursor: pointer; margin-left: 10px"
+                @click="changeCode" />
             </div>
           </div>
           <div class="input_text">
-            <input
-              type="password"
-              placeholder="请再输入支付密码"
-              id="zfpwd"
-              name="zfpwd"
-              maxlength="6"
-              onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)"
-            />
+            <input type="password" placeholder="请再输入支付密码" id="zfpwd" name="zfpwd" maxlength="6"
+              onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)" />
           </div>
           <!--<div class="input_text">-->
           <!--    <input type="text" id="code" name="code" placeholder="请输入图形验证码">-->
@@ -62,13 +51,9 @@
           </div>
           <div class="error_tips"></div>
           <input type="submit" class="input_btn" value="立即注册" />
-          <div
-            style="display: flex; justify-content: center; align-items: center; text-align: center"
-          >
-            <input type="checkbox" value="0" checked="" />&nbsp; 已阅读并同意<span
-              style="color: #5570ff"
-              >《用户协议》</span
-            >与<span style="color: #5570ff">《隐私协议》</span>
+          <div style="display: flex; justify-content: center; align-items: center; text-align: center">
+            <input type="checkbox" value="0" checked="" />&nbsp; 已阅读并同意<span style="color: #5570ff">《用户协议》</span>与<span
+              style="color: #5570ff">《隐私协议》</span>
           </div>
         </form>
       </div>
@@ -76,7 +61,20 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, onBeforeMount } from 'vue'
+const codeImgUrl = ref('')
+
+const changeCode = () => {
+  const random = Math.random()
+  codeImgUrl.value = `http://api.zgdc2023tx.com/captcha?t=${random}`
+}
+
+onBeforeMount(() => {
+  changeCode()
+})
+
+</script>
 
 <style lang="scss" scoped>
 .input_text {

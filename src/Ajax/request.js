@@ -1,5 +1,5 @@
 import service from '@/utils/server.js'
-import store from '../store'
+// import store from '../store'
 import { Toast, Dialog } from 'vant'
 import API from './api'
 
@@ -23,7 +23,7 @@ const dealObjectValue = obj => {
   return param
 }
 
-const request = async (urlName, data = {}, method = 'GET') => { 
+const request = async (urlName, data = {}, method = 'GET') => {
   data = dealObjectValue(data)
 
   const url = API[urlName]

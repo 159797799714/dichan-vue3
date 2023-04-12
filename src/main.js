@@ -13,7 +13,6 @@ window.$base = base
 
 // import './assets/base.css'
 
-
 import HeadBar from '@/components/HeadBar.vue'
 const componentObj = {
   install(app) {
@@ -22,7 +21,6 @@ const componentObj = {
 }
 
 console.log('--------', process.env.NODE_ENV)
-
 
 const app = createApp(App)
 
