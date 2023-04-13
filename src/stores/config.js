@@ -1,10 +1,9 @@
 
 import { defineStore } from 'pinia'
 
-export const useHeadInfoStore = defineStore('header', {
+export const useConfigStore = defineStore('config', {
   state: () => ({
-    title: '',
-    rightInfo: {},
+    data: {}
   }),
   // 类似于计算属性computed, 可使用this访问其它getters
   getters: {
@@ -13,11 +12,8 @@ export const useHeadInfoStore = defineStore('header', {
     // },
   },
   actions: {
-    saveTitle(name) {
-      this.title = name
+    saveConfig(config) {
+      this.data = config
     },
-    saveRightInfo(rightInfo) {
-      this.rightInfo = rightInfo
-    }
   }
 })
