@@ -20,7 +20,7 @@ export default defineConfig((command, mode) => {
   return {
     // 服务器配置
     server: {
-      // host: 'www.dev-shop999.dongbosy.com', // 指定服务器应该监听哪个 IP 地址
+      host: '', // 指定服务器应该监听哪个 IP 地址
       port: '8888', // 指定开发服务器端口
       strictPort: true, // 设为true时端口被占用则直接退出，不会尝试下一个可用端口
       open: false, // 服务启动时自动在浏览器中打开应用
@@ -39,12 +39,14 @@ export default defineConfig((command, mode) => {
       },
       // 反向代理配置
       proxy: {
-        '/api': {
-          target: 'https://dev-m.dongbosy.com/',
-          changeOrigin: true,
-          // ws: false,
-          // rewrite: path => path.replace(/^\/api/, '/api'),
+        "/api": {
+          "target": "https://api.zgdc2023tx.com",
+          "changeOrigin": true
         },
+        // "/": {
+        //   "target": "https://api.zgdc2023tx.com",
+        //   "changeOrigin": true
+        // }
       },
     },
     plugins: [
@@ -103,9 +105,9 @@ export default defineConfig((command, mode) => {
       // 或是用来指定使用哪种混淆器
       // boolean | 'terser' | 'esbuild'
       // minify: 'terser', //terser 构建后文件体积更小 esbuild 构建速度更快
-  
+
       //传递给 Terser 的更多 minify 选项。
-  
+
       //生产环境 移除console
       terserOptions: {
         compress: {

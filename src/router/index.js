@@ -2,6 +2,11 @@ import { createRouter, createWebHistory } from 'vue-router'
 import layout from '@/components/layout.vue'
 import childLayout from '@/components/childLayout.vue'
 
+import pinia from '../store/index'
+import { useUserStore } from "../store/userInfo"
+const userInfo = useUserStore(pinia)// 这里一定要把 pinia传入进去
+console.log('userInfo', userInfo)
+
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [

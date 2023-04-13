@@ -1,8 +1,9 @@
 import { createApp } from 'vue'
-import { createPinia } from 'pinia'
 
 import App from './App.vue'
 import router from './router'
+
+import pinia from "./store/index"
 
 import './assets/style/common.css'
 
@@ -13,19 +14,25 @@ window.$base = base
 
 // import './assets/base.css'
 
-import HeadBar from '@/components/HeadBar.vue'
-const componentObj = {
-  install(app) {
-    app.component('HeadBar', HeadBar)
-  }
-}
+// import HeadBar from '@/components/HeadBar.vue'
+// const componentObj = {
+//   install(app) {
+//     app.component('HeadBar', HeadBar)
+//   }
+// }
+
+import request from './Ajax/request'
+
+// provide({ Http: request })
+
+console.log('request', request)
 
 console.log('--------', process.env.NODE_ENV)
 
 const app = createApp(App)
 
-app.use(createPinia())
+app.provide('Http', request)
 app.use(router)
-app.use(componentObj)
-
+// app.use(componentObj)
+app.use(pinia)
 app.mount('#app')

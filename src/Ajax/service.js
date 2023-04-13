@@ -1,12 +1,12 @@
 import axios from 'axios'
-import {useUserStore} from '@/store/userInfo'
+import { useUserStore } from '@/store/userInfo'
 const userInfo = useUserStore()
 
-// axios.defaults.baseURL = 'http://api.zgdc2023tx.com';
+axios.defaults.baseURL = import.meta.env == 'production' ? 'http://api.zgdc2023tx.com' : ''
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: 'http://api.zgdc2023tx.com',
+  // baseURL: 'https://api.zgdc2023tx.com',
   timeout: 15000 // 请求超时时间
 })
 
