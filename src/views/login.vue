@@ -18,9 +18,10 @@
           <input type="password" v-model="formData.password" placeholder="请输入密码" style="width: 100%" />
         </div>
         <div class="error_tips"></div>
-        <input class="input_btn" value="登录" @click="submitAction" />
+        <!-- <input type="btn" :class="['input_btn', canSummit? '': 'no_submit']" value="登录" @click="submitAction" /> -->
+        <div type="btn" :class="['input_btn', canSummit? '': 'no_submit']"  @click="submitAction" >登录</div>
         <div style="display: flex; justify-content: center; align-items: center; text-align: center">
-          <input type="checkbox" value="0" checked="" />&nbsp; 已阅读并同意<span style="color: #5570ff">《用户协议》</span>与<span
+          <input type="checkbox" v-model="checkVal" value="0" checked="" />&nbsp; 已阅读并同意<span style="color: #5570ff">《用户协议》</span>与<span
             style="color: #5570ff">《隐私协议》</span>
         </div>
         <!--<p class="p2 re"><a href="reg.html">注册账号</a></p>-->
@@ -45,24 +46,58 @@
 </template>
 
 <script setup>
-import { reactive, ref, toRefs, inject } from 'vue'
+import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 
 import { useRouteHook } from '@/hook/routeHook.js'
-const { goPage } = useRouteHook()
+const { goPage, navigateTo } = useRouteHook()
+
+import {useUserStore} from '@/store/userInfo'
+const userStore = useUserStore()
 
 
 const formData = ref({
-  mobile: '',
-  password: ''
+  mobile: '15912345678',
+  password: '123456'
+})
+const checkVal = ref(true)
+
+const checkSubmit = (toast = false) => {
+  const {mobile, password} = formData.value
+  if (mobile.length !== 11) {
+    toast && $base.showToast('请输入11位的手机号码')
+    return false
+  }
+  if (password.length < 6) {
+    toast && $base.showToast('账户密码不能少于6位')
+    return false
+  }
+  return true
+}
+
+const canSummit = computed(() => {
+  return checkSubmit()
 })
 
-const Http = inject('Http')
-
 const submitAction = async () => {
-  let { data } = await Http('login', formData.value, 'POST')
-  console.log('----', data)
+  console.log('checkVal', checkVal.value) 
+  if (!checkVal.value) return $base.showToast('请同意用户协议-隐私协议')
+  if (!canSummit.value) return
+
+  var myreg=/^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+  if (!myreg.test(formData.value.mobile)) {
+      $base.showToast('手机格式不正确！')
+      return false;
+  }
+
+  $base.showLoadingToast('登录中')
+  let data = await $Http('apiLogin', formData.value)
+  console.log('登录返回', data)
+  if (!data) return
+  userStore.setUserInfo(data.userinfo || {})
+  navigateTo({ name: 'home' })
+  
 }
 
 
@@ -71,5 +106,10 @@ const submitAction = async () => {
 <style lang="scss" scoped>
 a {
   color: #98a4fa;
+}
+.no_submit{
+  background: #cccccc;
+  color: #fff;
+  border-color: #cccccc;
 }
 </style>

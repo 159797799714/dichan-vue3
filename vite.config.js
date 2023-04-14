@@ -41,7 +41,7 @@ export default defineConfig((command, mode) => {
       proxy: {
         "/api": {
           "target": "https://api.zgdc2023tx.com",
-          "changeOrigin": true
+          "changeOrigin": false
         },
         // "/": {
         //   "target": "https://api.zgdc2023tx.com",

@@ -14,43 +14,36 @@
         <form action="https://71yunduan.com/mobile/reg.html" method="post" id="ifr">
           <div class="input_text log">
             <label>+86</label>
-            <input type="text" id="phone" name="phone" placeholder="请输入手机号" maxlength="11" />
+            <input type="text" v-model="formData.mobile" placeholder="请输入手机号" maxlength="11" />
           </div>
           <div class="input_text">
-            <input type="password" placeholder="请设置密码" id="pwd" name="pwd" />
+            <input type="password" v-model="formData.password" placeholder="请设置密码" maxlength="16" minlength="6"/>
           </div>
           <div class="input_text">
-            <input type="password" placeholder="请再输入密码" id="pwd2" name="pwd2" />
+            <input type="password" v-model="formData.confirm_password" placeholder="请再输入密码" maxlength="16" minlength="6"/>
           </div>
 
           <div class="input_text" style="position: relative">
-            <input type="text" name="code" placeholder="请输入验证码" style="width: 60%" />
+            <input type="text" v-model="formData.captcha" placeholder="请输入验证码" style="width: 60%" />
             <div class="pull-left codeImg">
               <img :src="codeImgUrl" id="verify_img" alt="点击刷新" title="点击刷新" style="cursor: pointer; margin-left: 10px"
                 @click="changeCode" />
             </div>
           </div>
           <div class="input_text">
-            <input type="password" placeholder="请再输入支付密码" id="zfpwd" name="zfpwd" maxlength="6"
+            <input type="password" v-model="formData.pay_password" placeholder="请再输入支付密码" maxlength="6"
               onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)" />
           </div>
-          <!--<div class="input_text">-->
-          <!--    <input type="text" id="code" name="code" placeholder="请输入图形验证码">-->
-          <!--    <button id="imgcode" type="button" style="font-style: italic;">1234</button>-->
-          <!--</div>-->
-          <!---->
-          <!--    <div class="input_text log">-->
-          <!--        <i><img src="/Public/mobile/img/icon_code.png"></i>-->
-          <!--        <input type="text" id="smsCode" name="smscode" placeholder="请输入短信验证码">-->
-          <!--        <button id="getcode" type="button" onclick="regcode(60)">发送</button>-->
-          <!--    </div>-->
-          <!---->
 
           <div class="input_text">
-            <input type="text" name="top" value="955506" placeholder="请输入邀请码(必填)" />
+            <input type="text" v-model="formData.invite_code" placeholder="请输入邀请码(必填)" />
           </div>
           <div class="error_tips"></div>
-          <input type="submit" class="input_btn" value="立即注册" />
+
+          <div :class="['input_btn', canSummit? '': 'no_submit']"  @click="submitAction" >立即注册</div>
+          <!-- <input type="submit" class="input_btn" value="立即注册" /> -->
+
+
           <div style="display: flex; justify-content: center; align-items: center; text-align: center">
             <input type="checkbox" value="0" checked="" />&nbsp; 已阅读并同意<span style="color: #5570ff">《用户协议》</span>与<span
               style="color: #5570ff">《隐私协议》</span>
@@ -62,7 +55,28 @@
 </template>
 
 <script setup>
-import { ref, onBeforeMount } from 'vue'
+import { computed, ref } from 'vue'
+import { RouterLink } from 'vue-router'
+
+
+import { useRouteHook } from '@/hook/routeHook.js'
+const { navigateTo } = useRouteHook()
+
+import {useUserStore} from '@/store/userInfo'
+const userStore = useUserStore()
+
+
+const formData = ref({
+  mobile: '',
+  password: '123456',
+  confirm_password: '123456',
+  captcha: '',
+  pay_password: '',
+  invite_code: '9685473'
+})
+const checkVal = ref(true)
+
+
 const codeImgUrl = ref('')
 
 const changeCode = () => {
@@ -70,9 +84,64 @@ const changeCode = () => {
   codeImgUrl.value = `http://api.zgdc2023tx.com/captcha?t=${random}`
 }
 
-onBeforeMount(() => {
-  changeCode()
+changeCode()
+
+const checkSubmit = (toast = false) => {
+  const {mobile, password, confirm_password, captcha, invite_code} = formData.value
+  
+  toast = toast ? $base.showToast: () => {}
+
+  if ((mobile.toString()).length !== 11) {
+    toast('请输入11位的手机号码')
+    return false
+  }
+  if ((password.toString()).length < 6) {
+    toast('账户密码不能少于6位')
+    return false
+  }
+  if ((confirm_password.toString()).length < 6) {
+    toast('确认密码不能少于位')
+    return false
+  }
+  if ((captcha.toString()).length < 4) {
+    toast('请正确输入4位图形验证码！')
+    return false
+  }
+  if (!invite_code) {
+    toast('请输入邀请码！')
+    return false
+  }
+  var myreg=/^[1][3,4,5,6,7,8,9][0-9]{9}$/
+  if (!myreg.test(mobile)) {
+    toast('手机号码格式不正确！')
+    return false
+  }
+  if (password !== confirm_password) {
+    toast('两次密码不一致！')
+    return false
+  }
+  return true
+}
+
+const canSummit = computed(() => {
+  return checkSubmit()
 })
+
+const submitAction = async () => {
+  console.log('checkVal', checkVal.value) 
+  if (!checkVal.value) return $base.showToast('请同意用户协议-隐私协议')
+
+  if (!checkSubmit(true)) return
+
+
+  $base.showLoadingToast('注册中')
+  let data = await $Http('apiRegister', formData.value)
+  console.log('登录返回', data)
+  if (!data) return
+  userStore.setUserInfo(data.userinfo || {})
+  navigateTo({ name: 'home' })
+  
+}
 
 </script>
 
@@ -95,5 +164,10 @@ onBeforeMount(() => {
 
 a {
   color: #98a4fa;
+}
+.no_submit{
+  background: #cccccc;
+  color: #fff;
+  border-color: #cccccc;
 }
 </style>

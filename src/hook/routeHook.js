@@ -20,10 +20,16 @@ export function useRouteHook() {
     router.push(to)
   }
 
+  function goBack(pageCount = -1) {
+    if (window.history.length < 2) return router.push({ name: 'home' }) 
+    router.go(pageCount)
+  }
+
   return {
     route,
     router,
     navigateTo,
-    goPage
+    goPage,
+    goBack
   }
 }

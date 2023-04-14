@@ -9,30 +9,19 @@ import './assets/style/common.css'
 
 import 'vant/es/toast/style'
 
+// 全局方法
 import base from './utils/base'
 window.$base = base
 
-// import './assets/base.css'
-
-// import HeadBar from '@/components/HeadBar.vue'
-// const componentObj = {
-//   install(app) {
-//     app.component('HeadBar', HeadBar)
-//   }
-// }
-
+// 全局请求
 import request from './Ajax/request'
+window.$Http = request
 
-// provide({ Http: request })
 
-console.log('request', request)
-
-console.log('--------', process.env.NODE_ENV)
+console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 
 const app = createApp(App)
 
-app.provide('Http', request)
 app.use(router)
-// app.use(componentObj)
 app.use(pinia)
 app.mount('#app')

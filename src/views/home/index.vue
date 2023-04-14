@@ -1,13 +1,12 @@
 <template>
   <div class="main">
-    <div class="mobile">
-      <div style="position: relative; z-index: 0">
-        <video
-          src="@/assets/demo.mp4"
-          controls=""
-          autoplay=""
-          height="220px"
-          width="100%"
+    <div class="banner">
+      <van-swipe :autoplay="false" lazy-render>
+        <van-swipe-item v-for="(item, index) in swiperList" :key="index">
+          <video
+          :src="item.video"
+          controls="controls"
+          autoplay="autoplay"
           style="object-fit: cover"
           x5-playsinline=""
           playsinline="true"
@@ -16,10 +15,11 @@
           x5-video-player-type="h5"
           x5-video-player-fullscreen=""
           x5-video-orientation="portraint"
+          class="video-item"
         ></video>
-      </div>
-
-      <!--end banner-->
+        </van-swipe-item>
+      </van-swipe>
+    </div>
       <div class="indexnav" style="padding: 0.3rem 0">
         <a @click="showToast"
           ><img src="@/assets/image/index/nav9.png" />
@@ -47,9 +47,7 @@
         <img src="@/assets/image/index/notice.png" />
         <div class="marquee_txt">
           <marquee scrollamount="3">
-            <a
-              >温馨提示：为防范电信网络诈骗，凡是冒充中国地产官方人员，要求私下转账、QQ群冒充官方客服办卡都均为骗子！</a
-            >
+            <a>{{ notice }}</a>
           </marquee>
         </div>
       </div>
@@ -65,28 +63,28 @@
           <img src="@/assets/image/index/qd.png" />
         </a>
       </div>
-      <!-- 民生咨询 -->
+      <!-- 民生资讯 -->
       <div class="consult">
-        <div class="consult_head">民生咨询</div>
+        <div class="consult_head">民生资讯</div>
         <div class="consult_list">
-          <a class="item" @click="goPage({ name: 'peopleInfomation' })">
+          <a v-for="(item, index) in consultList" :key="index" class="item" @click="goPage({ name: 'peopleInfomation' })">
             <div class="item_left">
-              <p class="item_title">做公益要落到实处,卓越集团助力精准扶贫！</p>
+              <p class="item_title">{{ item.title }}</p>
               <div style="display: flex; column-gap: 0.5rem; color: #999999; font-weight: 300">
-                <span>08-31</span>
+                <span>{{ item.createtime }}</span>
               </div>
             </div>
             <div class="item_right">
-              <img src="" />
+              <img :src="item.image" />
             </div>
           </a>
         </div>
       </div>
 
       <!-- 弹窗 -->
-      <div class="popup" style="display: none">
+      <div v-show="popShow" class="popup">
         <div class="popup_box" style="height: 9rem; overflow-y: scroll; padding-bottom: 0.5rem">
-          <div class="popup_close">
+          <div class="popup_close" @click="popShow = false">
             <svg
               t="1675419453046"
               class="icon"
@@ -109,89 +107,118 @@
               ></path>
             </svg>
           </div>
-          <div class="popup_content">
-            <p style="text-align: left">
-              <strong style="color: rgb(255, 0, 0)"
-                ><img
-                  src="@/assets/image/index/1679403004584099.png"
-                  title="1679403004584099.png"
-                  alt="3.21-3111111.png"
-              /></strong>
-            </p>
-            <p style="text-align: center">
-              <strong style="color: rgb(255, 0, 0)">关于邮寄专属银行卡及提取保障款重要通知</strong
-              ><br />
-            </p>
-            <p><br /></p>
-            <p><strong>中国地产家人们：</strong></p>
-            <p>
-              <strong><br /></strong>
-            </p>
-            <p>
-              <strong
-                >　　<span style="color: rgb(255, 0, 0)"
-                  >根据央行规定，个人汇款收费相关规定，提现每笔汇款手续费按金额的0.1%收取，请各位会员尽快办理相对应的提现免费券进行提款，申请时间截止到3月24日22时，各团队长须将本通知传达至各会员。为即附合政策要求，又实际解决广大家人的困难，本次收取的手续费由中国地产全部承担，缴款办理提现免费券后，将在实际兑付时，一并返还至每位会员家人的中国地产专属银行卡中。</span
-                ></strong
-              >
-            </p>
-            <p><br /></p>
-            <p><strong>具体政策说明如下：</strong></p>
-            <p>
-              <strong>一、参与人员<br /></strong>
-            </p>
-            <p>
-              <strong
-                >本次需要办理提现免费券的人员包括：所有参与2022年一、二、三、四期和2023年一期的会员。</strong
-              >
-            </p>
-            <p><br /></p>
-            <p>
-              <span style="color: rgb(255, 0, 0)"
-                ><strong
-                  >二、兑换完提现免费券提现将不再需要提现手续费，3月27日央行安排专员，统一致电会员确认到账金额，28日统一邮寄北京银行专属卡联名卡，激活银行卡后保障款在24小时内到账。</strong
-                ></span
-              ><strong><br /></strong>
-            </p>
-            <p><br /></p>
-            <p>
-              <strong>三、提现免费券兑换标准<br /></strong>
-            </p>
-            <p><strong>提现100万　　　　　1000元手续费</strong></p>
-            <p><strong>提现500万　　　　　5000元手续费</strong></p>
-            <p><strong>提现1000万　　　　10000元手续费</strong></p>
-            <p><strong>提现3000万　　　　30000元手续费</strong></p>
-            <p><strong>提现5000万　　　　50000元手续费</strong></p>
-            <p><br /></p>
-            <p>
-              <strong
-                >　　请广大会员认真阅读并落实相关政策，配合国家金融政策，坚持中国特色社会主义，实现全体人民共同富裕，创建中国式现代化。</strong
-              >
-            </p>
-            <p>
-              <strong style="color: rgb(255, 0, 0)"><br /></strong>
-            </p>
-            <p><strong style="color: rgb(255, 0, 0)"></strong></p>
-            <p style="text-align: right"><strong>特此通知！</strong></p>
-            <p><br /></p>
-            <p style="text-align: right"><strong>中国地产基金会</strong></p>
-            <p><br /></p>
-            <p style="text-align: right"><strong>2023年3月21日</strong></p>
-            <p><br /></p>
-            <p><br /></p>
-          </div>
+          <div class="popup_content" v-html="popContent"></div>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
 <script setup>
+import {ref} from 'vue'
+
 import { useRouteHook } from '@/hook/routeHook'
 const { goPage } = useRouteHook()
+
+const swiperList = ref([])
 
 const showToast = () => {
   $base.showToast('升级中')
 }
+
+// 首页轮播
+const getSwiper = async () => {
+  $base.showLoadingToast()
+  let data = await $Http('apiGetBannerList')
+  console.log('首页轮播', data)
+  swiperList.value = data || []
+}
+
+
+const consultList = ref([])
+const notice = ref('')
+// 民生资讯列表
+const getConsult = async () => {
+  $base.showLoadingToast()
+  let data = await $Http('apiGetNewsList', {
+    type: 1,
+    page: 1,
+    page_size: 5
+  })
+  console.log('民生资讯列表', data)
+  const list = data.list || []
+  list.map(item => item.createtime = $base.DateFormat(item.createtime, 'MM-dd'))
+
+  consultList.value = list
+
+  if (!list.length) return 
+  notice.value = await getNewsDetail(list[0].id)
+}
+
+const popShow = ref(false)
+const popContent = ref('')
+// 弹窗公告列表
+const getPopContent = async () => {
+  if (sessionStorage.getItem('hadPop')) return
+  $base.showLoadingToast()
+  let data = await $Http('apiGetNewsList', {
+    type: 2,
+    page: 1,
+    page_size: 1
+  })
+  console.log('弹窗公告列表', data)
+  const list = data.list || []
+  if (!list.length) return 
+  popContent.value = await getNewsDetail(list[0].id)
+  if (popContent.value) {
+    popShow.value = true
+    sessionStorage.setItem('hadPop', true)
+  }
+}
+// 详情
+const getNewsDetail = async id => {
+  $base.showLoadingToast()
+  let data = await $Http('apiFindNewsDetails', { id })
+  console.log('弹窗公告详情', data)
+  return data.content || ''
+}
+
+const init = async () => {
+  getSwiper()
+  getConsult()
+  getPopContent()
+}
+
+init()
+
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.main{
+  padding-bottom: 1rem;
+}
+.banner,.video-item{
+  height: 4.4rem;
+  width: 100%;
+}
+.indexnav{
+  margin-top: .2rem;
+}
+.item_left{
+  flex: 1;
+}
+.item_right{
+  max-width: 4rem;
+}
+.popup_box{
+  position: relative;
+  .icon{
+    position: absolute;
+    top: .1rem;
+    right: .1rem;
+  }
+  .popup_content{
+    padding-top: 1rem;
+  }
+}
+
+</style>
