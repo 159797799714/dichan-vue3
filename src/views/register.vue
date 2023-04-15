@@ -17,10 +17,11 @@
             <input type="text" v-model="formData.mobile" placeholder="请输入手机号" maxlength="11" />
           </div>
           <div class="input_text">
-            <input type="password" v-model="formData.password" placeholder="请设置密码" maxlength="16" minlength="6"/>
+            <input type="password" v-model="formData.password" placeholder="请设置密码" maxlength="16" minlength="6" />
           </div>
           <div class="input_text">
-            <input type="password" v-model="formData.confirm_password" placeholder="请再输入密码" maxlength="16" minlength="6"/>
+            <input type="password" v-model="formData.confirm_password" placeholder="请再输入密码" maxlength="16"
+              minlength="6" />
           </div>
 
           <div class="input_text" style="position: relative">
@@ -40,7 +41,7 @@
           </div>
           <div class="error_tips"></div>
 
-          <div :class="['input_btn', canSummit? '': 'no_submit']"  @click="submitAction" >立即注册</div>
+          <div :class="['input_btn', canSummit ? '' : 'no_submit']" @click="submitAction">立即注册</div>
           <!-- <input type="submit" class="input_btn" value="立即注册" /> -->
 
 
@@ -62,17 +63,17 @@ import { RouterLink } from 'vue-router'
 import { useRouteHook } from '@/hook/routeHook.js'
 const { navigateTo } = useRouteHook()
 
-import {useUserStore} from '@/store/userInfo'
+import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()
 
 
 const formData = ref({
   mobile: '',
-  password: '123456',
-  confirm_password: '123456',
+  password: '',
+  confirm_password: '',
   captcha: '',
   pay_password: '',
-  invite_code: '9685473'
+  invite_code: ''
 })
 const checkVal = ref(true)
 
@@ -87,9 +88,9 @@ const changeCode = () => {
 changeCode()
 
 const checkSubmit = (toast = false) => {
-  const {mobile, password, confirm_password, captcha, invite_code} = formData.value
-  
-  toast = toast ? $base.showToast: () => {}
+  const { mobile, password, confirm_password, captcha, invite_code } = formData.value
+
+  toast = toast ? $base.showToast : () => { }
 
   if ((mobile.toString()).length !== 11) {
     toast('请输入11位的手机号码')
@@ -111,7 +112,7 @@ const checkSubmit = (toast = false) => {
     toast('请输入邀请码！')
     return false
   }
-  var myreg=/^[1][3,4,5,6,7,8,9][0-9]{9}$/
+  var myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/
   if (!myreg.test(mobile)) {
     toast('手机号码格式不正确！')
     return false
@@ -128,7 +129,7 @@ const canSummit = computed(() => {
 })
 
 const submitAction = async () => {
-  console.log('checkVal', checkVal.value) 
+  console.log('checkVal', checkVal.value)
   if (!checkVal.value) return $base.showToast('请同意用户协议-隐私协议')
 
   if (!checkSubmit(true)) return
@@ -137,10 +138,12 @@ const submitAction = async () => {
   $base.showLoadingToast('注册中')
   let data = await $Http('apiRegister', formData.value)
   console.log('登录返回', data)
+
+  changeCode()
   if (!data) return
   userStore.setUserInfo(data.userinfo || {})
   navigateTo({ name: 'home' })
-  
+
 }
 
 </script>
@@ -165,7 +168,8 @@ const submitAction = async () => {
 a {
   color: #98a4fa;
 }
-.no_submit{
+
+.no_submit {
   background: #cccccc;
   color: #fff;
   border-color: #cccccc;

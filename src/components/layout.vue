@@ -1,15 +1,12 @@
 <template>
   <div class="layout">
     <div class="layout-content">
-      <RouterView></RouterView>
+      <div class="main-cont">
+        <RouterView></RouterView>
+      </div>
     </div>
     <div class="footer_nav">
-      <div
-        class="nav_li"
-        v-for="(item, index) in navList"
-        :key="index"
-        @click="goPage(item, index)"
-      >
+      <div class="nav_li" v-for="(item, index) in navList" :key="index" @click="goPage(item, index)">
         <img v-if="activeIndex === index" :src="activeIcon" />
         <img v-else :src="item.icon" />
         <span :class="{ active: activeIndex === index }">{{ item.name }}</span>
@@ -57,7 +54,7 @@ const navList = [
   }
 ]
 const activeIndex = ref(0)
-const activeIcon = shallowRef(getAssetsFiles('../assets/image/tabbar/home_blue.png'))
+const activeIcon = shallowRef(getAssetsFiles('@/assets/image/tabbar/home_blue.png'))
 
 const route = useRoute()
 // 监听路由变化
@@ -68,7 +65,7 @@ watch(
     const index = navList.findIndex((item) => item.iconName === val)
     console.log('index---', index)
     activeIndex.value = index
-    activeIcon.value = getAssetsFiles(`../assets/image/tabbar/${navList[index].iconName}_blue.png`)
+    activeIcon.value = getAssetsFiles(`@/assets/image/tabbar/${navList[index].iconName}_blue.png`)
   },
   {
     immediate: true
@@ -78,7 +75,7 @@ watch(
 const router = useRouter()
 const goPage = (item, index) => {
   activeIndex.value = index
-  activeIcon.value = getAssetsFiles(`../assets/image/tabbar/${item.iconName}_blue.png`)
+  activeIcon.value = getAssetsFiles(`@/assets/image/tabbar/${item.iconName}_blue.png`)
   router.push({ name: item.pathName })
 }
 </script>
@@ -94,6 +91,11 @@ const goPage = (item, index) => {
     box-sizing: border-box;
     overflow: hidden;
     overflow-y: auto;
+  }
+
+  .main-cont {
+    padding-bottom: calc(1rem + constant(safe-area-inset-bottom));
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom));
   }
 }
 </style>

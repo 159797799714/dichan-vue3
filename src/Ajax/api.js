@@ -1,4 +1,4 @@
-import {postApi} from './postApi.js'
+import { postApi } from './postApi.js'
 const apiObj = {
   apiLogin: '/api/user/login', // 登录
   apiCaptcha: '/captcha', // 获取验证码
@@ -17,7 +17,7 @@ const apiObj = {
   apiMyApply: '/api/project/myApply', // 我的申请
   apiApplyDetails: '/api/project/applyDetails', // 申请详情
   apiGetTeam: '/api/index/getTeam', // 获取团队
-  apiMyBill: '/api/user/myBill', // 我的团队
+  apiMyBill: '/api/user/myBill', // 我的账单
   apiRealname: '/api/user/realname', // 用户实名
   apiBindPayment: '/api/user/bindPayment', // 绑定收款方式
   apiGetPayment: '/api/user/getPayment', // 获取收款方式
@@ -35,11 +35,11 @@ const apiObj = {
   apiExchangeRecord: '/api/user/exchangeRecord', // 获取兑换记录
 }
 // 设置请求方式 POST/GET
-const newApi =  {}
+const newApi = {}
 Object.keys(apiObj).forEach(item => {
-  newApi[item]= {
+  newApi[item] = {
     url: apiObj[item],
-    method: postApi.indexOf(item) === -1 ? 'GET': 'POST'
+    method: postApi.indexOf(item) === -1 ? 'GET' : 'POST'
   }
 })
 

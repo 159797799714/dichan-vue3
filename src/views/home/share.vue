@@ -10,24 +10,15 @@
           <p>邀请您注册中国地产</p>
         </div>
         <div class="box_bottom">
-          <div
-            id="qrcode"
-            style="width: 3.4rem; margin: auto"
-            title="https://71yunduan.com/mobile/index.html/mobile/reg/invite/955506"
-          >
-            <canvas width="100" height="100" style="display: none"></canvas
-            ><img
-              alt="Scan me!"
-              :src="codeImgUrl"
-              style="display: block"
-            />
+          <div id="qrcode" style="width: 3.4rem; margin: auto"
+            title="https://71yunduan.com/mobile/index.html/mobile/reg/invite/955506">
+            <canvas width="100" height="100" style="display: none"></canvas><img alt="Scan me!" :src="codeImgUrl"
+              style="display: block" />
           </div>
 
           <div class="yqm">
             唯一邀请码：<span style="color: #cd553d">{{ userInfo.invite_code }}</span><br />
-            邀请链接：<span style="color: #cd553d" id="yqlj" @click="copyShaneUrl"
-              >{{ config.app_download_url }}</span
-            ><br />
+            邀请链接：<span style="color: #cd553d" id="yqlj" @click="copyShaneUrl">{{ config.app_download_url }}</span><br />
             <span>点击链接即可复制</span>
           </div>
         </div>
@@ -37,18 +28,17 @@
 </template>
 
 <script setup>
-import {ref} from 'vue'
+import { ref } from 'vue'
 import QRCode from 'qrcode'
 
-import {useConfigStore} from '@/store/config'
+import { useConfigStore } from '@/store/config'
 const configStore = useConfigStore()
 
-import {useUserStore} from '@/store/userInfo'
+import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()
 
 const config = ref({})
 const codeImgUrl = ref('')
-
 
 const getConfig = async () => {
   $base.showLoadingToast()
@@ -63,27 +53,12 @@ const getConfig = async () => {
 }
 
 const userInfo = ref({})
-const getUserInfo = async () => {
-  $base.showLoadingToast()
-  let data = await $Http('apiFindUserInfo')
-  console.log('公共配置', data)
-  userInfo.value = data
-  userStore.setUserInfo(data)
+const setUser = async () => {
+  userInfo.value = await userStore.getUserInfo()
 }
 
-const setUser = () => {
-  if (!userStore.hadInfo) return getUserInfo()
-  userInfo.value = userStore.userInfo
-}
-
-getConfig()
-setUser()
 
 const copyShaneUrl = () => {
-
-  userStore.getUserInfo()
-  return
-
   if (!config.value.app_download_url) return $base.showToast('复制失败')
   var input = document.createElement('input') // 直接构建input
   input.value = config.value.app_download_url // 设置内容
@@ -96,6 +71,8 @@ const copyShaneUrl = () => {
 }
 
 
+getConfig()
+setUser()
 
 
 </script>
@@ -106,6 +83,7 @@ const copyShaneUrl = () => {
   min-height: 85vh;
   padding: 0.4rem;
   margin: 0;
+
   .box {
     width: calc(100% - 0.8rem);
   }

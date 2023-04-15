@@ -1,16 +1,19 @@
 <template>
   <div class="rectangle_447 rectangleShow">
-    <a class="houseItemBox" @click="goPage({ name: 'houseDetail' })">
+    <a v-for="(item, index) in list" :key="index" class="houseItemBox"
+      @click="goPage({ name: 'houseDetail', query: { id: item.id } })">
       <div class="houseItem">
-        <img src="@/assets/image/apply/20230317164001.png" alt="" />
+        <img :src="item.image" alt="" />
         <div class="houseRight">
-          <span>住房110平</span>
-          <div class="houseBtn">立即申请住房</div>
+          <span>{{ item.name }}</span>
+          <div v-if="item.project_status == 1" class="houseBtn">立即申请住房</div>
+          <div v-else-if="item.project_status == 0" class="houseBtn" style="background:#999;">未开始</div>
+          <div v-else-if="item.project_status == 2" class="houseBtn" style="background:#999;">已结束</div>
         </div>
       </div>
-      <div class="houseItemBottom">住房110平限量3000套</div>
+      <div class="houseItemBottom">住房110平限量{{ item.profit }}套</div>
     </a>
-    <a class="houseItemBox" @click="goPage({ name: 'houseDetail' })">
+    <!-- <a class="houseItemBox" @click="goPage({ name: 'houseDetail' })">
       <div class="houseItem">
         <img src="@/assets/image/apply/20230317163940.png" alt="" />
         <div class="houseRight">
@@ -49,7 +52,7 @@
         </div>
       </div>
       <div class="houseItemBottom">住房38平限量1000套</div>
-    </a>
+    </a> -->
   </div>
 </template>
 
@@ -57,7 +60,7 @@
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goPage } = useRouteHook()
 const props = defineProps({
-  fundList: {
+  list: {
     type: Array,
     default: () => []
   }

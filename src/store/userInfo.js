@@ -9,7 +9,7 @@ export const useUserStore = defineStore('userInfo', {
   // 类似于计算属性computed, 可使用this访问其它getters
   getters: {
     token: (state) => {
-      return  state.userInfo.token || localStorage.getItem('token')
+      return state.userInfo.token || localStorage.getItem('token')
     },
     hadInfo: (state) => {
       return JSON.stringify(state.userInfo) !== '{}'
@@ -24,15 +24,22 @@ export const useUserStore = defineStore('userInfo', {
       localStorage.setItem('token', userInfo.token || '')
     },
     async getUserInfo() {
-      console.log('this', this)
+      console.log('this', this.userInfo)
+      // if (JSON.stringify(this.userInfo) !== '{}') return this.userInfo
       let data = await $Http('apiFindUserInfo')
-      console.log('公共配置', data)
+      console.log('重新获取用户信息', data)
+      this.userInfo = data
       return data
     },
 
     loginOut() {
       this.userInfo = {}
       localStorage.clear()
+      sessionStorage.clear()
+      $base.showToast('已成功安全退出')
+      setTimeout(() => {
+        window.location.href = `${window.location.origin}/login`
+      }, 1500)
     }
   }
 })

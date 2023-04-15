@@ -8,34 +8,28 @@
           <th>金额</th>
           <th>时间</th>
         </tr>
-        <tr>
-          <td>产权办理，获得600现金红包</td>
+        <tr v-for="(item, index) in MyBill" :key="index">
+          <td>{{ item.memo }}</td>
           <td>
-            <span style="color: #008000">+600.00</span>
+            <span :style="`color: ${item.money >= 0 ? 'red' : '#008000'}`">{{ item.money >= 0 ? '+' : '-' }}{{ item.money
+            }}</span>
           </td>
-          <td>03-23 20:50</td>
+          <td>{{ formatTime(item.createtime) }}</td>
         </tr>
-        <tr>
+        <!-- <tr>
           <td>缴纳维修基金，使用600元</td>
           <td>
             <span style="color: red">-600.00</span>
           </td>
           <td>03-23 20:50</td>
-        </tr>
-        <tr>
-          <td>实名赠送数字人民币:8000</td>
-          <td>
-            <span style="color: #008000">+8000.00</span>
-          </td>
-          <td>02-17 07:19</td>
-        </tr>
+        </tr> -->
       </tbody>
     </table>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
 import HeadBar from '@/components/HeadBar.vue'
 
 import { useRouteHook } from '@/hook/routeHook.js'
@@ -45,6 +39,20 @@ const popTitle = ref('')
 
 const { title } = route.query || {}
 popTitle.value = title
+
+
+const MyBill = ref([])
+const getBill = async () => {
+  $base.showLoadingToast()
+  let data = await $Http('apiMyBill')
+  console.log('我的账单', data)
+  MyBill.value = data.list || []
+}
+getBill()
+
+const formatTime = time => {
+  return $base.DateFormat(time, 'MM-dd hh:mm')
+}
 
 </script>
 

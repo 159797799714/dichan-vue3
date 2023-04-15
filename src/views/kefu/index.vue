@@ -11,36 +11,33 @@
     </div>
 
     <div class="rectangle_326">
-      <a @click="goHelpCenter(1)"
-        ><img src="@/assets/image/kefu/kf1.png" />
+      <a @click="goHelpCenter(1)">
+        <img src="@/assets/image/kefu/kf1.png" />
         <font>充值问题</font>
       </a>
-      <a @click="goHelpCenter(2)"
-        ><img src="@/assets/image/kefu/kf2.png" />
+      <a @click="goHelpCenter(2)">
+        <img src="@/assets/image/kefu/kf2.png" />
         <font>提现问题</font>
       </a>
-      <a @click="goHelpCenter(3)"
-        ><img src="@/assets/image/kefu/kf3.png" />
+      <a @click="goHelpCenter(3)">
+        <img src="@/assets/image/kefu/kf3.png" />
         <font>申请保障</font>
       </a>
-      <a @click="goOfficialSop"
-        ><img src="@/assets/image/kefu/kf4.png" />
+      <a @click="goOfficialSop">
+        <img src="@/assets/image/kefu/kf4.png" />
         <font>官方社群</font>
       </a>
     </div>
 
     <div class="rectangle_327">
-      <a
-        href="https://chatlink.mstatik.com/widget/standalone.html?eid=3a1c9fbbe1672f88527a6fdde9f5de93"
-      >
+      <a :href="configStore.kefuLink">
         <div class="btn">联系在线客服</div>
       </a>
       <div class="btn_d">
         <div>猜你想问</div>
         <div style="display: flex; align-items: center; font-weight: 300">
-          <a @click="goHelpCenter(0)" style="color: #999"
-            >查看更多<img src="@/assets/image/kefu/next.png" style="height: 0.3rem"
-          /></a>
+          <a @click="goHelpCenter(0)" style="color: #999">查看更多<img src="@/assets/image/kefu/next.png"
+              style="height: 0.3rem" /></a>
         </div>
       </div>
     </div>
@@ -53,6 +50,12 @@
 <script setup>
 import { useRouteHook } from '@/hook/routeHook.js'
 const { router } = useRouteHook()
+
+
+import { useConfigStore } from '@/store/config'
+const configStore = useConfigStore()
+configStore.getConfig()
+
 
 const goHelpCenter = (index) => {
   router.push({

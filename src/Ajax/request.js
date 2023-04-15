@@ -73,7 +73,8 @@ const request = async (urlName, data = {}, noToast = false) => {
       .catch((err) => {
         console.log('请求出错catch', err)
         $base.closeToast()
-        window.location.href = `${window.location.origin}/login`
+        // window.location.href = `${window.location.origin}/login`
+        showFailToast(err.msg || '网络异常')
       })
   })
 }

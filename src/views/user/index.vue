@@ -1,5 +1,5 @@
 <template>
-  <div class="">
+  <div v-if="hadLoad" class="">
     <div class="my_total">
       <div style="display: flex">
         <div class="my_icon">
@@ -25,7 +25,7 @@
                 fill="#ffffff" p-id="3795"></path>
             </svg>
           </div>
-          <div class="day_num">已加入2天</div>
+          <div class="day_num">已加入{{ joinDay }}天</div>
         </div>
       </div>
       <div class="fx" @click="goPage({ name: 'share' })">
@@ -36,26 +36,30 @@
     <div class="rectangle_331">
       <div class="asset_details">
         <div>
-          <a @click="goPage({ name: 'myWallet' })">
+          <a>
+            <!-- <a @click="goPage({ name: 'myWallet' })"> -->
             <div>我的资产</div>
-            <div class="a_value">¥&nbsp;10888.00</div>
+            <div class="a_value">¥&nbsp{{ allMoney }}</div>
           </a>
         </div>
         <div>
-          <a @click="goPage({ name: 'cash' })">
+          <a>
+            <!-- <a @click="goPage({ name: 'cash' })"> -->
             <div>可用余额</div>
-            <div class="a_value">¥&nbsp;0.00</div>
+            <div class="a_value">¥&nbsp;{{ userInfo.recharge_money }}</div>
           </a>
         </div>
       </div>
       <div class="other_asset">
-        <a @click="goPage({ name: 'dcep' })">
+        <a>
+          <!-- <a @click="goPage({ name: 'dcep' })"> -->
           <div>数字人民币</div>
-          <div class="a_value">8000.00</div>
+          <div class="a_value">{{ userInfo.figure_money }}</div>
         </a>
-        <a @click="goPage({ name: 'cashMoney' })">
+        <a>
+          <!-- <a @click="goPage({ name: 'cashMoney' })"> -->
           <div>现金红包</div>
-          <div class="a_value">2888.00</div>
+          <div class="a_value">{{ userInfo.fund_money }}</div>
         </a>
         <!--<div>-->
         <!--    <div>已发放保障</div>-->
@@ -78,7 +82,7 @@
         <font>地产转账</font>
       </a>
       <a @click="goPage({ name: 'properties' })"><img src="@/assets/image/user/nav16.png" />
-        <font>房产申请</font>
+        <font>申请制度</font>
       </a>
       <a @click="goPage({ name: 'policy' })"><img src="@/assets/image/user/nav14.png" />
         <font>政策文件</font>
@@ -111,7 +115,7 @@
       </li>
     </ul>
 
-    <a href="https://71yunduan.com/user/logout.html" class="input_btn" style="margin-bottom: 2rem">退出登录</a>
+    <a class="input_btn" style="margin-bottom: 2rem" @click="loginOut">退出登录</a>
 
     <div class="go_top" id="go_top" style="display: none">
       <img src="@/assets/image/user/top.png" />
@@ -125,17 +129,47 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import MsgDialog from '@/components/MsgDialog.vue'
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goPage } = useRouteHook()
 
+import { useUserStore } from '@/store/userInfo'
+const userStore = useUserStore()
+
+const hadLoad = ref(false)
+
 const MsgDialogRef = ref(null)
-const oldPhone = '17919119181'
+const oldPhone = ref('')
+
+const userInfo = ref({})
+const setUserInfo = async () => {
+  $base.showLoadingToast()
+  userInfo.value = await userStore.getUserInfo()
+  oldPhone.value = userInfo.value.mobile
+  $base.closeToast()
+  hadLoad.value = true
+}
+setUserInfo()
+
+const joinDay = computed(() => {
+  if (JSON.stringify(userInfo.value) === '{}') return 0
+  const date = new Date()
+  const createtime = userInfo.value.createtime || 0
+  return createtime ? Math.floor((date.getTime() - createtime * 1000) / 86400000) : 0
+})
+const allMoney = computed(() => {
+  if (JSON.stringify(userInfo.value) === '{}') return 0
+  let { recharge_money = 0, figure_money = 0, fund_money = 0 } = userInfo.value
+  recharge_money = Number(recharge_money || '0')
+  figure_money = Number(figure_money || '0')
+  fund_money = Number(fund_money || '0')
+  return recharge_money + figure_money + fund_money
+})
 
 const setPhone = (status) => {
-  if (!status) return oldPhone
-  const arr = oldPhone.split('')
+  if (!status) return oldPhone.value
+  const arr = oldPhone.value.split('')
   arr.splice(3, 4, '****')
   return arr.join('')
 }
@@ -147,6 +181,11 @@ const hidePhone = (status) => {
   hideMobile.value = status
   showPhone.value = setPhone(status)
 }
+
+const loginOut = () => {
+  userStore.loginOut()
+}
+
 </script>
 
 <style lang="scss" scoped>

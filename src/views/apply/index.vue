@@ -1,21 +1,17 @@
 <template>
-  <div class="mobile">
+  <div class="">
     <div style="height: 3.9rem">
       <img src="@/assets/image/apply/apply_bg.png" />
     </div>
     <div class="apply">
       <div class="tabs">
-        <div
-          v-for="(item, index) in tabList"
-          :key="index"
-          :class="activeVal === item.value ? 'active' : ''"
-          @click="tabClick(item.value, index)"
-        >
-          {{ item.label }}
+        <div v-for="(item, index) in tabList" :key="index" :class="activeVal === item.plate ? 'active' : ''"
+          @click="tabClick(item)">
+          {{ item.name }}
         </div>
       </div>
 
-      <component :is="showComponent"></component>
+      <component :is="showComponent" :list="projectList"></component>
     </div>
   </div>
 </template>
@@ -29,41 +25,91 @@ import EnsureHouse from './compoents/EnsureHouse.vue' // 提现专属卡
 import WithoutCard from './compoents/WithoutCard.vue' //2023保障住房
 import CouponList from './compoents/CouponList.vue' // 提现免费券
 
-const tabList = [
-  {
-    label: '2023二期',
-    value: 0,
-    component: FundList
-  },
-  {
-    label: '提现免费券',
-    value: 4,
-    component: CouponList
-  },
-  {
-    label: '2023保障住房',
-    value: 3,
-    component: EnsureHouse
-  },
-  {
-    label: '提现专属卡',
-    value: 2,
-    component: WithoutCard
-  },
-  {
-    label: '2023一期',
-    value: 1,
-    component: FundEndlist
-  }
-]
-
-const activeVal = ref(0)
-const showComponent = shallowRef(tabList[0]['component'])
-
-const tabClick = (val, index) => {
-  activeVal.value = val
-  showComponent.value = tabList[index]['component']
+// const tabList = [
+//   {
+//     name: '2023二期',
+//     plate: 3,
+//     component: FundList
+//   },
+//   {
+//     name: '提现免费券',
+//     plate: 1,
+//     component: CouponList
+//   },
+//   {
+//     name: '2023保障住房',
+//     plate: 5,
+//     component: EnsureHouse
+//   },
+//   {
+//     name: '提现专属卡',
+//     plate: 4,
+//     component: WithoutCard
+//   },
+//   {
+//     name: '2023一期',
+//     plate: 2,
+//     component: FundEndlist
+//   }
+// ]
+const plateObj = {
+  1: CouponList,
+  2: FundEndlist,
+  3: FundList,
+  4: WithoutCard,
+  5: EnsureHouse,
+  6: WithoutCard
 }
+
+
+const activeVal = ref('')
+const showComponent = shallowRef('')
+
+const tabList = ref([])
+const projectList = ref([])
+// 项目分类列表
+const getTablist = async () => {
+  $base.showLoadingToast()
+  let data = await $Http('apiProjectCategoryList')
+  console.log('项目分类列表', data)
+  const list = data || []
+
+  tabList.value = list
+
+  if (!list.length) return
+  const { plate, id } = list[0] || {}
+  activeVal.value = plate
+  projectList.value = await getProjectList(id)
+  showComponent.value = plateObj[plate]
+}
+
+// 分类下项目列表
+const getProjectList = async id => {
+  $base.showLoadingToast()
+  let data = await $Http('apiProjectList', { id })
+  console.log('分类下项目列表', data)
+  return data || []
+}
+
+
+const tabClick = async item => {
+  if (item.plate === activeVal.value) return
+
+  $base.showLoadingToast()
+
+  activeVal.value = item.plate
+  showComponent.value = plateObj[item.plate]
+
+  projectList.value = await getProjectList(item.id)
+
+}
+
+const init = async () => {
+  $base.showLoadingToast()
+  await getTablist()
+}
+init()
+
 </script>
 
 <style lang="scss">
@@ -71,6 +117,7 @@ const tabClick = (val, index) => {
   position: relative;
   top: -3.9rem;
 }
+
 .apply .tabs div {
   -webkit-box-flex: 2;
   -webkit-flex: 2 0 auto;
@@ -117,7 +164,7 @@ const tabClick = (val, index) => {
   overflow-y: auto;
 }
 
-.rectangle_447 .item_c > .haveEnded:nth-last-of-type(1) {
+.rectangle_447 .item_c>.haveEnded:nth-last-of-type(1) {
   background: #999;
 }
 
@@ -187,6 +234,7 @@ const tabClick = (val, index) => {
 .item_c .itemLeftImg {
   width: 180px;
 }
+
 .introduce {
   font-size: 0.28rem;
   font-weight: bold;

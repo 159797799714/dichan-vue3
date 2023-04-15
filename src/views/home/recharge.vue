@@ -4,7 +4,7 @@
       <p>请输入金额</p>
       <div style="margin: 0.4rem 0; border-bottom: 1px solid #d9d9d9">
         <label class="big">￥</label>
-        <input class="big" type="text" name="money" placeholder="" id="money" />
+        <input class="big" type="text" placeholder="" v-model="state.formData.money" />
       </div>
       <p style="color: #999999; font-size: 0.25rem">充值金额每次最低50 10000</p>
     </div>
@@ -21,34 +21,82 @@
     <div class="blank_card">
       <p>请选择充值方式</p>
       <div class="way_list">
-        <div class="item">
+        <div v-for="(item, index) in ChannelList" :key="index" class="item">
           <div>
-            <img src="@/assets/image/vx.png" style="width: 0.4rem" />
-            <span>地产微信</span>
+            <img :src="item.icon_image" style="width: 0.4rem" />
+            <span>{{ item.name }}</span>
           </div>
-          <input type="radio" name="type" value="3" />
-        </div>
-        <div class="item">
-          <div>
-            <img src="@/assets/image/zfb.png" style="width: 0.4rem" />
-            <span>地产支付宝</span>
-          </div>
-          <input type="radio" name="type" value="4" />
-        </div>
-        <div class="item">
-          <div>
-            <img src="@/assets/image/vx.png" style="width: 0.4rem" />
-            <span>地产微信2</span>
-          </div>
-          <input type="radio" name="type" value="5" />
+          <input type="radio" name="type" :value="item.id" v-model="state.formData.id" />
         </div>
       </div>
     </div>
-    <span class="input_btn submit_btn"> 立即充值 </span>
+    <span v-if="ChannelList.length" class="input_btn submit_btn" @click="submit"> 立即充值 </span>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import { ref, reactive, computed } from 'vue'
+
+import { useUserStore } from '@/store/userInfo'
+import { useConfigStore } from '@/store/config'
+import { useRouteHook } from '@/hook/routeHook.js'
+const { goBack } = useRouteHook()
+const userStore = useUserStore()
+const userInfo = ref({})
+
+const configStore = useConfigStore()
+const config = ref({})
+
+
+const state = reactive({
+  formData: {
+    id: '',
+    money: '',
+  },
+  hadLoad: false
+})
+
+const getUserInfo = async () => {
+  userInfo.value = await userStore.getUserInfo()
+}
+const getConfig = async () => {
+  config.value = await configStore.getConfig()
+}
+getConfig()
+getUserInfo()
+
+
+const ChannelList = ref([])
+const getChannelList = async () => {
+  $base.showLoadingToast()
+  let data = await $Http('apiGetRechargeChannel')
+  console.log('充值渠道', data)
+  state.hadLoad = true
+  ChannelList.value = data || []
+}
+getChannelList()
+
+const submit = async () => {
+  let { id, money } = state.formData
+  money = money.toString()
+  if (!id) {
+    $base.showToast("请选择充值方式！");
+    return false;
+  }
+  if (!money || isNaN(money)) {
+    $base.showToast("请输入正确的充值金额！");
+    return false;
+  }
+
+  $base.showLoadingToast()
+  let data = await $Http('apiRecharge', state.formData)
+  console.log('充值', data)
+  const url = data.url
+  if (!url) $base.showToast('未获取到支付页面')
+  if (url) window.location.href = url
+}
+
+</script>
 
 <style lang="scss" scoped>
 .money_list {
@@ -79,7 +127,7 @@
   padding: 0.2rem 0;
 }
 
-.way_list .item > div:nth-of-type(1) {
+.way_list .item>div:nth-of-type(1) {
   display: flex;
   align-items: center;
   gap: 0.1rem;

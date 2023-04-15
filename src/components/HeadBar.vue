@@ -58,6 +58,10 @@ const goBack = () => {
   color: #000;
 
   .icon {
+    position: absolute;
+    top: constant(safe-area-inset-bottom);
+    top: env(safe-area-inset-bottom);
+    left: 0;
     height: 0.8rem;
     width: 0.8rem;
 
@@ -71,7 +75,7 @@ const goBack = () => {
   }
 
   .navigate-title {
-    padding-right: 0.8rem;
+    padding-left: 1rem;
     box-sizing: border-box;
     flex: 1;
     overflow: hidden;
@@ -80,6 +84,8 @@ const goBack = () => {
   }
 
   .bill {
+    width: 1rem;
+    text-align: center;
     font-size: 0.26rem;
   }
 }

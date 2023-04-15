@@ -19,26 +19,26 @@
         </div>
         <div class="error_tips"></div>
         <!-- <input type="btn" :class="['input_btn', canSummit? '': 'no_submit']" value="登录" @click="submitAction" /> -->
-        <div type="btn" :class="['input_btn', canSummit? '': 'no_submit']"  @click="submitAction" >登录</div>
+        <div type="btn" :class="['input_btn', canSummit ? '' : 'no_submit']" @click="submitAction">登录</div>
         <div style="display: flex; justify-content: center; align-items: center; text-align: center">
-          <input type="checkbox" v-model="checkVal" value="0" checked="" />&nbsp; 已阅读并同意<span style="color: #5570ff">《用户协议》</span>与<span
-            style="color: #5570ff">《隐私协议》</span>
+          <input type="checkbox" v-model="checkVal" value="0" checked="" />&nbsp; 已阅读并同意<span
+            style="color: #5570ff">《用户协议》</span>与<span style="color: #5570ff">《隐私协议》</span>
         </div>
         <!--<p class="p2 re"><a href="reg.html">注册账号</a></p>-->
         <!--<p class="p1"><a href="forget.html">忘记密码?</a></p>-->
       </form>
     </div>
     <div class="kefu" style="
-                                      width: 0.5rem;
-                                      height: 0.5rem;
-                                      padding: 0.2rem;
-                                      background: #e3e3e3;
-                                      border-radius: 5rem;
-                                      text-align: center;
-                                      position: fixed;
-                                      top: 10rem;
-                                      right: 0.5rem;
-                                    ">
+                                            width: 0.5rem;
+                                            height: 0.5rem;
+                                            padding: 0.2rem;
+                                            background: #e3e3e3;
+                                            border-radius: 5rem;
+                                            text-align: center;
+                                            position: fixed;
+                                            top: 10rem;
+                                            right: 0.5rem;
+                                          ">
       <a @click="goPage({ name: 'kefu' })"><img src="@/assets/image/regards.png" style="height: 0.5rem" /></a>
       <div style="white-space: nowrap; position: absolute; bottom: -50%; left: 0">在线客服</div>
     </div>
@@ -53,18 +53,18 @@ import { RouterLink } from 'vue-router'
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goPage, navigateTo } = useRouteHook()
 
-import {useUserStore} from '@/store/userInfo'
+import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()
 
 
 const formData = ref({
-  mobile: '15912345678',
-  password: '123456'
+  mobile: '',
+  password: ''
 })
 const checkVal = ref(true)
 
 const checkSubmit = (toast = false) => {
-  const {mobile, password} = formData.value
+  const { mobile, password } = formData.value
   if (mobile.length !== 11) {
     toast && $base.showToast('请输入11位的手机号码')
     return false
@@ -81,14 +81,14 @@ const canSummit = computed(() => {
 })
 
 const submitAction = async () => {
-  console.log('checkVal', checkVal.value) 
+  console.log('checkVal', checkVal.value)
   if (!checkVal.value) return $base.showToast('请同意用户协议-隐私协议')
   if (!canSummit.value) return
 
-  var myreg=/^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+  var myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
   if (!myreg.test(formData.value.mobile)) {
-      $base.showToast('手机格式不正确！')
-      return false;
+    $base.showToast('手机格式不正确！')
+    return false;
   }
 
   $base.showLoadingToast('登录中')
@@ -97,7 +97,7 @@ const submitAction = async () => {
   if (!data) return
   userStore.setUserInfo(data.userinfo || {})
   navigateTo({ name: 'home' })
-  
+
 }
 
 
@@ -107,7 +107,8 @@ const submitAction = async () => {
 a {
   color: #98a4fa;
 }
-.no_submit{
+
+.no_submit {
   background: #cccccc;
   color: #fff;
   border-color: #cccccc;
