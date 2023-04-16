@@ -2,13 +2,8 @@
   <div class="">
     <div class="transfer">
       <div class="tabs">
-        <div
-          v-for="(item, index) in tabs"
-          :key="index"
-          :class="state.formData.money_type === item.value ? 'active' : ''"
-          :value="item.value"
-          @click="state.formData.money_type = item.value"
-        >
+        <div v-for="(item, index) in tabs" :key="index" :class="state.formData.money_type === item.value ? 'active' : ''"
+          :value="item.value" @click="state.formData.money_type = item.value">
           {{ item.name }}
         </div>
       </div>
@@ -39,11 +34,8 @@
         <div class="form-item">
           <label class="form-item_label">转出金额</label>
           <div class="form-item_content form-item_many">
-            <input
-              v-model="state.formData.money"
-              placeholder="请输入转出金额"
-              onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)"
-            />
+            <input v-model="state.formData.money" placeholder="请输入转出金额"
+              onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)" />
             <!--<div id="all" style="color:#4F7CF3;font-size:.26rem">全部</div>-->
           </div>
         </div>
@@ -51,26 +43,15 @@
           <label class="form-item_label">支付密码</label>
           <div class="form-item-pwd_content">
             <div class="pwd-input_list">
-              <div
-                v-for="item in 6"
-                :key="item"
-                :class="['input_item', item === pwdLength && isFocus ? 'input-item_focus' : '']"
-              >
-                {{ item < pwdLength ? '•' : '' }}
+              <div v-for="item in 6" :key="item"
+                :class="['input_item', item === pwdLength && isFocus ? 'input-item_focus' : '']">
+                {{ item < pwdLength ? '•' : '' }} </div>
               </div>
+              <input class="pwd_input" v-model="state.formData.pay_password" type="text" maxlength="6"
+                @focus="isFocus = true" @blur="isFocus = false" @input="onInput" />
             </div>
-            <input
-              class="pwd_input"
-              v-model="state.formData.pay_password"
-              type="text"
-              maxlength="6"
-              @focus="isFocus = true"
-              @blur="isFocus = false"
-              @input="onInput"
-            />
           </div>
-        </div>
-        <div value="转账" class="input_btn" @click="submit">转账</div>
+          <div value="转账" class="input_btn" @click="submit">转账</div>
       </form>
       <!-- 提现  end-->
     </div>
@@ -95,10 +76,7 @@
         </table>
       </div>
       <div v-else class="no_record">
-        <img
-          src="@/assets/image/user/no_record.png"
-          style="display: block; height: 3rem; width: 3rem"
-        />
+        <img src="@/assets/image/user/no_record.png" style="display: block; height: 3rem; width: 3rem" />
       </div>
     </div>
 
@@ -137,9 +115,9 @@ const tabs = [
 const state = reactive({
   formData: {
     money_type: tabs[0].value,
-    money: '1',
-    nickname: '1',
-    mobile: '1',
+    money: '',
+    nickname: '',
+    mobile: '',
     pay_password: ''
   },
   hadLoad: false
