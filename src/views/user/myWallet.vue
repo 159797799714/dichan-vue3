@@ -11,8 +11,9 @@
         <tr v-for="(item, index) in MyBill" :key="index">
           <td>{{ item.memo }}</td>
           <td>
-            <span :style="`color: ${item.money >= 0 ? 'red' : '#008000'}`">{{ item.money >= 0 ? '+' : '-' }}{{ item.money
-            }}</span>
+            <span :style="`color: ${item.money >= 0 ? 'red' : '#008000'}`"
+              >{{ item.money >= 0 ? '+' : '-' }}{{ item.money }}</span
+            >
           </td>
           <td>{{ formatTime(item.createtime) }}</td>
         </tr>
@@ -40,7 +41,6 @@ const popTitle = ref('')
 const { title } = route.query || {}
 popTitle.value = title
 
-
 const MyBill = ref([])
 const getBill = async () => {
   $base.showLoadingToast()
@@ -50,10 +50,9 @@ const getBill = async () => {
 }
 getBill()
 
-const formatTime = time => {
+const formatTime = (time) => {
   return $base.DateFormat(time, 'MM-dd hh:mm')
 }
-
 </script>
 
 <style lang="scss" scoped>

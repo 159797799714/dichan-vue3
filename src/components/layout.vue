@@ -6,7 +6,12 @@
       </div>
     </div>
     <div class="footer_nav">
-      <div class="nav_li" v-for="(item, index) in navList" :key="index" @click="goPage(item, index)">
+      <div
+        class="nav_li"
+        v-for="(item, index) in navList"
+        :key="index"
+        @click="goPage(item, index)"
+      >
         <img v-if="activeIndex === index" :src="activeIcon" />
         <img v-else :src="item.icon" />
         <span :class="{ active: activeIndex === index }">{{ item.name }}</span>
@@ -21,40 +26,63 @@ import { RouterView, useRouter, useRoute } from 'vue-router'
 
 import { getAssetsFiles } from '@/utils/index'
 
+import homeIcon from '@/assets/image/tabbar/home.png'
+import kefuIcon from '@/assets/image/tabbar/kefu.png'
+import applyIcon from '@/assets/image/tabbar/apply.png'
+import teamIcon from '@/assets/image/tabbar/team.png'
+import userIcon from '@/assets/image/tabbar/user.png'
+
+import homeIconBlue from '@/assets/image/tabbar/home_blue.png'
+import kefuIconBlue from '@/assets/image/tabbar/kefu_blue.png'
+import applyIconBlue from '@/assets/image/tabbar/apply_blue.png'
+import teamIconBlue from '@/assets/image/tabbar/team_blue.png'
+import userIconBlue from '@/assets/image/tabbar/user_blue.png'
+
 const navList = [
   {
     name: '首页',
     iconName: 'home',
-    icon: getAssetsFiles('../assets/image/tabbar/home.png'),
+    // icon: getAssetsFiles('../assets/image/tabbar/home.png'),
+    icon: homeIcon,
+    activeIcon: homeIconBlue,
     pathName: 'home'
   },
   {
     name: '客服',
     iconName: 'kefu',
-    icon: getAssetsFiles('../assets/image/tabbar/kefu.png'),
+    // icon: getAssetsFiles('../assets/image/tabbar/kefu.png'),
+    icon: kefuIcon,
+    activeIcon: kefuIconBlue,
     pathName: 'kefu'
   },
   {
     name: '申请',
     iconName: 'apply',
-    icon: getAssetsFiles('../assets/image/tabbar/apply.png'),
+    // icon: getAssetsFiles('../assets/image/tabbar/apply.png'),
+    icon: applyIcon,
+    activeIcon: applyIconBlue,
     pathName: 'apply'
   },
   {
     name: '团队',
     iconName: 'team',
-    icon: getAssetsFiles('../assets/image/tabbar/team.png'),
+    // icon: getAssetsFiles('../assets/image/tabbar/team.png'),
+    icon: teamIcon,
+    activeIcon: teamIconBlue,
     pathName: 'team'
   },
   {
     name: '我的',
     iconName: 'user',
-    icon: getAssetsFiles('../assets/image/tabbar/user.png'),
+    // icon: getAssetsFiles('../assets/image/tabbar/user.png'),
+    icon: userIcon,
+    activeIcon: userIconBlue,
     pathName: 'user'
   }
 ]
 const activeIndex = ref(0)
-const activeIcon = shallowRef(getAssetsFiles('@/assets/image/tabbar/home_blue.png'))
+const activeIcon = shallowRef(homeIconBlue)
+// const activeIcon = shallowRef(getAssetsFiles('../assets/image/tabbar/home_blue.png'))
 
 const route = useRoute()
 // 监听路由变化
@@ -65,7 +93,7 @@ watch(
     const index = navList.findIndex((item) => item.iconName === val)
     console.log('index---', index)
     activeIndex.value = index
-    activeIcon.value = getAssetsFiles(`@/assets/image/tabbar/${navList[index].iconName}_blue.png`)
+    activeIcon.value = navList[index].activeIcon
   },
   {
     immediate: true
@@ -75,7 +103,7 @@ watch(
 const router = useRouter()
 const goPage = (item, index) => {
   activeIndex.value = index
-  activeIcon.value = getAssetsFiles(`@/assets/image/tabbar/${item.iconName}_blue.png`)
+  activeIcon.value = item.activeIcon
   router.push({ name: item.pathName })
 }
 </script>

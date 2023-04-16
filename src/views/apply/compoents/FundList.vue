@@ -1,6 +1,6 @@
 <template>
   <div class="rectangle_447">
-    <a v-for="(item, index) in list" :key="index" class="item" @click="goDetail(item)">
+    <a v-for="(item, index) in list" :key="index" class="item" @click="apply(item)">
       <div class="item_t">
         <div>{{ item.name }}</div>
         <div>赠送数字人民币{{ item.give_figure_money }}</div>
@@ -56,8 +56,10 @@ const props = defineProps({
   }
 })
 
-const goDetail = (item) => {
-  router.push({ name: 'fundDetail', query: { id: item.id } })
+const emit = defineEmits(['apply'])
+
+const apply = (item) => {
+  emit('apply', item)
 }
 </script>
 

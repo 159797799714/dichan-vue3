@@ -3,7 +3,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 import router from './router'
 
-import pinia from "./store/index"
+import pinia from './store/index'
 
 import './assets/style/common.css'
 
@@ -16,7 +16,6 @@ window.$base = base
 // 全局请求
 import request from './Ajax/request'
 window.$Http = request
-
 
 console.log('process.env.NODE_ENV', process.env.NODE_ENV)
 

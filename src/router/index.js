@@ -3,8 +3,8 @@ import layout from '@/components/layout.vue'
 import childLayout from '@/components/childLayout.vue'
 
 import pinia from '../store/index'
-import { useUserStore } from "../store/userInfo"
-const userInfo = useUserStore(pinia)// 这里一定要把 pinia传入进去
+import { useUserStore } from '../store/userInfo'
+const userInfo = useUserStore(pinia) // 这里一定要把 pinia传入进去
 console.log('userInfo', userInfo)
 
 const router = createRouter({
@@ -55,6 +55,14 @@ const router = createRouter({
           component: () => import('../views/home/share.vue'),
           meta: {
             title: '分享'
+          }
+        },
+        {
+          path: 'aboutUs',
+          name: 'aboutUs',
+          component: () => import('../views/home/aboutUs.vue'),
+          meta: {
+            title: '关于我们'
           }
         },
         {
@@ -151,7 +159,7 @@ const router = createRouter({
           name: 'zhuanzhang',
           component: () => import('../views/user/zhuanzhang.vue'),
           meta: {
-            title: '转账',
+            title: '转账'
           }
         },
         {
@@ -159,7 +167,7 @@ const router = createRouter({
           name: 'properties',
           component: () => import('../views/user/properties.vue'),
           meta: {
-            title: '产权办理',
+            title: '产权办理'
           }
         },
         {
@@ -167,7 +175,7 @@ const router = createRouter({
           name: 'policy',
           component: () => import('../views/user/policy.vue'),
           meta: {
-            title: '政策文件',
+            title: '政策文件'
           }
         },
         {
@@ -175,7 +183,7 @@ const router = createRouter({
           name: 'myApply',
           component: () => import('../views/user/myApply.vue'),
           meta: {
-            title: '我的申请',
+            title: '我的申请'
           }
         },
         {
@@ -183,7 +191,7 @@ const router = createRouter({
           name: 'certification',
           component: () => import('../views/user/certification.vue'),
           meta: {
-            title: '实名认证',
+            title: '实名认证'
           }
         },
         {
@@ -191,7 +199,7 @@ const router = createRouter({
           name: 'addCard',
           component: () => import('../views/user/addCard.vue'),
           meta: {
-            title: '绑定银行卡',
+            title: '绑定银行卡'
           }
         },
         {
@@ -199,10 +207,9 @@ const router = createRouter({
           name: 'uploadCertificate',
           component: () => import('../views/user/uploadCertificate.vue'),
           meta: {
-            title: '身份验证',
+            title: '身份验证'
           }
-        },
-
+        }
       ]
     },
     {
@@ -235,24 +242,23 @@ const router = createRouter({
     {
       path: '/myWallet',
       name: 'myWallet',
-      component: () => import('../views/user/myWallet.vue'),
+      component: () => import('../views/user/myWallet.vue')
     },
-
 
     {
       path: '/editPassword',
       name: 'editPassword',
-      component: () => import('../views/user/editPassword.vue'),
+      component: () => import('../views/user/editPassword.vue')
     },
     {
       path: '/editPayPassword',
       name: 'editPayPassword',
-      component: () => import('../views/user/editPayPassword.vue'),
+      component: () => import('../views/user/editPayPassword.vue')
     },
     {
       path: '/addAddress',
       name: 'addAddress',
-      component: () => import('../views/user/addAddress.vue'),
+      component: () => import('../views/user/addAddress.vue')
     },
 
     {

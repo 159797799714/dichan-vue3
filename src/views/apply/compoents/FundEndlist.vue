@@ -1,6 +1,6 @@
 <template>
   <div class="rectangle_447">
-    <a v-for="(item, index) in list" :key="index" class="item" @click="clickItem(item)">
+    <a v-for="(item, index) in list" :key="index" class="item" @click="apply(item)">
       <div class="item_t">
         <div>{{ item.name }}</div>
         <div>赠送数字人民币{{ item.give_figure_money }}</div>
@@ -46,12 +46,17 @@ const props = defineProps({
   }
 })
 
-const setStatus = item => {
+const setStatus = (item) => {
   const data = projectStatusArr[item.project_status] || {}
   if (item.project_status == 1) data.text = `￥${item.money}`
   return data
 }
-const clickItem = (item) => { }
+
+const emit = defineEmits(['apply'])
+
+const apply = (item) => {
+  emit('apply', item)
+}
 </script>
 
 <style lang="scss" scoped></style>

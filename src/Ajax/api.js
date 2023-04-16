@@ -33,15 +33,15 @@ const apiObj = {
   apiGetRechargeRecord: '/api/user/getRechargeRecord', // 获取充值记录
   apiExchange: '/api/user/exchange', //用户兑现
   apiExchangeRecord: '/api/user/exchangeRecord', // 获取兑换记录
+  apiSaveRecipientAddres: '/api/user/saveRecipientAddres' // 保存收获地址
 }
 // 设置请求方式 POST/GET
 const newApi = {}
-Object.keys(apiObj).forEach(item => {
+Object.keys(apiObj).forEach((item) => {
   newApi[item] = {
     url: apiObj[item],
     method: postApi.indexOf(item) === -1 ? 'GET' : 'POST'
   }
 })
-
 
 export default newApi

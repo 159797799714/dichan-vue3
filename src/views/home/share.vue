@@ -10,15 +10,22 @@
           <p>邀请您注册中国地产</p>
         </div>
         <div class="box_bottom">
-          <div id="qrcode" style="width: 3.4rem; margin: auto"
-            title="https://71yunduan.com/mobile/index.html/mobile/reg/invite/955506">
-            <canvas width="100" height="100" style="display: none"></canvas><img alt="Scan me!" :src="codeImgUrl"
-              style="display: block" />
+          <div
+            id="qrcode"
+            style="width: 3.4rem; margin: auto"
+            title="https://71yunduan.com/mobile/index.html/mobile/reg/invite/955506"
+          >
+            <canvas width="100" height="100" style="display: none"></canvas
+            ><img alt="Scan me!" :src="codeImgUrl" style="display: block" />
           </div>
 
           <div class="yqm">
-            唯一邀请码：<span style="color: #cd553d">{{ userInfo.invite_code }}</span><br />
-            邀请链接：<span style="color: #cd553d" id="yqlj" @click="copyShaneUrl">{{ config.app_download_url }}</span><br />
+            唯一邀请码：<span style="color: #cd553d">{{ userInfo.invite_code }}</span
+            ><br />
+            邀请链接：<span style="color: #cd553d" id="yqlj" @click="copyShaneUrl">{{
+              config.app_download_url
+            }}</span
+            ><br />
             <span>点击链接即可复制</span>
           </div>
         </div>
@@ -57,7 +64,6 @@ const setUser = async () => {
   userInfo.value = await userStore.getUserInfo()
 }
 
-
 const copyShaneUrl = () => {
   if (!config.value.app_download_url) return $base.showToast('复制失败')
   var input = document.createElement('input') // 直接构建input
@@ -70,11 +76,8 @@ const copyShaneUrl = () => {
   $base.showToast('复制成功')
 }
 
-
 getConfig()
 setUser()
-
-
 </script>
 
 <style lang="scss" scoped>

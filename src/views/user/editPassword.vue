@@ -6,19 +6,27 @@
         <div class="form-item">
           <label class="form-item_label">旧密码</label>
           <div class="form-item_content">
-            <input type="text" name="oldpwd" id="oldpwd" placeholder="请输入旧密码">
+            <input type="text" placeholder="请输入旧密码" v-model="state.formData.old_password" />
           </div>
         </div>
         <div class="form-item">
           <label class="form-item_label">新密码</label>
           <div class="form-item_content">
-            <input type="password" name="pwd" id="pwd" placeholder="请输入新密码">
+            <input
+              type="password"
+              placeholder="请输入新密码"
+              v-model="state.formData.new_password"
+            />
           </div>
         </div>
         <div class="form-item">
           <label class="form-item_label">确认密码</label>
           <div class="form-item_content">
-            <input type="password" name="pwd2" id="pwd2" placeholder="请再次输入新密码">
+            <input
+              type="password"
+              placeholder="请再次输入新密码"
+              v-model="state.formData.confirm_password"
+            />
           </div>
         </div>
         <div @click="submit" class="input_btn">确认</div>
@@ -30,11 +38,22 @@
 <script setup>
 import { ref, reactive } from 'vue'
 
+import { useRouteHook } from '@/hook/routeHook.js'
+const { goBack } = useRouteHook()
 
 import HeadBar from '@/components/HeadBar.vue'
 
 import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()
+
+const state = reactive({
+  formData: {
+    set_pay_password: 0,
+    old_password: '',
+    new_password: '',
+    confirm_password: ''
+  }
+})
 
 const userInfo = ref({})
 const setUserInfo = async () => {
@@ -44,63 +63,46 @@ const setUserInfo = async () => {
 }
 setUserInfo()
 
-const state = reactive({
-  formData: {
-    channel: '2',
-    username: '',
-    account: '',
-    bank_name: '',
-    subbranch_name: ''
-  }
-})
-
-// const cardList = ref([])
-// const getCardList = async () => {
-//   $base.showLoadingToast()
-//   let data = await $Http('apiGetPayment')
-//   console.log('提现账户', data)
-//   cardList.value = data || []
-// }
-// getCardList()
-
-
 const submit = async () => {
-  let { username, account, bank_name, subbranch_name } = state.formData
-
-  if (!username) {
-    $base.showToast("请输入姓名！");
-    return false;
-  }
-  if (!account) {
-    $base.showToast("请输入银行卡号！");
-    return false;
-  }
-  if (!bank_name) {
-    $base.showToast("请输入银行名称！");
-    return false;
-  }
-  if (!subbranch_name) {
-    $base.showToast("请输入开户行信息！");
-    return false;
+  const { old_password, new_password, confirm_password } = state.formData
+  if (!old_password) {
+    $base.showToast('请输入旧密码')
+    return false
   }
 
-  $base.showLoadingToast()
-  let data = await $Http('apiBindPayment', state.formData)
-  console.log('添加银行卡', data)
-
-  await getCardList()
-
-  addShow.value = false
-  state.formData = {
-    channel: state.formData.channel,
-    username: state.formData.channel,
-    account: '',
-    bank_name: '',
-    subbranch_name: ''
+  if (old_password.toString().length < 6) {
+    $base.showToast('旧密码长度不能少于6位')
+    return false
+  }
+  if (!new_password) {
+    $base.showToast('请输入新密码')
+    return false
+  }
+  if (new_password.toString().length < 6) {
+    $base.showToast('新密码长度不能少于6位')
+    return false
+  }
+  if (!confirm_password) {
+    $base.showToast('请输入确认密码')
+    return false
+  }
+  if (confirm_password.toString().length < 6) {
+    $base.showToast('确认密码长度不能少于6位')
+    return false
+  }
+  if (new_password !== confirm_password) {
+    $base.showToast('两次密码不一致！')
+    return false
   }
 
+  $base.showLoadingToast('提交中')
+  let data = await $Http('apiProfile', state.formData)
+  if (!data) return
+  $base.showToast(`${popTitle}成功`)
+  setTimeout(() => {
+    goBack()
+  })
 }
-
 </script>
 
 <style lang="scss" scoped>

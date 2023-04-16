@@ -1,10 +1,9 @@
-
 import { defineStore } from 'pinia'
 
 export const useHeadInfoStore = defineStore('header', {
   state: () => ({
     title: '',
-    rightInfo: {},
+    rightInfo: {}
   }),
   // 类似于计算属性computed, 可使用this访问其它getters
   getters: {

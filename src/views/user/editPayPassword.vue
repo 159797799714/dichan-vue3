@@ -1,71 +1,129 @@
 <template>
   <div class="">
-    <HeadBar popTitle="修改支付密码"></HeadBar>
+    <HeadBar :popTitle="popTitle"></HeadBar>
     <div class="login_bg">
       <form action="https://71yunduan.com/user/pwd_pay.html" method="post" id="ifr" class="form">
-
-        <!--<div class="input_text cert">-->
-        <!--    <label>原交易密码</label>-->
-        <!--    <input type="text" name="oldpwd" id="oldpwd" placeholder="请输入交易密码">-->
-        <!--</div>-->
-        <!--<div class="input_text cert">-->
-        <!--    <label>新交易密码</label>-->
-        <!--    <input type="password" name="pwd" id="pwd" placeholder="请输入新交易密码">-->
-        <!--</div>-->
-        <!--<div class="input_text cert">-->
-        <!--    <label>确认密码</label>-->
-        <!--    <input type="password" name="pwd2" id="pwd2" placeholder="请输入确认密码">-->
-        <!--</div>-->
-        <div class="form-item">
+        <div v-if="hadPwd" class="form-item">
           <label class="form-item_label">旧密码</label>
           <div class="form-item_content">
-            <input type="text" name="oldpwd" id="oldpwd" placeholder="请输入旧密码">
+            <input
+              type="text"
+              name="oldpwd"
+              id="oldpwd"
+              placeholder="请输入旧密码"
+              v-model="state.formData.old_pay_password"
+            />
           </div>
         </div>
         <div class="form-item">
-          <label class="form-item_label">新密码</label>
+          <label class="form-item_label">{{ hadPwd ? '新密码' : '支付密码' }}</label>
           <div class="form-item_content">
-            <input type="password" name="pwd" id="pwd" placeholder="请输入新密码" maxlength="6"
-              onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)">
+            <input
+              type="password"
+              name="pwd"
+              id="pwd"
+              :placeholder="hadPwd ? '请输入新密码' : '请输入密码'"
+              maxlength="6"
+              v-model="state.formData.new_pay_password"
+              onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)"
+            />
           </div>
         </div>
         <div class="form-item">
           <label class="form-item_label">确认密码</label>
           <div class="form-item_content">
-            <input type="password" name="pwd2" id="pwd2" placeholder="请再次输入新密码" maxlength="6"
-              onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)">
+            <input
+              type="password"
+              name="pwd2"
+              id="pwd2"
+              placeholder="请再次输入新密码"
+              maxlength="6"
+              v-model="state.formData.confirm_pay_password"
+              onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)"
+            />
           </div>
         </div>
-        <!--<div class="form-item">-->
-        <!--    <label class="form-item_label">设置6位数字支付密码</label>-->
-        <!--    <div class="form-item-pwd_content">-->
-        <!--        <div class="pwd-input_list">-->
-        <!--            <div class="input_item"></div>-->
-        <!--            <div class="input_item"></div>-->
-        <!--            <div class="input_item"></div>-->
-        <!--            <div class="input_item"></div>-->
-        <!--            <div class="input_item"></div>-->
-        <!--            <div class="input_item"></div>-->
-        <!--        </div>-->
-        <!--        <input class="pwd_input" type="number" maxlength="6"/>-->
-        <!--    </div>-->
-        <!--</div>-->
-        <input type="submit" class="input_btn" value="确认">
+        <div class="input_btn" @click="submit">确认</div>
       </form>
-
     </div>
   </div>
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, reactive } from 'vue'
+
 import { useRouteHook } from '@/hook/routeHook.js'
-const { goPage } = useRouteHook()
+const { goBack } = useRouteHook()
+
 import HeadBar from '@/components/HeadBar.vue'
 
-import MsgDialog from '@/components/MsgDialog.vue'
+import { useUserStore } from '@/store/userInfo'
+const userStore = useUserStore()
 
+const popTitle = ref('设置密码')
+const hadPwd = ref(false)
 
+const state = reactive({
+  formData: {
+    set_pay_password: 1,
+    old_pay_password: '',
+    new_pay_password: '',
+    confirm_pay_password: ''
+  }
+})
+
+const userInfo = ref({})
+const setUserInfo = async () => {
+  $base.showLoadingToast()
+  userInfo.value = await userStore.getUserInfo()
+  console.log('用户信息', userStore.hadPwd)
+  hadPwd.value = userStore.hadPwd
+  popTitle.value = userStore.hadPwd ? '修改支付密码' : '设置支付密码'
+  $base.closeToast()
+}
+setUserInfo()
+
+const submit = async () => {
+  const { old_pay_password, new_pay_password, confirm_pay_password } = state.formData
+  if (hadPwd.value && !old_pay_password) {
+    $base.showToast('请输入旧密码')
+    return false
+  }
+
+  if (hadPwd.value && old_pay_password.toString().length < 6) {
+    $base.showToast('旧密码长度不能少于6位')
+    return false
+  }
+  const newPwdText = hadPwd.value ? '新密码' : '密码'
+  if (!new_pay_password) {
+    $base.showToast(`请输入${newPwdText}`)
+    return false
+  }
+  if (new_pay_password.toString().length < 6) {
+    $base.showToast(`${newPwdText}长度不能少于6位`)
+    return false
+  }
+  if (!confirm_pay_password) {
+    $base.showToast('请输入确认密码')
+    return false
+  }
+  if (confirm_pay_password.toString().length < 6) {
+    $base.showToast('确认密码长度不能少于6位')
+    return false
+  }
+  if (new_pay_password !== confirm_pay_password) {
+    $base.showToast('两次密码不一致！')
+    return false
+  }
+
+  $base.showLoadingToast('提交中')
+  let data = await $Http('apiProfile', state.formData)
+  if (!data) return
+  $base.showToast(`${popTitle.value}成功`)
+  setTimeout(() => {
+    goBack()
+  })
+}
 </script>
 
 <style lang="scss" scoped>

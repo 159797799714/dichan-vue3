@@ -9,9 +9,9 @@
     <div class="process-right">
       <!-- 已分配房产 -->
       <div class="step">
-        <img class="step-bar" src="@/assets/image/user/properties/property8.png" alt="">
+        <img class="step-bar" src="@/assets/image/user/properties/property8.png" alt="" />
         <div class="step-right">
-          <img src="@/assets/image/user/properties/property5.png" alt="">
+          <img src="@/assets/image/user/properties/property5.png" alt="" />
           <div class="step-text1">已分配房产</div>
           <div class="step-text2">请业主按照流程办理收房手续</div>
         </div>
@@ -19,46 +19,49 @@
       <!-- 缴存维修基金 -->
       <div class="step">
         <!-- 已缴存维修基金 -->
-        <img class="step-bar" src="@/assets/image/user/properties/property10.png" alt=""> <!-- -->
+        <img class="step-bar" src="@/assets/image/user/properties/property10.png" alt="" />
+        <!-- -->
         <!-- 未缴存维修基金 -->
 
         <div class="step-right step-right1">
-          <img src="@/assets/image/user/properties/property6.png" alt="">
+          <img src="@/assets/image/user/properties/property6.png" alt="" />
           <div class="step-text1">缴存维修基金</div>
           <div class="step-text2">正在申报维修基金，请耐心等候</div>
         </div>
-        <img class="step-right-tip" src="@/assets/image/user/properties/property12.png" alt="">
-        <a href="https://71yunduan.com/user/housing.html" class="step-right-btn">缴存维修基金</a>
+        <img class="step-right-tip" src="@/assets/image/user/properties/property12.png" alt="" />
+        <a class="step-right-btn">缴存维修基金</a>
       </div>
       <!-- 可办理产证 -->
       <div class="step">
         <!-- 已提交身份证 -->
-        <img class="step-bar" src="@/assets/image/user/properties/property9.png" alt=""> <!-- -->
+        <img class="step-bar" src="@/assets/image/user/properties/property9.png" alt="" />
+        <!-- -->
         <!-- 未提交身份证 -->
 
         <div class="step-right step-right1">
-          <img src="@/assets/image/user/properties/property7.png" alt="">
+          <img src="@/assets/image/user/properties/property7.png" alt="" />
           <div class="step-text1">可办理产证</div>
           <div class="step-text2">您的资料已收齐，房产证正在办理中，请耐心等候</div>
         </div>
-        <img class="step-right-tip" src="@/assets/image/user/properties/property12.png" alt="">
+        <img class="step-right-tip" src="@/assets/image/user/properties/property12.png" alt="" />
         <div class="step-right-btn idCard" data-type="2">请先缴存维修基金！</div>
       </div>
       <!-- 已出房产证可领取 -->
       <div class="step">
-        <img class="step-bar" src="@/assets/image/user/properties/property9.png" alt="">
+        <img class="step-bar" src="@/assets/image/user/properties/property9.png" alt="" />
         <div class="step-right step-right1">
-          <img src="@/assets/image/user/properties/property4.png" alt="">
+          <img src="@/assets/image/user/properties/property4.png" alt="" />
           <div class="step-text1">已出房产证可领取</div>
-          <div class="step-text2">请于周一至周五8:30-12:0014:00-17:30，业主本人
-            携带身份证，前往不动产登记中心领取房产证</div>
+          <div class="step-text2">
+            请于周一至周五8:30-12:0014:00-17:30，业主本人 携带身份证，前往不动产登记中心领取房产证
+          </div>
         </div>
       </div>
       <!-- 已领取房产证 -->
       <div class="step">
-        <img class="step-bar" src="@/assets/image/user/properties/property11.png" alt="">
+        <img class="step-bar" src="@/assets/image/user/properties/property11.png" alt="" />
         <div class="step-right step-right1">
-          <img src="@/assets/image/user/properties/property5.png" alt="">
+          <img src="@/assets/image/user/properties/property5.png" alt="" />
           <div class="step-text1">已领取房产证</div>
           <div class="step-text2">房产证领取成功</div>
         </div>
@@ -75,7 +78,6 @@ const { goPage } = useRouteHook()
 import MsgDialog from '@/components/MsgDialog.vue'
 
 const popTitle = ref('错误')
-
 </script>
 
 <style lang="scss" scoped>
@@ -128,7 +130,6 @@ const popTitle = ref('错误')
 
 .step-right1 {
   top: -15px;
-
 }
 
 .step-right img {

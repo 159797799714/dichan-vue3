@@ -1,4 +1,3 @@
-
 import { defineStore } from 'pinia'
 
 export const useUserStore = defineStore('userInfo', {
@@ -13,6 +12,9 @@ export const useUserStore = defineStore('userInfo', {
     },
     hadInfo: (state) => {
       return JSON.stringify(state.userInfo) !== '{}'
+    },
+    hadPwd: (state) => {
+      return state.userInfo.set_pay_password == 1
     }
     // getUserById: (state) => { // 返回一个函数，可以
     //   return (userId) => state.users.find((user) => user.id === userId)

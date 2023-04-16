@@ -36,8 +36,9 @@
       <div class="btn_d">
         <div>猜你想问</div>
         <div style="display: flex; align-items: center; font-weight: 300">
-          <a @click="goHelpCenter(0)" style="color: #999">查看更多<img src="@/assets/image/kefu/next.png"
-              style="height: 0.3rem" /></a>
+          <a @click="goHelpCenter(0)" style="color: #999"
+            >查看更多<img src="@/assets/image/kefu/next.png" style="height: 0.3rem"
+          /></a>
         </div>
       </div>
     </div>
@@ -51,11 +52,9 @@
 import { useRouteHook } from '@/hook/routeHook.js'
 const { router } = useRouteHook()
 
-
 import { useConfigStore } from '@/store/config'
 const configStore = useConfigStore()
 configStore.getConfig()
-
 
 const goHelpCenter = (index) => {
   router.push({

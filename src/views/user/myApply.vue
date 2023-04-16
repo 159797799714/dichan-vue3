@@ -47,7 +47,6 @@ const state = reactive({
     page_size: 100
   },
   total: 1
-
 })
 
 const Record = ref([])
@@ -58,7 +57,6 @@ const getRecord = async () => {
   Record.value = data.list || []
 }
 getRecord()
-
 </script>
 
 <style lang="scss" scoped></style>

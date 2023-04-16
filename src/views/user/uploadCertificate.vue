@@ -2,34 +2,38 @@
   <div class="certificate-list">
     <div class="certificate-box">
       <div class="certificate">
-        <img class="certificate-img1" src="@/assets/image/user/certification_bg.png" /><input type="file" class=""
-          name="pic" id="upload1">
+        <img class="certificate-img1" src="@/assets/image/user/certification_bg.png" /><input
+          type="file"
+          class=""
+          name="pic"
+          id="upload1"
+        />
       </div>
       <span class="certificate-lable">上传身份证人像面</span>
     </div>
     <div class="certificate-box">
       <div class="certificate">
-        <img class="certificate-img2" src="@/assets/image/user/certification_bg.png">
+        <img class="certificate-img2" src="@/assets/image/user/certification_bg.png" />
 
-        <input type="file" class="" name="pic" id="upload2">
+        <input type="file" class="" name="pic" id="upload2" />
       </div>
       <span class="certificate-lable">上传身份证国徽面</span>
     </div>
   </div>
-  <div class="certificate-list" style="margin-top: 20px;">
+  <div class="certificate-list" style="margin-top: 20px">
     <div class="certificate-box">
       <div class="certificate">
-        <img class="certificate-img3" src="@/assets/image/user/certification_bg.png">
+        <img class="certificate-img3" src="@/assets/image/user/certification_bg.png" />
 
-        <input type="file" class="" name="pic" id="upload3">
+        <input type="file" class="" name="pic" id="upload3" />
       </div>
       <span class="certificate-lable">上传户口本户主页</span>
     </div>
     <div class="certificate-box">
       <div class="certificate">
-        <img class="certificate-img4" src="@/assets/image/user/certification_bg.png">
+        <img class="certificate-img4" src="@/assets/image/user/certification_bg.png" />
 
-        <input type="file" class="" name="pic" id="upload4">
+        <input type="file" class="" name="pic" id="upload4" />
       </div>
       <span class="certificate-lable">上传户口本本人页</span>
     </div>
@@ -43,8 +47,6 @@ import { useRouteHook } from '@/hook/routeHook.js'
 const { goPage } = useRouteHook()
 
 import MsgDialog from '@/components/MsgDialog.vue'
-
-
 </script>
 
 <style lang="scss" scoped>

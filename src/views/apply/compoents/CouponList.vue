@@ -1,14 +1,13 @@
 <template>
   <!-- 提现优惠劵 -->
   <div class="rectangle_447">
-    <a v-for="(item, index) in list" :key="index" class="item"
-      @click="goPage({ name: 'applyNow', query: { id: item.id } })">
+    <a v-for="(item, index) in list" :key="index" class="item" @click="apply(item)">
       <div class="item_t">
         <div>{{ item.name }}</div>
       </div>
       <div class="item_c">
         <div class="itemLeftImg">
-          <img :src="`@/assets/image/apply/${Number(item.money)}.png`" alt="" />
+          <img :src="item.image" alt="" />
         </div>
         <div>
           <div>立即兑换</div>
@@ -40,6 +39,19 @@ const props = defineProps({
     default: () => []
   }
 })
+const emit = defineEmits(['apply'])
+
+const apply = (item) => {
+  emit('apply', item)
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.itemLeftImg {
+  img {
+    display: block;
+    width: 3.6rem;
+    height: auto;
+  }
+}
+</style>

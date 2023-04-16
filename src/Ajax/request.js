@@ -7,14 +7,11 @@ import { withoutLoginApi } from './withoutLoginApi' // 无需登录白名单api�
 
 // import { getAssetsFiles } from '@/utils/index'
 
-
 const userInfo = useUserStore()
-
 
 const request = async (urlName, data = {}, noToast = false) => {
   const urlData = API[urlName]
   if (!urlData) return
-
 
   const { url, method = 'GET' } = urlData
 
@@ -36,11 +33,18 @@ const request = async (urlName, data = {}, noToast = false) => {
 
   data = $base.dealObjectValue(data)
 
+  const baseURL = import.meta.env == 'production' ? 'https://api.zgdc2023tx.com' : ''
+
   const requestData = {
-    url,
+    url: baseURL + url,
     method,
     data: method !== 'GET' ? data : '',
-    params: method === 'GET' ? data : ''
+    params: method === 'GET' ? data : '',
+    headers: {
+      'content-type': 'application/json;charset=utf-8',
+      lang: userInfo.lang,
+      token: userInfo.token
+    }
   }
 
   return new Promise((resolve, reject) => {
@@ -56,7 +60,7 @@ const request = async (urlName, data = {}, noToast = false) => {
           case 200:
             const { code, data, msg } = res.data || {}
             if (code == 1) {
-              resolve(data || {})
+              resolve(data || true)
             } else {
               resolve(null)
               !noToast && showFailToast(msg || '请求出错')

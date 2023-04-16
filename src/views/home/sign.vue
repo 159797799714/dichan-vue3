@@ -1,61 +1,62 @@
 <template>
-  <div class="mobile">
+  <div class="">
     <div class="rectangle_711">
       <img src="@/assets/image/sign/qiandao.png" />
     </div>
     <div class="rectangle_378">
-      <div class="qd_num">已签到0天</div>
-      <div class="block_list">
-        <div class="block">
+      <div class="qd_num">已签到{{ signDay }}天</div>
+      <div v-if="SignList.length" class="block_list">
+        <div v-for="(item, index) in SignList" :key="index" class="block">
           <img src="@/assets/image/sign/jb_icon.png" style="width: 0.6rem" />
-          <p>1.00</p>
-          <div class="progress_block"></div>
-          <p>第1天</p>
-        </div>
-        <div class="block">
-          <img src="@/assets/image/sign/jb_icon.png" style="width: 0.6rem" />
-          <p>28.00</p>
-          <div class="progress_block"></div>
-          <p>第2天</p>
-        </div>
-        <div class="block">
-          <img src="@/assets/image/sign/jb_icon.png" style="width: 0.6rem" />
-          <p>38.00</p>
-          <div class="progress_block"></div>
-          <p>第3天</p>
-        </div>
-        <div class="block">
-          <img src="@/assets/image/sign/jb_icon.png" style="width: 0.6rem" />
-          <p>68.00</p>
-          <div class="progress_block"></div>
-          <p>第4天</p>
-        </div>
-        <div class="block">
-          <img src="@/assets/image/sign/jb_icon.png" style="width: 0.6rem" />
-          <p>88.00</p>
-          <div class="progress_block"></div>
-          <p>第5天</p>
-        </div>
-        <div class="block">
-          <img src="@/assets/image/sign/jb_icon.png" style="width: 0.6rem" />
-          <p>888.00</p>
-          <div class="progress_block"></div>
-          <p>第6天</p>
-        </div>
-        <div class="block">
-          <img src="@/assets/image/sign/jb_icon.png" style="width: 0.6rem" />
-          <p>8888.00</p>
-          <div class="progress_block"></div>
-          <p>第7天</p>
+          <p>{{ item.money }}</p>
+          <div :class="['progress_block', item.status == 1 ? 'had-sign' : '']"></div>
+          <p>{{ item.title }}</p>
         </div>
       </div>
     </div>
-    <a href="https://71yunduan.com/mobile/qiandaos.html">
-      <div class="qd_btn">立即签到</div>
+    <a>
+      <div v-if="!todayStatus" class="qd_btn" @click="signNow">立即签到</div>
+      <div v-else class="qd_btn bg-99">已签到</div>
     </a>
   </div>
 </template>
-<script setup></script>
+<script setup>
+import { ref, reactive } from 'vue'
+import { useRouteHook } from '@/hook/routeHook.js'
+const { goPage } = useRouteHook()
+
+const todayStatus = ref(true)
+const SignList = ref([])
+const signDay = ref(0)
+const getSignList = async (noLoading) => {
+  !noLoading && $base.showLoadingToast()
+  let data = await $Http('apiSignInList')
+  console.log('签到列表', data)
+
+  data = data || {}
+  const list = []
+  for (var i = 0; i < 6; i++) {
+    list.push(data[i])
+    if (data[i]['status' == 1]) signDay.value = i + 1
+  }
+  todayStatus.value = data['today_status'] == 1 ? true : false
+  SignList.value = list
+}
+getSignList()
+
+const signNow = async () => {
+  if (todayStatus.value) return
+
+  $base.showLoadingToast('签到中')
+  let data = await $Http('apiSignin')
+  console.log('签到返回', data)
+  if (!data) return
+  $base.showToast('签到成功')
+  setTimeout(() => {
+    getSignList(true)
+  }, 1500)
+}
+</script>
 <style lang="scss" scoped>
 .rectangle_378 {
   margin: -2.1rem 0.2rem 0;
@@ -148,5 +149,13 @@
   text-align: center;
   font-size: 0.3rem;
   color: #fff;
+}
+
+.had-sign {
+  background: #ff9a15;
+}
+
+.bg-99 {
+  background: #999;
 }
 </style>

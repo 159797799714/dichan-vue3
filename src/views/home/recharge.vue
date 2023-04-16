@@ -47,11 +47,10 @@ const userInfo = ref({})
 const configStore = useConfigStore()
 const config = ref({})
 
-
 const state = reactive({
   formData: {
     id: '',
-    money: '',
+    money: ''
   },
   hadLoad: false
 })
@@ -64,7 +63,6 @@ const getConfig = async () => {
 }
 getConfig()
 getUserInfo()
-
 
 const ChannelList = ref([])
 const getChannelList = async () => {
@@ -80,12 +78,12 @@ const submit = async () => {
   let { id, money } = state.formData
   money = money.toString()
   if (!id) {
-    $base.showToast("请选择充值方式！");
-    return false;
+    $base.showToast('请选择充值方式！')
+    return false
   }
   if (!money || isNaN(money)) {
-    $base.showToast("请输入正确的充值金额！");
-    return false;
+    $base.showToast('请输入正确的充值金额！')
+    return false
   }
 
   $base.showLoadingToast()
@@ -95,7 +93,6 @@ const submit = async () => {
   if (!url) $base.showToast('未获取到支付页面')
   if (url) window.location.href = url
 }
-
 </script>
 
 <style lang="scss" scoped>
@@ -127,7 +124,7 @@ const submit = async () => {
   padding: 0.2rem 0;
 }
 
-.way_list .item>div:nth-of-type(1) {
+.way_list .item > div:nth-of-type(1) {
   display: flex;
   align-items: center;
   gap: 0.1rem;

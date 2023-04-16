@@ -5,13 +5,17 @@
     </div>
     <div class="apply">
       <div class="tabs">
-        <div v-for="(item, index) in tabList" :key="index" :class="activeVal === item.plate ? 'active' : ''"
-          @click="tabClick(item)">
+        <div
+          v-for="(item, index) in tabList"
+          :key="index"
+          :class="activeVal === item.plate ? 'active' : ''"
+          @click="tabClick(item)"
+        >
           {{ item.name }}
         </div>
       </div>
 
-      <component :is="showComponent" :list="projectList"></component>
+      <component :is="showComponent" :list="projectList" @apply="goDetail"></component>
     </div>
   </div>
 </template>
@@ -19,39 +23,18 @@
 <script setup>
 import { ref, shallowRef } from 'vue'
 
+import { useRouteHook } from '@/hook/routeHook.js'
+const { goPage } = useRouteHook()
+
+import { useApplyItemStore } from '@/store/applyItem'
+const applyItemStore = useApplyItemStore()
+
 import FundList from './compoents/FundList.vue' // 2023二期
 import FundEndlist from './compoents/FundEndlist.vue' // 2023一期
 import EnsureHouse from './compoents/EnsureHouse.vue' // 提现专属卡
 import WithoutCard from './compoents/WithoutCard.vue' //2023保障住房
 import CouponList from './compoents/CouponList.vue' // 提现免费券
 
-// const tabList = [
-//   {
-//     name: '2023二期',
-//     plate: 3,
-//     component: FundList
-//   },
-//   {
-//     name: '提现免费券',
-//     plate: 1,
-//     component: CouponList
-//   },
-//   {
-//     name: '2023保障住房',
-//     plate: 5,
-//     component: EnsureHouse
-//   },
-//   {
-//     name: '提现专属卡',
-//     plate: 4,
-//     component: WithoutCard
-//   },
-//   {
-//     name: '2023一期',
-//     plate: 2,
-//     component: FundEndlist
-//   }
-// ]
 const plateObj = {
   1: CouponList,
   2: FundEndlist,
@@ -60,7 +43,6 @@ const plateObj = {
   5: EnsureHouse,
   6: WithoutCard
 }
-
 
 const activeVal = ref('')
 const showComponent = shallowRef('')
@@ -84,15 +66,14 @@ const getTablist = async () => {
 }
 
 // 分类下项目列表
-const getProjectList = async id => {
+const getProjectList = async (id) => {
   $base.showLoadingToast()
   let data = await $Http('apiProjectList', { id })
   console.log('分类下项目列表', data)
   return data || []
 }
 
-
-const tabClick = async item => {
+const tabClick = async (item) => {
   if (item.plate === activeVal.value) return
 
   $base.showLoadingToast()
@@ -101,7 +82,11 @@ const tabClick = async item => {
   showComponent.value = plateObj[item.plate]
 
   projectList.value = await getProjectList(item.id)
+}
 
+const goDetail = async (item) => {
+  await applyItemStore.setInfo(item)
+  goPage({ name: 'houseDetail', query: { id: item.id } })
 }
 
 const init = async () => {
@@ -109,7 +94,6 @@ const init = async () => {
   await getTablist()
 }
 init()
-
 </script>
 
 <style lang="scss">
@@ -164,7 +148,7 @@ init()
   overflow-y: auto;
 }
 
-.rectangle_447 .item_c>.haveEnded:nth-last-of-type(1) {
+.rectangle_447 .item_c > .haveEnded:nth-last-of-type(1) {
   background: #999;
 }
 

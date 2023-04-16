@@ -14,13 +14,11 @@
               <th>{{ formatTime(item.createtime) }}</th>
               <th>{{ statusObj[item.status] || '--' }}</th>
             </tr>
-
           </tbody>
         </table>
       </template>
       <template v-else>
         <div class="t-center">暂无数据</div>
-
       </template>
     </div>
   </div>
@@ -29,7 +27,9 @@
 <script setup>
 import { reactive, ref, onMounted, onBeforeUnmount } from 'vue'
 const statusObj = {
-  0: '待审核', 1: '成功', 2: '失败'
+  0: '待审核',
+  1: '成功',
+  2: '失败'
 }
 const hadLoad = ref(false)
 const recordList = ref([])
@@ -52,7 +52,7 @@ const setrecordList = async () => {
 }
 setrecordList()
 
-const formatTime = time => {
+const formatTime = (time) => {
   return $base.DateFormat(time)
 }
 
@@ -87,7 +87,6 @@ const formatTime = time => {
 //     console.log('--------触底100')
 //   }
 
-
 // }
 
 // onMounted(() => {
@@ -100,7 +99,6 @@ const formatTime = time => {
 //   console.log('beforeUnmount')
 //   outRef.value.removeEventListener('scroll', pageScroll, true);
 // })
-
 </script>
 
 <style lang="scss" scoped>

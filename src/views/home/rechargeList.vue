@@ -29,7 +29,9 @@
 <script setup>
 import { ref } from 'vue'
 const statusObj = {
-  0: '处理中', 1: '成功', 2: '失败'
+  0: '处理中',
+  1: '成功',
+  2: '失败'
 }
 const hadLoad = ref(false)
 const list = ref([])
@@ -43,7 +45,7 @@ const getList = async () => {
 }
 getList()
 
-const formatTime = time => {
+const formatTime = (time) => {
   return $base.DateFormat(time)
 }
 </script>

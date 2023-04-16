@@ -9,11 +9,16 @@
         <div class="t_data">
           <div>
             <div>累计收益</div>
-            <div>¥&nbsp;<span>{{ taemInfo.total_profit }}</span></div>
+            <div>
+              ¥&nbsp;<span>{{ taemInfo.total_profit }}</span>
+            </div>
           </div>
           <div>
             <div>团队人数</div>
-            <div><span>{{ taemInfo.team_people }}</span>人</div>
+            <div>
+              <span>{{ taemInfo.team_people }}</span
+              >人
+            </div>
           </div>
         </div>
       </div>
@@ -22,7 +27,8 @@
           <div class="jr">今日数据</div>
           <div>}</div>
           <div>
-            今日新增:&nbsp;<span>{{ taemInfo.today_people }}</span>人&nbsp;
+            今日新增:&nbsp;<span>{{ taemInfo.today_people }}</span
+            >人&nbsp;
             <!--团队申请:&nbsp;<span>72800</span>-->
           </div>
         </div>
@@ -36,13 +42,14 @@
           <div v-for="item in teamList" :key="index" class="row">
             <div>{{ item.mobile }}</div>
             <div style="color: #4f7cf3">{{ levelObj[item.level] }}</div>
-            <div>申请&nbsp;<span style="color: #000">¥ {{ item.money }}</span></div>
+            <div>
+              申请&nbsp;<span style="color: #000">¥ {{ item.money }}</span>
+            </div>
           </div>
         </template>
         <template v-else-if="hadLoad">
           <div class="blank">暂无数据</div>
         </template>
-
       </div>
     </div>
   </div>

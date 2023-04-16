@@ -21,7 +21,7 @@ export function useRouteHook() {
   }
 
   function goBack(pageCount = -1) {
-    if (window.history.length < 2) return router.push({ name: 'home' }) 
+    if (window.history.length < 2) return router.push({ name: 'home' })
     router.go(pageCount)
   }
 

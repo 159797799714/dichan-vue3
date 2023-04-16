@@ -1,10 +1,12 @@
 <template>
   <div class="rectangle_447 rectangleShow">
-    <a v-for="(item, index) in list" :key="index" class="item" @click="goPage({ name: 'applyNow' })">
+    <a v-for="(item, index) in list" :key="index" class="item" @click="apply(item)">
       <div class="item_t">
         <div>{{ item.name }}</div>
         <!-- <div style="color: red; font-weight: bold">申请时间截止到3月21日22时</div> -->
-        <div style="color: red; font-weight: bold">申请时间截止到{{ setTime(new Date().getTime() / 1000) }}</div>
+        <div style="color: red; font-weight: bold">
+          申请时间截止到{{ setTime(new Date().getTime() / 1000) }}
+        </div>
       </div>
       <div class="item_c">
         <!--<div>-->
@@ -16,9 +18,12 @@
         <!--    <div>15天</div>-->
         <!--</div>-->
         <div>
-          <div>提现额度</div>
-          <div>{{ item.low_withdraw_quo || item.low_withdraw_money }}-{{ item.high_withdraw_quo ||
-            item.high_withdraw_money }}</div>
+          <div>提现金额</div>
+          <div>
+            {{ item.low_withdraw_quo || item.low_withdraw_money }}-{{
+              item.high_withdraw_quo || item.high_withdraw_money
+            }}
+          </div>
         </div>
         <div>
           <!--<div>项目规模</div>-->
@@ -47,13 +52,19 @@
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goPage } = useRouteHook()
 
-const setTime = time => $base.DateFormat(time, 'MM月dd日hh时')
+const setTime = (time) => $base.DateFormat(time, 'MM月dd日hh时')
 const props = defineProps({
   list: {
     type: Array,
     default: () => []
   }
 })
+
+const emit = defineEmits(['apply'])
+
+const apply = (item) => {
+  emit('apply', item)
+}
 </script>
 
 <style lang="scss" scoped></style>
