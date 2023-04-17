@@ -93,6 +93,7 @@ watch(
     const index = navList.findIndex((item) => item.iconName === val)
     console.log('index---', index)
     activeIndex.value = index
+    if (index === -1) return
     activeIcon.value = navList[index].activeIcon
   },
   {

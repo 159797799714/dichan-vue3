@@ -152,7 +152,7 @@ const signNow = async () => {
 }
 
 .had-sign {
-  background: #ff9a15;
+  background-color: #ff9a15!important;
 }
 
 .bg-99 {

@@ -8,7 +8,7 @@
         <div
           v-for="(item, index) in tabList"
           :key="index"
-          :class="activeVal === item.plate ? 'active' : ''"
+          :class="activeVal === item.id ? 'active' : ''"
           @click="tabClick(item)"
         >
           {{ item.name }}
@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { ref, shallowRef } from 'vue'
+import { ref, shallowRef, onActivated } from 'vue'
 
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goPage } = useRouteHook()
@@ -60,7 +60,7 @@ const getTablist = async () => {
 
   if (!list.length) return
   const { plate, id } = list[0] || {}
-  activeVal.value = plate
+  activeVal.value = id
   projectList.value = await getProjectList(id)
   showComponent.value = plateObj[plate]
 }
@@ -74,11 +74,11 @@ const getProjectList = async (id) => {
 }
 
 const tabClick = async (item) => {
-  if (item.plate === activeVal.value) return
+  if (item.id === activeVal.value) return
 
   $base.showLoadingToast()
 
-  activeVal.value = item.plate
+  activeVal.value = item.id
   showComponent.value = plateObj[item.plate]
 
   projectList.value = await getProjectList(item.id)
@@ -91,9 +91,21 @@ const goDetail = async (item) => {
 
 const init = async () => {
   $base.showLoadingToast()
-  await getTablist()
+  await getTablist(activeVal.value)
 }
 init()
+
+onActivated(() => {
+  console.log('onActivated')
+  // init()
+  // getProjectList()
+})
+
+</script>
+<script>
+export default{
+  name: 'Apply'
+}
 </script>
 
 <style lang="scss">

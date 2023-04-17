@@ -2,38 +2,6 @@
   <div v-if="state.hadLoad" class="">
     <!-- 提现 -->
     <form>
-      <!-- <div class="blank_card" style="display: none">
-        <label>卡号</label><input id="chose_input" type="text" placeholder="请选择银行卡" />
-        <div class="jt_xz"><img class="down" src="@/assets/image/user/cash/jtx.png" /></div>
-        <div id="chose_bank" class="bank_xljt1"></div>
-        <ul class="bank_xl">
-          <li>
-            <a href="javascript:;" title="中国工商银行">
-              <img src="@/assets/image/user/cash/bank_ICBC.jpg" alt="" />
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" title="中国农业银行">
-              <img src="@/assets/image/user/cash/bank_ABC.jpg" alt="" />
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" title="中国建设银行">
-              <img src="@/assets/image/user/cash/bank_CCB.jpg" alt="" />
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" title="招商银行">
-              <img src="@/assets/image/user/cash/bank_CMB.jpg" alt="" />
-            </a>
-          </li>
-          <li>
-            <a href="javascript:;" title="中国银行">
-              <img src="@/assets/image/user/cash/bank_BOC.jpg" alt="" />
-            </a>
-          </li>
-        </ul>
-      </div> -->
       <div class="blank_card">
         <label>银行卡</label>
         <select name="bank" id="bank" v-model="state.formData.id">
@@ -62,7 +30,7 @@
       </div>
       <div class="blank_card">
         <label
-          >注：{{ config.bank_min_withdraw_money }}元起提(每天限一笔)，手续费{{
+          >注：{{ config.low_withdraw_money }}元起提(每天限一笔)，手续费{{
             rateMoney
           }}元/笔，{{ config.withdraw_start_time }}-{{
             config.withdraw_end_time
@@ -108,9 +76,10 @@ getConfig()
 getUserInfo()
 
 const rateMoney = computed(() => {
-  const money = state.formData.money || 0
-  const withdraw_rate = config.value.withdraw_rate || 0
-  return ((money * withdraw_rate) / 100).toFixed(2)
+  return 2
+  // const money = state.formData.money || 0
+  // const withdraw_rate = config.value.withdraw_rate || 0
+  // return ((money * withdraw_rate) / 100).toFixed(2)
 })
 
 const cardList = ref([])

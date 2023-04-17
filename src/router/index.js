@@ -31,7 +31,10 @@ const router = createRouter({
         {
           path: 'apply',
           name: 'apply',
-          component: () => import('../views/apply/index.vue')
+          component: () => import('../views/apply/index.vue'),
+          meta: {
+            keepAlive: true
+          }
         },
         {
           path: 'team',
@@ -209,13 +212,17 @@ const router = createRouter({
           meta: {
             title: '身份验证'
           }
+        },
+
+        {
+          path: 'houseDetail',
+          name: 'houseDetail',
+          component: () => import('../views/apply/houseDetail.vue'),
+          meta: {
+            title: '项目详情'
+          }
         }
       ]
-    },
-    {
-      path: '/houseDetail',
-      name: 'houseDetail',
-      component: () => import('../views/apply/houseDetail.vue')
     },
     {
       path: '/applyNow',

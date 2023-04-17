@@ -37,7 +37,7 @@
             </div>
             <div class="row">
               <div>钱包编号:</div>
-              <div class="value">0072 5440 4603 2948</div>
+              <div class="value">{{ userInfo.figure_money_sn }}</div>
             </div>
           </div>
         </div>
@@ -54,7 +54,7 @@
             <img src="@/assets/image/user/dcep/dcep_func2.png" />
             <div>收付款</div>
           </div>
-          <div>
+          <div @click="goPage({ name: 'myWallet', query: { title: '资金明细' } })">
             <img src="@/assets/image/user/dcep/dcep_func3.png" />
             <div>资金明细</div>
           </div>
@@ -103,6 +103,9 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+
+import { useRouteHook } from '@/hook/routeHook.js'
+const { goPage } = useRouteHook()
 
 import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()

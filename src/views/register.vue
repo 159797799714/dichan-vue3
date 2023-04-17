@@ -61,7 +61,7 @@ import { computed, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
 import { useRouteHook } from '@/hook/routeHook.js'
-const { navigateTo } = useRouteHook()
+const { navigateTo, route } = useRouteHook()
 
 import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()
@@ -78,7 +78,11 @@ const checkVal = ref(true)
 
 const codeImgUrl = ref('')
 
+const {inviteCode} = route.query
+console.log('inviteCode', inviteCode)
+
 const changeCode = () => {
+  formData.value.invite_code = inviteCode || ''
   const random = Math.random()
   codeImgUrl.value = `http://api.zgdc2023tx.com/captcha?t=${random}`
 }

@@ -8,7 +8,7 @@
           </div>
           <div class="box_b">
             <div class="text">
-              3月份累计申请<span style="color: red">{{ total_recharge_money }}</span
+              {{nowMonth}}月份累计申请<span style="color: red">{{ total_recharge_money || 0 }}</span
               >元
             </div>
             <div v-if="item.draw_status != 1" class="blue" @click="getAction(item.id)">
@@ -26,6 +26,9 @@
 import { ref } from 'vue'
 
 const list = ref('')
+const myDate = new Date()
+const nowMonth = myDate.getMonth() + 1
+
 const total_recharge_money = ref(0)
 // 民生保障列表
 const getList = async () => {

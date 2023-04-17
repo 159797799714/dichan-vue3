@@ -4,11 +4,11 @@
     <div class="form_top">
       <p>
         <span class="span_tit">账户可提现余额（元）</span>
-        <span class="span_num">￥ 0.00元</span>
+        <span class="span_num">￥ {{ userInfo.cash_money || 0 }}元</span>
       </p>
       <p>
         <span class="span_tit">账号可用金额（元）</span>
-        <span class="span_num">￥ <strong id="maxNum">0.00 </strong>元</span>
+        <span class="span_num">￥ <strong id="maxNum">{{ userInfo.recharge_money || 0 }} </strong>元</span>
       </p>
     </div>
     <form>
@@ -40,6 +40,16 @@ const { goBack, route } = useRouteHook()
 
 import { useApplyItemStore } from '@/store/applyItem'
 const applyItemStore = useApplyItemStore()
+
+import { useUserStore } from '@/store/userInfo'
+const userStore = useUserStore()
+const userInfo = ref({})
+
+const getUserInfo = async () => {
+  $base.showLoadingToast()
+  userInfo.value = await userStore.getUserInfo()
+}
+getUserInfo()
 
 const headTitle = ref('')
 

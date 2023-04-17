@@ -98,10 +98,10 @@ const submit = async () => {
   $base.showLoadingToast('提交中')
   let data = await $Http('apiProfile', state.formData)
   if (!data) return
-  $base.showToast(`${popTitle}成功`)
+  $base.showToast(`密码修改成功`)
   setTimeout(() => {
     goBack()
-  })
+  }, 1500)
 }
 </script>
 

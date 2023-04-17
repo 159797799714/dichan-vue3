@@ -122,7 +122,7 @@ const submit = async () => {
   $base.showToast(`${popTitle.value}成功`)
   setTimeout(() => {
     goBack()
-  })
+  }, 1500)
 }
 </script>
 

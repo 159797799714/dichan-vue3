@@ -6,7 +6,7 @@
         <label class="big">￥</label>
         <input class="big" type="text" placeholder="" v-model="state.formData.money" />
       </div>
-      <p style="color: #999999; font-size: 0.25rem">充值金额每次最低50 10000</p>
+      <p style="color: #999999; font-size: 0.25rem">充值金额每次最低{{ config.low_recharge_money }} ~ {{ config.high_recharge_money }}</p>
     </div>
     <div style="height: 0.24rem; background: #f1f1f1; margin-top: 0.3rem"></div>
     <!--<div class="blank_card">-->

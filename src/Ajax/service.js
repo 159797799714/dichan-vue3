@@ -4,7 +4,6 @@ const userInfo = useUserStore()
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: import.meta.env == 'production' ? 'https://api.zgdc2023tx.com' : '',
   timeout: 15000 // 请求超时时间
 })
 

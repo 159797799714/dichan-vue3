@@ -9,10 +9,10 @@
       </div>
       <div class="balance">
         <div>
-          可提现余额:&nbsp;¥&nbsp;<span id="userMoney">{{ userInfo.recharge_money }}</span>
+          可提现余额:&nbsp;¥&nbsp;<span id="userMoney">{{ userInfo.cash_money }}</span>
         </div>
         <div>
-          可用余额:¥&nbsp;<span id="withdrawmoney">{{ userInfo.cash_money }}</span>
+          可用余额:¥&nbsp;<span id="withdrawmoney">{{ userInfo.recharge_money }}</span>
         </div>
       </div>
       <!-- 提现 -->

@@ -33,11 +33,11 @@ const request = async (urlName, data = {}, noToast = false) => {
 
   data = $base.dealObjectValue(data)
 
-  const baseURL = import.meta.env == 'production' ? 'https://api.zgdc2023tx.com' : ''
+  const baseURL = process.env.NODE_ENV == 'production' ? 'https://api.zgdc2023tx.com' : ''
 
   const requestData = {
-    url: `https://api.zgdc2023tx.com${url}`,
-    // url: url,
+    // url: `https://api.zgdc2023tx.com${url}`,
+    url: `${baseURL}${url}`,
     method,
     data: method !== 'GET' ? data : '',
     params: method === 'GET' ? data : '',
@@ -76,11 +76,22 @@ const request = async (urlName, data = {}, noToast = false) => {
             !noToast && showFailToast(res.msg || '请求出错')
         }
       })
-      .catch((err) => {
+      .catch((err = {}) => {
         console.log('请求出错catch', err)
         $base.closeToast()
+        const response = err.response || {}
+        const status = response.status || ''
+        const data = response.data || {}
+        if (status == 401) {
+          showFailToast(data.msg || '请重新登录')
+          setTimeout(() => {
+            window.location.href = `${window.location.origin}/login`
+          }, 1500)
+          return
+        }
+
         // window.location.href = `${window.location.origin}/login`
-        showFailToast(err.msg || '网络异常')
+        showFailToast(err.message || '网络异常')
       })
   })
 }

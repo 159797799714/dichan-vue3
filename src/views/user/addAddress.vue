@@ -103,7 +103,7 @@ const submit = async () => {
   $base.showToast(`保存成功`)
   setTimeout(() => {
     goBack()
-  })
+  }, 1500)
 }
 </script>
 

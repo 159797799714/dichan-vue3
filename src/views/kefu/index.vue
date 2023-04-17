@@ -11,15 +11,15 @@
     </div>
 
     <div class="rectangle_326">
-      <a @click="goHelpCenter(1)">
+      <a @click="goHelpCenter('recharge_protection')">
         <img src="@/assets/image/kefu/kf1.png" />
         <font>充值问题</font>
       </a>
-      <a @click="goHelpCenter(2)">
+      <a @click="goHelpCenter('withdraw_question')">
         <img src="@/assets/image/kefu/kf2.png" />
         <font>提现问题</font>
       </a>
-      <a @click="goHelpCenter(3)">
+      <a @click="goHelpCenter('apply_protection')">
         <img src="@/assets/image/kefu/kf3.png" />
         <font>申请保障</font>
       </a>
@@ -36,7 +36,7 @@
       <div class="btn_d">
         <div>猜你想问</div>
         <div style="display: flex; align-items: center; font-weight: 300">
-          <a @click="goHelpCenter(0)" style="color: #999"
+          <a @click="goHelpCenter('other_question')" style="color: #999"
             >查看更多<img src="@/assets/image/kefu/next.png" style="height: 0.3rem"
           /></a>
         </div>
@@ -56,10 +56,10 @@ import { useConfigStore } from '@/store/config'
 const configStore = useConfigStore()
 configStore.getConfig()
 
-const goHelpCenter = (index) => {
+const goHelpCenter = name => {
   router.push({
     name: 'helpCenter',
-    query: { index }
+    query: { name }
   })
 }
 const goOfficialSop = () => {

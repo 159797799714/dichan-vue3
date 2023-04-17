@@ -117,7 +117,7 @@ const submit = async () => {
 
     setTimeout(() => {
         goBack()
-    })
+    }, 1500)
 }
 
 

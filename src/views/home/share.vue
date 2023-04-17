@@ -23,7 +23,7 @@
             唯一邀请码：<span style="color: #cd553d">{{ userInfo.invite_code }}</span
             ><br />
             邀请链接：<span style="color: #cd553d" id="yqlj" @click="copyShaneUrl">{{
-              config.app_download_url
+              userInfo.invite_domain
             }}</span
             ><br />
             <span>点击链接即可复制</span>
@@ -49,11 +49,10 @@ const codeImgUrl = ref('')
 
 const getConfig = async () => {
   $base.showLoadingToast()
-  let data = await $Http('apiIndexCommon')
+  let data = await configStore.getConfig()
   console.log('公共配置', data)
   config.value = data
-  configStore.saveConfig(data)
-  QRCode.toDataURL(data.app_download_url, function (err, url) {
+  QRCode.toDataURL(`${userInfo.value.invite_domain}/register?inviteCode=${userInfo.value.invite_code}`, function (err, url) {
     console.log(url)
     codeImgUrl.value = url
   })
@@ -63,11 +62,17 @@ const userInfo = ref({})
 const setUser = async () => {
   userInfo.value = await userStore.getUserInfo()
 }
+setUser()
+getConfig()
 
 const copyShaneUrl = () => {
   if (!config.value.app_download_url) return $base.showToast('复制失败')
   var input = document.createElement('input') // 直接构建input
-  input.value = config.value.app_download_url // 设置内容
+
+  const {invite_domain = '', invite_code = ''} = userInfo.value
+  input.value = `${invite_domain}/register?inviteCode=${invite_code}` // 设置内容
+
+
   document.body.appendChild(input) // 添加临时实例
   input.select() // 选择实例内容
   document.execCommand('Copy') // 执行复制
@@ -75,9 +80,6 @@ const copyShaneUrl = () => {
 
   $base.showToast('复制成功')
 }
-
-getConfig()
-setUser()
 </script>
 
 <style lang="scss" scoped>

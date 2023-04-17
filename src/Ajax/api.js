@@ -33,7 +33,8 @@ const apiObj = {
   apiGetRechargeRecord: '/api/user/getRechargeRecord', // 获取充值记录
   apiExchange: '/api/user/exchange', //用户兑现
   apiExchangeRecord: '/api/user/exchangeRecord', // 获取兑换记录
-  apiSaveRecipientAddres: '/api/user/saveRecipientAddres' // 保存收获地址
+  apiSaveRecipientAddres: '/api/user/saveRecipientAddres', // 保存收获地址
+  apiQuestionList: '/api/index/questionList', // 客服问题
 }
 // 设置请求方式 POST/GET
 const newApi = {}

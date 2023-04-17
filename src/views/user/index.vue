@@ -63,16 +63,15 @@
       <div class="asset_details">
         <div>
           <a>
-            <!-- <a @click="goPage({ name: 'myWallet' })"> -->
             <div>我的资产</div>
-            <div class="a_value">¥&nbsp{{ allMoney }}</div>
+            <div class="a_value">¥&nbsp;{{ allMoney }}</div>
           </a>
         </div>
         <div>
           <a>
             <!-- <a @click="goPage({ name: 'cash' })"> -->
             <div>可用余额</div>
-            <div class="a_value">¥&nbsp;{{ userInfo.recharge_money }}</div>
+            <div class="a_value">¥&nbsp;{{ canUseMoney }}</div>
           </a>
         </div>
       </div>
@@ -108,10 +107,10 @@
         ><img src="@/assets/image/user/nav12.png" />
         <font>地产转账</font>
       </a>
-      <a @click="goPage({ name: 'properties' })"
+      <!-- <a @click="goPage({ name: 'properties' })"
         ><img src="@/assets/image/user/nav16.png" />
         <font>申请制度</font>
-      </a>
+      </a> -->
       <a @click="goPage({ name: 'policy' })"
         ><img src="@/assets/image/user/nav14.png" />
         <font>政策文件</font>
@@ -183,6 +182,7 @@ const setUserInfo = async () => {
   $base.showLoadingToast()
   userInfo.value = await userStore.getUserInfo()
   oldPhone.value = userInfo.value.mobile
+  showPhone.value = setPhone(true)
   $base.closeToast()
   hadLoad.value = true
 }
@@ -194,13 +194,21 @@ const joinDay = computed(() => {
   const createtime = userInfo.value.createtime || 0
   return createtime ? Math.floor((date.getTime() - createtime * 1000) / 86400000) : 0
 })
+
+const canUseMoney = computed(() => {
+  if (JSON.stringify(userInfo.value) === '{}') return 0
+  let { recharge_money = 0, cash_money = 0 } = userInfo.value
+  recharge_money = Number(recharge_money || '0')
+  cash_money = Number(cash_money || '0')
+  return recharge_money + cash_money
+})
+
 const allMoney = computed(() => {
   if (JSON.stringify(userInfo.value) === '{}') return 0
-  let { recharge_money = 0, figure_money = 0, fund_money = 0 } = userInfo.value
-  recharge_money = Number(recharge_money || '0')
-  figure_money = Number(figure_money || '0')
+  let { fund_money = 0, figure_money = 0 } = userInfo.value
   fund_money = Number(fund_money || '0')
-  return recharge_money + figure_money + fund_money
+  figure_money = Number(figure_money || '0')
+  return fund_money + figure_money
 })
 
 const setPhone = (status) => {
@@ -210,7 +218,7 @@ const setPhone = (status) => {
   return arr.join('')
 }
 
-const showPhone = ref(setPhone(true))
+const showPhone = ref()
 
 const hideMobile = ref(true)
 const hidePhone = (status) => {

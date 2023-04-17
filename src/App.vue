@@ -1,6 +1,9 @@
 <template>
-  <RouterView />
+  <RouterView/>
 </template>
 
-<script setup></script>
+<script setup>
+import { useRoute, RouterView } from 'vue-router'
+const route = useRoute()
+</script>
 <style scoped></style>

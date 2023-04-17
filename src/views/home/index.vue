@@ -44,11 +44,7 @@
     <!-- 公告 -->
     <div class="marquee_outer">
       <img src="@/assets/image/index/notice.png" />
-      <div class="marquee_txt">
-        <marquee scrollamount="3">
-          <a>{{ notice }}</a>
-        </marquee>
-      </div>
+      <div class="marquee_txt" v-html="notice"> </div>
     </div>
     <!-- 活动 -->
     <div class="activity" style="display: flex; margin: 0 0.2rem; gap: 0.3rem; column-gap: 0.3rem">
@@ -157,7 +153,10 @@ const getConsult = async () => {
   consultList.value = list
 
   if (!list.length) return
-  notice.value = await getNewsDetail(list[0].id)
+  const detail = await getNewsDetail(list[0].id)
+  notice.value = `<marquee scrollamount="3" hspace="20">
+          <a>${detail.title || ''}</a>
+        </marquee>`
 }
 
 const popShow = ref(false)
@@ -174,7 +173,8 @@ const getPopContent = async () => {
   console.log('弹窗公告列表', data)
   const list = data.list || []
   if (!list.length) return
-  popContent.value = await getNewsDetail(list[0].id)
+  const detail =  await getNewsDetail(list[0].id)
+  popContent.value = detail.content
   if (popContent.value) {
     popShow.value = true
     sessionStorage.setItem('hadPop', true)
@@ -185,7 +185,8 @@ const getNewsDetail = async (id) => {
   $base.showLoadingToast()
   let data = await $Http('apiFindNewsDetails', { id })
   console.log('弹窗公告详情', data)
-  return data.content || ''
+
+  return data || {}
 }
 
 const init = async () => {
