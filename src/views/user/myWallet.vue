@@ -11,9 +11,8 @@
         <tr v-for="(item, index) in MyBill" :key="index">
           <td>{{ item.memo }}</td>
           <td>
-            <span :style="`color: ${item.money >= 0 ? 'red' : '#008000'}`"
-              >{{ item.money >= 0 ? '+' : '-' }}{{ item.money }}</span
-            >
+            <span :style="`color: ${item.money >= 0 ? 'red' : '#008000'}`">{{ item.money >= 0 ? '+' : '' }}{{ item.money
+            }}</span>
           </td>
           <td>{{ formatTime(item.createtime) }}</td>
         </tr>

@@ -3,19 +3,9 @@
     <div class="banner">
       <van-swipe :autoplay="false" lazy-render>
         <van-swipe-item v-for="(item, index) in swiperList" :key="index">
-          <video
-            :src="item.video"
-            controls="controls"
-            style="object-fit: cover"
-            x5-playsinline=""
-            playsinline="true"
-            webkit-playsinline="true"
-            x-webkit-airplay="true"
-            x5-video-player-type="h5"
-            x5-video-player-fullscreen=""
-            x5-video-orientation="portraint"
-            class="video-item"
-          ></video>
+          <video :src="item.video" controls="controls" style="object-fit: cover" x5-playsinline="" playsinline="true"
+            webkit-playsinline="true" x-webkit-airplay="true" x5-video-player-type="h5" x5-video-player-fullscreen=""
+            x5-video-orientation="portraint" class="video-item"></video>
         </van-swipe-item>
       </van-swipe>
     </div>
@@ -24,25 +14,21 @@
         ><img src="@/assets/image/index/nav9.png" />
         <font>关于我们</font>
       </a> -->
-      <a @click="goPage({ name: 'share' })"
-        ><img src="@/assets/image/index/nav8.png" />
+      <a @click="goPage({ name: 'share' })"><img src="@/assets/image/index/nav8.png" />
         <font>邀请好友</font>
       </a>
-      <a :href="config.app_download_url"
-        ><img src="@/assets/image/index/nav10.png" />
+      <a :href="config.app_download_url"><img src="@/assets/image/index/nav10.png" />
         <font>APP下载</font>
       </a>
-      <a @click="goPage({ name: 'sign' })"
-        ><img src="@/assets/image/index/nav4.png" />
+      <a @click="goPage({ name: 'sign' })"><img src="@/assets/image/index/nav4.png" />
         <font>签到有礼</font>
       </a>
-      <a @click="goPage({ name: 'recharge' })"
-        ><img src="@/assets/image/index/nav5.png" />
+      <a @click="goPage({ name: 'recharge' })"><img src="@/assets/image/index/nav5.png" />
         <font>在线充值</font>
       </a>
     </div>
     <!-- 公告 -->
-    <div class="marquee_outer">
+    <div class="marquee_outer" @click="popShow = true">
       <img src="@/assets/image/index/notice.png" />
       <div class="marquee_txt" v-html="notice"> </div>
     </div>
@@ -61,12 +47,8 @@
     <div class="consult">
       <div class="consult_head">民生资讯</div>
       <div class="consult_list">
-        <a
-          v-for="(item, index) in consultList"
-          :key="index"
-          class="item"
-          @click="goPage({ name: 'peopleInfomation', query: { id: item.id } })"
-        >
+        <a v-for="(item, index) in consultList" :key="index" class="item"
+          @click="goPage({ name: 'peopleInfomation', query: { id: item.id } })">
           <div class="item_left">
             <p class="item_title">{{ item.title }}</p>
             <div style="display: flex; column-gap: 0.5rem; color: #999999; font-weight: 300">
@@ -84,26 +66,14 @@
     <div v-show="popShow" class="popup">
       <div class="popup_box" style="height: 9rem; overflow-y: scroll; padding-bottom: 0.5rem">
         <div class="popup_close" @click="popShow = false">
-          <svg
-            t="1675419453046"
-            class="icon"
-            viewBox="0 0 1024 1024"
-            version="1.1"
-            xmlns="http://www.w3.org/2000/svg"
-            p-id="2663"
-            height="0.5rem"
-            width="0.5rem"
-          >
+          <svg t="1675419453046" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg"
+            p-id="2663" height="0.5rem" width="0.5rem">
             <path
               d="M512 128C300.8 128 128 300.8 128 512s172.8 384 384 384 384-172.8 384-384S723.2 128 512 128zM512 832c-179.2 0-320-140.8-320-320s140.8-320 320-320 320 140.8 320 320S691.2 832 512 832z"
-              p-id="2664"
-              fill="#999999"
-            ></path>
+              p-id="2664" fill="#999999"></path>
             <path
               d="M672 352c-12.8-12.8-32-12.8-44.8 0L512 467.2 396.8 352C384 339.2 364.8 339.2 352 352S339.2 384 352 396.8L467.2 512 352 627.2c-12.8 12.8-12.8 32 0 44.8s32 12.8 44.8 0L512 556.8l115.2 115.2c12.8 12.8 32 12.8 44.8 0s12.8-32 0-44.8L556.8 512l115.2-115.2C684.8 384 684.8 364.8 672 352z"
-              p-id="2665"
-              fill="#999999"
-            ></path>
+              p-id="2665" fill="#999999"></path>
           </svg>
         </div>
         <div class="popup_content" v-html="popContent"></div>
@@ -167,12 +137,12 @@ const getPopContent = async () => {
   console.log('弹窗公告列表', data)
   const list = data.list || []
   if (!list.length) return
-  const detail =  await getNewsDetail(list[0].id)
-  
+  const detail = await getNewsDetail(list[0].id)
+
   notice.value = `<marquee scrollamount="3" style="width: 100%;">
           <a>${detail.title || ''}</a>
         </marquee>`
-  popContent.value = detail.popContent
+  popContent.value = detail.content
 
   if (sessionStorage.getItem('hadPop')) return
   if (popContent.value) {
@@ -227,12 +197,13 @@ init()
   width: 100%;
   overflow: hidden;
 
-  & > img {
+  &>img {
     width: 100%;
     height: auto;
   }
 }
-.marquee_txt{
+
+.marquee_txt {
   flex: 1;
 }
 
