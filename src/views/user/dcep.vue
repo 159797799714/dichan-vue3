@@ -37,7 +37,7 @@
             </div>
             <div class="row">
               <div>钱包编号:</div>
-              <div class="value">{{ userInfo.figure_money_sn }}</div>
+              <div class="value">{{ setSn(userInfo.figure_money_sn) }}</div>
             </div>
           </div>
         </div>
@@ -45,12 +45,12 @@
           <div class="roll_out" @click="showToast">转出</div>
           <div class="roll_in" @click="showToast">转入</div>
         </div>
-        <div class="func" @click="showToast">
-          <div>
+        <div class="func">
+          <div @click="showToast">
             <img src="@/assets/image/user/dcep/dcep_func1.png" />
             <div>转账</div>
           </div>
-          <div>
+          <div @click="showToast">
             <img src="@/assets/image/user/dcep/dcep_func2.png" />
             <div>收付款</div>
           </div>
@@ -58,7 +58,7 @@
             <img src="@/assets/image/user/dcep/dcep_func3.png" />
             <div>资金明细</div>
           </div>
-          <div>
+          <div @click="showToast">
             <img src="@/assets/image/user/dcep/dcep_func4.png" />
             <div>钱包设置</div>
           </div>
@@ -117,6 +117,27 @@ const setUserInfo = async () => {
   $base.closeToast()
 }
 setUserInfo()
+
+const setSn = sn => {
+  if (!sn) return ''
+  sn = sn.toString()
+  const length = sn.length
+
+  console.log('length', length)
+
+  const maxSize = Math.ceil(length/4)
+
+  console.log('maxSize', maxSize)
+
+
+  let str = ''
+
+  for (var i=0;i<maxSize;i++) {
+    console.log('i', sn.slice(i*4, 4* (i+1)))
+    str =  str + ' ' + sn.slice(i*4, 4* (i+1))
+  }
+  return str
+}
 
 const showToast = () => {
   $base.showToast('功能待开发')
