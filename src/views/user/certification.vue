@@ -78,11 +78,12 @@ const submit = async () => {
   $base.showLoadingToast()
   let data = await $Http('apiRealname', state.formData)
   console.log('实名', data)
-  if (data === null) {
-    $base.showToast('认证成功')
-    disabled.value = true
-  }
-  setUserInfo()
+  if (!data) return
+  $base.showToast('认证成功')
+  disabled.value = true
+  setTimeout(() => {
+    setUserInfo()
+  }, 1500)
 }
 </script>
 

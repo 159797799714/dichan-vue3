@@ -6,62 +6,29 @@
       <!-- <div class="aui-prompt"><i class="iconfont"></i>填写您的地址信息</div> -->
       <div class="aui-Address-box">
         <p>
-          <input
-            class="aui-Address-box-input"
-            type="text"
-            placeholder="收货人姓名"
-            v-model="state.formData.receive_name"
-          />
+          <input class="aui-Address-box-input" type="text" placeholder="收货人姓名" v-model="state.formData.receive_name" />
         </p>
         <p>
-          <input
-            class="aui-Address-box-input"
-            type="text"
-            placeholder="手机号码"
-            v-model="state.formData.receive_mobile"
-          />
+          <input class="aui-Address-box-input" type="text" placeholder="手机号码" v-model="state.formData.receive_mobile" />
         </p>
         <p>
-          <van-field
-            class="aui-Address-box-input"
-            v-model="state.formData.receive_area"
-            is-link
-            readonly
-            placeholder="点击选择所在地区"
-            @click="show = true"
-          />
+          <van-field class="aui-Address-box-input" v-model="state.formData.receive_area" is-link readonly
+            placeholder="点击选择所在地区" @click="show = true" />
           <!-- <input  type="text" readonly="" id="J_Address" placeholder="所在地区"> -->
         </p>
         <p>
-          <textarea
-            class="aui-Address-box-text"
-            placeholder="街道， 小区门牌等详细地址"
-            rows="3"
-            id="details"
-            v-model="state.formData.receive_details"
-          ></textarea>
+          <textarea class="aui-Address-box-text" placeholder="街道， 小区门牌等详细地址" rows="3" id="details"
+            v-model="state.formData.receive_details"></textarea>
         </p>
       </div>
       <div class="aui-out">
-        <a
-          style="color: #4f79bc; border: 1px solid #4f79bc"
-          class="red-color"
-          id="save_address"
-          @click="submit"
-          >保存</a
-        >
+        <a style="color: #4f79bc; border: 1px solid #4f79bc" class="red-color" id="save_address" @click="submit">保存</a>
       </div>
     </section>
   </div>
 
   <van-popup v-model:show="show" round position="bottom">
-    <van-cascader
-      v-model="cascaderValue"
-      title="请选择所在地区"
-      :options="options"
-      @close="show = false"
-      @finish="onFinish"
-    />
+    <van-cascader v-model="cascaderValue" title="请选择所在地区" :options="options" @close="show = false" @finish="onFinish" />
   </van-popup>
 </template>
 
@@ -99,7 +66,14 @@ const onFinish = ({ selectedOptions }) => {
 const userInfo = ref({})
 const setUserInfo = async () => {
   $base.showLoadingToast()
-  userInfo.value = await userStore.getUserInfo()
+  const data = await userStore.getUserInfo()
+  const { receive_name, receive_mobile, receive_area, receive_details } = data || {}
+  state.formData = {
+    receive_name,
+    receive_mobile,
+    receive_area,
+    receive_details
+  }
   $base.closeToast()
 }
 setUserInfo()

@@ -218,11 +218,6 @@ const router = createRouter({
       component: () => import('../views/apply/houseDetail.vue')
     },
     {
-      path: '/fundDetail',
-      name: 'fundDetail',
-      component: () => import('../views/apply/fundDetail.vue')
-    },
-    {
       path: '/applyNow',
       name: 'applyNow',
       component: () => import('../views/apply/applyNow.vue'),

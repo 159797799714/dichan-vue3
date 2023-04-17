@@ -14,58 +14,26 @@
         <form action="https://71yunduan.com/mobile/reg.html" method="post" id="ifr">
           <div class="input_text log">
             <label>+86</label>
-            <input
-              type="text"
-              v-model="formData.mobile"
-              placeholder="请输入手机号"
-              maxlength="11"
-            />
+            <input type="text" v-model="formData.mobile" placeholder="请输入手机号" maxlength="11" />
           </div>
           <div class="input_text">
-            <input
-              type="password"
-              v-model="formData.password"
-              placeholder="请设置密码"
-              maxlength="16"
-              minlength="6"
-            />
+            <input type="password" v-model="formData.password" placeholder="请设置密码" maxlength="16" minlength="6" />
           </div>
           <div class="input_text">
-            <input
-              type="password"
-              v-model="formData.confirm_password"
-              placeholder="请再输入密码"
-              maxlength="16"
-              minlength="6"
-            />
+            <input type="password" v-model="formData.confirm_password" placeholder="请再输入密码" maxlength="16"
+              minlength="6" />
           </div>
 
           <div class="input_text" style="position: relative">
-            <input
-              type="text"
-              v-model="formData.captcha"
-              placeholder="请输入验证码"
-              style="width: 60%"
-            />
+            <input type="text" v-model="formData.captcha" placeholder="请输入验证码" style="width: 60%" />
             <div class="pull-left codeImg">
-              <img
-                :src="codeImgUrl"
-                id="verify_img"
-                alt="点击刷新"
-                title="点击刷新"
-                style="cursor: pointer; margin-left: 10px"
-                @click="changeCode"
-              />
+              <img :src="codeImgUrl" id="verify_img" alt="点击刷新" title="点击刷新" style="cursor: pointer; margin-left: 10px"
+                @click="changeCode" />
             </div>
           </div>
           <div class="input_text">
-            <input
-              type="password"
-              v-model="formData.pay_password"
-              placeholder="请再输入支付密码"
-              maxlength="6"
-              onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)"
-            />
+            <input type="password" v-model="formData.pay_password" placeholder="请输入支付密码" maxlength="6"
+              onkeyup="value=value.replace(/[^\d]/g,&#39;&#39;)" />
           </div>
 
           <div class="input_text">
@@ -78,13 +46,9 @@
           </div>
           <!-- <input type="submit" class="input_btn" value="立即注册" /> -->
 
-          <div
-            style="display: flex; justify-content: center; align-items: center; text-align: center"
-          >
-            <input type="checkbox" value="0" checked="" />&nbsp; 已阅读并同意<span
-              style="color: #5570ff"
-              >《用户协议》</span
-            >与<span style="color: #5570ff">《隐私协议》</span>
+          <div style="display: flex; justify-content: center; align-items: center; text-align: center">
+            <input type="checkbox" value="0" checked="" />&nbsp; 已阅读并同意<span style="color: #5570ff">《用户协议》</span>与<span
+              style="color: #5570ff">《隐私协议》</span>
           </div>
         </form>
       </div>
@@ -124,7 +88,7 @@ changeCode()
 const checkSubmit = (toast = false) => {
   const { mobile, password, confirm_password, captcha, invite_code } = formData.value
 
-  toast = toast ? $base.showToast : () => {}
+  toast = toast ? $base.showToast : () => { }
 
   if (mobile.toString().length !== 11) {
     toast('请输入11位的手机号码')

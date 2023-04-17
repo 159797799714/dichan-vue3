@@ -36,7 +36,8 @@ const request = async (urlName, data = {}, noToast = false) => {
   const baseURL = import.meta.env == 'production' ? 'https://api.zgdc2023tx.com' : ''
 
   const requestData = {
-    url: baseURL + url,
+    url: `https://api.zgdc2023tx.com${url}`,
+    // url: url,
     method,
     data: method !== 'GET' ? data : '',
     params: method === 'GET' ? data : '',
@@ -48,6 +49,7 @@ const request = async (urlName, data = {}, noToast = false) => {
   }
 
   return new Promise((resolve, reject) => {
+    console.log('请求参数', requestData)
     service
       .request(requestData)
       .then((res) => {
