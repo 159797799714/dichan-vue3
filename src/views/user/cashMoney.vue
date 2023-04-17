@@ -10,7 +10,7 @@
                         <span id="all" @click="setAll">全部兑换</span>
                     </div>
                     <p class="hit">
-                        当前可用现金{{ userInfo.recharge_money }}， 可以兑换可提余额{{
+                        当前现金红包金额{{ userInfo.fund_money }}， 可以兑换可提余额{{
                             userInfo.cash_money
                         }}元。(工作日){{ config.withdraw_start_time }}-{{ config.withdraw_end_time }}可申请兑换
                     </p>
@@ -116,7 +116,9 @@ const submit = async () => {
     $base.showToast('兑换成功')
 
     setTimeout(() => {
-        goBack()
+        getConfig()
+        setUser()
+        setrecordList()
     }, 1500)
 }
 

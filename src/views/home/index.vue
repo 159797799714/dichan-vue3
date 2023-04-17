@@ -20,10 +20,10 @@
       </van-swipe>
     </div>
     <div class="indexnav" style="padding: 0.3rem 0">
-      <a @click="goPage({ name: 'aboutUs' })"
+      <!-- <a @click="goPage({ name: 'aboutUs' })"
         ><img src="@/assets/image/index/nav9.png" />
         <font>关于我们</font>
-      </a>
+      </a> -->
       <a @click="goPage({ name: 'share' })"
         ><img src="@/assets/image/index/nav8.png" />
         <font>邀请好友</font>
@@ -152,18 +152,12 @@ const getConsult = async () => {
 
   consultList.value = list
 
-  if (!list.length) return
-  const detail = await getNewsDetail(list[0].id)
-  notice.value = `<marquee scrollamount="3" hspace="20">
-          <a>${detail.title || ''}</a>
-        </marquee>`
 }
 
 const popShow = ref(false)
 const popContent = ref('')
 // 弹窗公告列表
 const getPopContent = async () => {
-  if (sessionStorage.getItem('hadPop')) return
   $base.showLoadingToast()
   let data = await $Http('apiGetNewsList', {
     type: 2,
@@ -174,7 +168,13 @@ const getPopContent = async () => {
   const list = data.list || []
   if (!list.length) return
   const detail =  await getNewsDetail(list[0].id)
-  popContent.value = detail.content
+  
+  notice.value = `<marquee scrollamount="3" style="width: 100%;">
+          <a>${detail.title || ''}</a>
+        </marquee>`
+  popContent.value = detail.popContent
+
+  if (sessionStorage.getItem('hadPop')) return
   if (popContent.value) {
     popShow.value = true
     sessionStorage.setItem('hadPop', true)
@@ -231,6 +231,9 @@ init()
     width: 100%;
     height: auto;
   }
+}
+.marquee_txt{
+  flex: 1;
 }
 
 .popup_box {

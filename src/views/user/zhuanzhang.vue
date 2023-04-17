@@ -133,7 +133,7 @@ const formatTime = (time) => {
   return $base.DateFormat(time, 'MM-dd hh:mm:ss')
 }
 const formatType = (status) => {
-  return status == 'cash_money' ? '可提余额' : '可用余额'
+  return status == 'cash_money' ? '可用提现余额' : '可用余额'
 }
 
 const Record = ref([])
@@ -184,7 +184,12 @@ const submit = async () => {
   $base.showLoadingToast()
   let data = await $Http('apiTransfer', state.formData)
   console.log('转账', data)
-  cardList.value = data || []
+  if (!data) return
+    $base.showToast('转账成功')
+  setTimeout(() => {
+    getUserInfo()
+    getRecord()
+  }, 1500)
 }
 
 const onInput = (e) => {

@@ -3,9 +3,9 @@
     <div class="rectangle_711">
       <img src="@/assets/image/sign/qiandao.png" />
     </div>
-    <div class="rectangle_378">
+    <div v-if="SignList.length" class="rectangle_378">
       <div class="qd_num">已签到{{ signDay }}天</div>
-      <div v-if="SignList.length" class="block_list">
+      <div class="block_list">
         <div v-for="(item, index) in SignList" :key="index" class="block">
           <img src="@/assets/image/sign/jb_icon.png" style="width: 0.6rem" />
           <p>{{ item.money }}</p>
@@ -16,7 +16,7 @@
     </div>
     <a>
       <div v-if="!todayStatus" class="qd_btn" @click="signNow">立即签到</div>
-      <div v-else class="qd_btn bg-99">已签到</div>
+      <div v-else class="qd_btn bg-99">今日已签到</div>
     </a>
   </div>
 </template>
@@ -27,7 +27,7 @@ const { goPage } = useRouteHook()
 
 const todayStatus = ref(true)
 const SignList = ref([])
-const signDay = ref(0)
+const signDay = ref(1)
 const getSignList = async (noLoading) => {
   !noLoading && $base.showLoadingToast()
   let data = await $Http('apiSignInList')

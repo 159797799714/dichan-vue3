@@ -39,7 +39,7 @@
 import { ref, reactive } from 'vue'
 
 import { useRouteHook } from '@/hook/routeHook.js'
-const { goBack } = useRouteHook()
+const { goPage } = useRouteHook()
 
 import HeadBar from '@/components/HeadBar.vue'
 
@@ -100,7 +100,7 @@ const submit = async () => {
   if (!data) return
   $base.showToast(`密码修改成功`)
   setTimeout(() => {
-    goBack()
+    goPage({ name: 'login' })
   }, 1500)
 }
 </script>

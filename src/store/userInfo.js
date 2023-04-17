@@ -35,13 +35,16 @@ export const useUserStore = defineStore('userInfo', {
     },
 
     loginOut() {
-      this.userInfo = {}
-      localStorage.clear()
-      sessionStorage.clear()
+      this.clearAll()
       $base.showToast('已成功安全退出')
       setTimeout(() => {
         window.location.href = `${window.location.origin}/login`
       }, 1500)
+    },
+    clearAll() {
+      this.userInfo = {}
+      localStorage.clear()
+      sessionStorage.clear()
     }
   }
 })

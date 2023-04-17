@@ -79,6 +79,7 @@ const setUserInfo = async () => {
   console.log('用户信息', userStore.hadPwd)
   hadPwd.value = userStore.hadPwd
   popTitle.value = userStore.hadPwd ? '修改支付密码' : '设置支付密码'
+  state.formData.set_pay_password = userStore.hadPwd? 0: 1,
   $base.closeToast()
 }
 setUserInfo()

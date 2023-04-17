@@ -14,7 +14,7 @@
       <div class="blank_card">
         <p>提现金额：</p>
         <label class="big">￥</label
-        ><input class="big" v-model="state.formData.money" type="text" />
+        ><input class="big" v-model="state.formData.money" placeholder="请输入提现金额" type="text" />
         <p>
           可提现金额: <span id="userMoney">{{ userInfo.cash_money || 0 }}</span
           >元

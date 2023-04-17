@@ -41,9 +41,15 @@ const setUserInfo = async () => {
   $base.showLoadingToast()
   userInfo.value = await userStore.getUserInfo()
   disabled.value = userInfo.value.is_realname == 1
+  let id_card = userInfo.value.id_card || ''
+  if (userInfo.value.is_realname == 1) {
+    id_card = id_card.split('')
+    id_card.splice(4, 10, '******')
+    id_card = id_card.join('')
+  }
   state.formData = {
     nickname: userInfo.value.nickname,
-    id_card: userInfo.value.id_card
+    id_card: id_card
   }
   $base.closeToast()
 }

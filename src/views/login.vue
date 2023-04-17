@@ -71,6 +71,9 @@ const { goPage, navigateTo } = useRouteHook()
 import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()
 
+// 进入登录页即清空登录信息
+userStore.clearAll()
+
 const formData = ref({
   mobile: '',
   password: ''

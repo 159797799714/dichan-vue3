@@ -6,7 +6,7 @@
       <img src="@/assets/image/share/recommend_bg.png" />
       <div class="box">
         <div class="box_top">
-          <h2>无</h2>
+          <h2>{{ userInfo.nickname || '无' }}</h2>
           <p>邀请您注册中国地产</p>
         </div>
         <div class="box_bottom">
