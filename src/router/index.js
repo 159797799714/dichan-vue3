@@ -90,6 +90,14 @@ const router = createRouter({
           }
         },
         {
+          path: 'cardRechargeUpload',
+          name: 'cardRechargeUpload',
+          component: () => import('../views/home/cardRechargeUpload.vue'),
+          meta: {
+            title: '银行入款充值',
+          }
+        },
+        {
           path: 'rechargeList',
           name: 'rechargeList',
           component: () => import('../views/home/rechargeList.vue'),

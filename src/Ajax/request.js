@@ -9,7 +9,7 @@ import { withoutLoginApi } from './withoutLoginApi' // 无需登录白名单api�
 
 const userInfo = useUserStore()
 
-const request = async (urlName, data = {}, noToast = false) => {
+const request = async (urlName, data = {}, headers = {}, noToast = false, noFilter = false) => {
   const urlData = API[urlName]
   if (!urlData) return
 
@@ -35,17 +35,23 @@ const request = async (urlName, data = {}, noToast = false) => {
 
   const baseURL = process.env.NODE_ENV == 'production' ? 'https://api.zgdc2023tx.com' : ''
 
+  let params = ''
+  if (method === 'GET' || urlName === 'apiUpload') {
+    data = ''
+    params = data
+  }
+
   const requestData = {
     // url: `https://api.zgdc2023tx.com${url}`,
     url: `${baseURL}${url}`,
     method,
-    data: method !== 'GET' ? data : '',
-    params: method === 'GET' ? data : '',
-    headers: {
+    data: data,
+    params: params,
+    headers: Object.assign({
       'content-type': 'application/json;charset=utf-8',
       lang: userInfo.lang,
       token: userInfo.token
-    }
+    }, headers)
   }
 
   return new Promise((resolve, reject) => {
@@ -55,6 +61,9 @@ const request = async (urlName, data = {}, noToast = false) => {
       .then((res) => {
         $base.closeToast()
         console.log('响应返回完整res', res)
+
+        if (noFilter) return resolve(res)
+
         let status = res.status
         console.log('res', res)
         console.log('res.status', res.status, 'res.data', res.data)
@@ -89,6 +98,9 @@ const request = async (urlName, data = {}, noToast = false) => {
           }, 1500)
           return
         }
+
+        
+        if (noFilter) return resolve(err)
 
         // window.location.href = `${window.location.origin}/login`
         showFailToast(err.message || '网络异常')

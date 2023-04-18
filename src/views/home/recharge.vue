@@ -6,7 +6,7 @@
         <label class="big">￥</label>
         <input class="big" type="text" placeholder="" v-model="state.formData.money" />
       </div>
-      <p style="color: #999999; font-size: 0.25rem">充值金额每次最低{{ config.low_recharge_money }} ~ {{ config.high_recharge_money }}</p>
+      <p style="color: #999999; font-size: 0.25rem">充值金额每次最低{{ config.low_recharge_money }} 最高{{ config.high_recharge_money }}</p>
     </div>
     <div style="height: 0.24rem; background: #f1f1f1; margin-top: 0.3rem"></div>
     <!--<div class="blank_card">-->
@@ -40,7 +40,7 @@ import { ref, reactive, computed } from 'vue'
 import { useUserStore } from '@/store/userInfo'
 import { useConfigStore } from '@/store/config'
 import { useRouteHook } from '@/hook/routeHook.js'
-const { goBack } = useRouteHook()
+const { goPage } = useRouteHook()
 const userStore = useUserStore()
 const userInfo = ref({})
 
@@ -84,6 +84,17 @@ const submit = async () => {
   if (!money || isNaN(money)) {
     $base.showToast('请输入正确的充值金额！')
     return false
+  }
+
+  
+  // 银行卡时需跳转到新页面
+  const channelArr = ChannelList.value.filter(item => item.id == state.formData.id)
+
+  const channelItem = channelArr[0] || {}
+  console.log('channelItem', channelItem)
+  if(channelItem.channel == 2) {
+    goPage({ name: 'cardRechargeUpload', query: {id,money, account: channelItem.payment_account, bank: channelItem.payment_bank, name: channelItem.payment_name } })
+    return
   }
 
   $base.showLoadingToast()
