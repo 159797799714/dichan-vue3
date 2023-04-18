@@ -40,6 +40,9 @@ import HeadBar from '@/components/HeadBar.vue'
 import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()
 
+import { useToastRefreshHook } from '@/hook/toastRefresh.js'
+const { showToastRefresh } = useToastRefreshHook()
+
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goBack } = useRouteHook()
 
@@ -100,10 +103,12 @@ const submit = async () => {
   $base.showLoadingToast('保存中')
   let data = await $Http('apiSaveRecipientAddres', state.formData)
   if (!data) return
-  $base.showToast(`保存成功`)
-  setTimeout(() => {
-    goBack()
-  }, 1500)
+
+  showToastRefresh('保存成功', goBack)
+  // $base.showToast(`保存成功`)
+  // setTimeout(() => {
+  //   goBack()
+  // }, 1500)
 }
 </script>
 

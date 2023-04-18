@@ -89,6 +89,9 @@ import { ref, reactive, computed } from 'vue'
 import { useRouteHook } from '@/hook/routeHook.js'
 import { useUserStore } from '@/store/userInfo'
 
+import { useToastRefreshHook } from '@/hook/toastRefresh.js'
+const { showToastRefresh } = useToastRefreshHook()
+
 import MsgDialog from '@/components/MsgDialog.vue'
 const popTitle = ref('错误')
 
@@ -185,11 +188,16 @@ const submit = async () => {
   let data = await $Http('apiTransfer', state.formData)
   console.log('转账', data)
   if (!data) return
-    $base.showToast('转账成功')
-  setTimeout(() => {
+
+  showToastRefresh('转账成功', () => {
     getUserInfo()
     getRecord()
-  }, 1500)
+  })
+  // $base.showToast('转账成功')
+  // setTimeout(() => {
+  //   getUserInfo()
+  //   getRecord()
+  // }, 1500)
 }
 
 const onInput = (e) => {

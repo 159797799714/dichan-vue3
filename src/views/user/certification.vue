@@ -27,6 +27,9 @@ import { reactive, ref } from 'vue'
 import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()
 
+import { useToastRefreshHook } from '@/hook/toastRefresh.js'
+const { showToastRefresh } = useToastRefreshHook()
+
 const disabled = ref(true)
 
 const state = reactive({
@@ -85,11 +88,12 @@ const submit = async () => {
   let data = await $Http('apiRealname', state.formData)
   console.log('实名', data)
   if (!data) return
-  $base.showToast('认证成功')
   disabled.value = true
-  setTimeout(() => {
-    setUserInfo()
-  }, 1500)
+  showToastRefresh('认证成功', setUserInfo)
+  // $base.showToast('认证成功')
+  // setTimeout(() => {
+  //   setUserInfo()
+  // }, 1500)
 }
 </script>
 

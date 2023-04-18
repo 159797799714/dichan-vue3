@@ -21,13 +21,20 @@
   </div>
 </template>
 <script setup>
-import { ref, reactive } from 'vue'
+import { ref, computed } from 'vue'
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goPage } = useRouteHook()
 
+
+import { useToastRefreshHook } from '@/hook/toastRefresh.js'
+const { showToastRefresh } = useToastRefreshHook()
+
 const todayStatus = ref(true)
 const SignList = ref([])
-const signDay = ref(1)
+const signDay = computed(() => {
+  const list =  SignList.value.filter(item => item.status == 1)
+  return list.length || 1
+})
 const getSignList = async (noLoading) => {
   !noLoading && $base.showLoadingToast()
   let data = await $Http('apiSignInList')
@@ -35,9 +42,8 @@ const getSignList = async (noLoading) => {
 
   data = data || {}
   const list = []
-  for (var i = 0; i < 6; i++) {
+  for (var i = 0; i < 7; i++) {
     list.push(data[i])
-    if (data[i]['status' == 1]) signDay.value = i + 1
   }
   todayStatus.value = data['today_status'] == 1 ? true : false
   SignList.value = list
@@ -51,10 +57,13 @@ const signNow = async () => {
   let data = await $Http('apiSignin')
   console.log('签到返回', data)
   if (!data) return
-  $base.showToast('签到成功')
-  setTimeout(() => {
-    getSignList(true)
-  }, 1500)
+
+  showToastRefresh('签到成功', () => getSignList(true))
+
+  // $base.showToast('签到成功')
+  // setTimeout(() => {
+  //   getSignList(true)
+  // }, 1500)
 }
 </script>
 <style lang="scss" scoped>

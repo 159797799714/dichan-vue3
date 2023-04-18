@@ -5,8 +5,8 @@
       <div v-for="(item, index) in cardList" :key="index" class="mycard">
         <p>
           <span class="card_name">{{ item.bank_name }}</span>
-          <!-- <a href="https://71yunduan.com/user/del_card/id/65127.html"
-            style="float: right;">删除此卡</a> -->
+          <a @click="deleteCard(item.id)"
+            style="float: right;">删除此卡</a>
         </p>
         <p>
           <span class="card_type">{{ item.channel == 2 ? '储蓄卡' : '支付宝' }}</span>
@@ -66,8 +66,8 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import { useRouteHook } from '@/hook/routeHook.js'
-const { goPage } = useRouteHook()
+import { useToastRefreshHook } from '@/hook/toastRefresh.js'
+const { showToastRefresh } = useToastRefreshHook()
 
 import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()
@@ -133,16 +133,33 @@ const submit = async () => {
   let data = await $Http('apiBindPayment', state.formData)
   console.log('添加银行卡', data)
 
-  await getCardList()
+  if (!data) return
 
-  addShow.value = false
-  state.formData = {
-    channel: state.formData.channel,
-    username: state.formData.channel,
-    account: '',
-    bank_name: '',
-    subbranch_name: ''
-  }
+  showToastRefresh('新增成功', () => {
+    getCardList()
+    addShow.value = false
+    state.formData = {
+      channel: state.formData.channel,
+      username: userInfo.value.nickname || '',
+      account: '',
+      bank_name: '',
+      subbranch_name: ''
+    }
+  })
+  
+}
+const deleteCard = async id => {
+
+  let sure = await $base.showConfirmDialog('确认删除银行卡')
+  if (!sure) return
+
+  $base.showLoadingToast('删除中')
+  let data = await $Http('apiDeletePayment', {id})
+  console.log('删除银行卡', data)
+  if (!data) return
+
+  showToastRefresh('删除成功', getCardList)
+  
 }
 </script>
 

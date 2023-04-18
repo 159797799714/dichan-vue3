@@ -41,6 +41,9 @@ import { ref, reactive } from 'vue'
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goPage } = useRouteHook()
 
+import { useToastRefreshHook } from '@/hook/toastRefresh.js'
+const { showToastRefresh } = useToastRefreshHook()
+
 import HeadBar from '@/components/HeadBar.vue'
 
 import { useUserStore } from '@/store/userInfo'
@@ -98,10 +101,13 @@ const submit = async () => {
   $base.showLoadingToast('提交中')
   let data = await $Http('apiProfile', state.formData)
   if (!data) return
-  $base.showToast(`密码修改成功`)
-  setTimeout(() => {
-    goPage({ name: 'login' })
-  }, 1500)
+
+  showToastRefresh('密码修改成功', () => goPage({ name: 'login' }))
+
+  // $base.showToast(`密码修改成功`)
+  // setTimeout(() => {
+  //   goPage({ name: 'login' })
+  // }, 1500)
 }
 </script>
 

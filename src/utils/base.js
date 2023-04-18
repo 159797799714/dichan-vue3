@@ -1,6 +1,24 @@
-import { showToast, closeToast, showLoadingToast } from 'vant'
+import { showToast, closeToast, showLoadingToast, showConfirmDialog  } from 'vant'
 
 let base = {}
+
+base.showConfirmDialog = (message, title = '提示') =>{
+  return new Promise(resolve => {
+    showConfirmDialog({
+      title: title,
+      message: message,
+    })
+      .then(() => {
+        // on confirm
+        resolve(true)
+      })
+      .catch(() => {
+        // on cancel
+        resolve(false)
+      })
+  })
+  
+} 
 
 /**
  *  showToast

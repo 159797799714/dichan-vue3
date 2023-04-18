@@ -49,6 +49,10 @@ import { ref, reactive } from 'vue'
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goBack } = useRouteHook()
 
+
+import { useToastRefreshHook } from '@/hook/toastRefresh.js'
+const { showToastRefresh } = useToastRefreshHook()
+
 import { useConfigStore } from '@/store/config'
 const configStore = useConfigStore()
 
@@ -113,13 +117,19 @@ const submit = async () => {
     let data = await $Http('apiExchange', state.formData)
     console.log('兑换', data)
     if (!data) return
-    $base.showToast('兑换成功')
 
-    setTimeout(() => {
+    showToastRefresh('兑换成功', () => {
         getConfig()
         setUser()
         setrecordList()
-    }, 1500)
+    })
+    // $base.showToast('兑换成功')
+
+    // setTimeout(() => {
+    //     getConfig()
+    //     setUser()
+    //     setrecordList()
+    // }, 1500)
 }
 
 

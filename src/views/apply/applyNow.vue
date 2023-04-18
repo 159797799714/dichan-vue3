@@ -38,6 +38,9 @@ import HeadBar from '../../components/HeadBar.vue'
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goBack, route } = useRouteHook()
 
+import { useToastRefreshHook } from '@/hook/toastRefresh.js'
+const { showToastRefresh } = useToastRefreshHook()
+
 import { useApplyItemStore } from '@/store/applyItem'
 const applyItemStore = useApplyItemStore()
 
@@ -73,10 +76,13 @@ const submit = async () => {
   let data = await $Http('apiApplyProject', { id, pay_password: pay_password.value })
   console.log('申请返回', data)
   if (!data) return
-  $base.showToast('申请成功')
-  setTimeout(() => {
-    goBack()
-  }, 1500)
+
+  showToastRefresh('申请成功', goBack)
+
+  // $base.showToast('申请成功')
+  // setTimeout(() => {
+  //   goBack()
+  // }, 1500)
 }
 </script>
 

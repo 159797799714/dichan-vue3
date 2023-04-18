@@ -6,6 +6,7 @@ export const postApi = [
   'apiApplyProject',
   'apiRealname',
   'apiBindPayment',
+  'apiDeletePayment',
   'apiUpload',
   'apiProfile',
   'apiWithdraw',

@@ -25,6 +25,9 @@
 <script setup>
 import { ref } from 'vue'
 
+import { useToastRefreshHook } from '@/hook/toastRefresh.js'
+const { showToastRefresh } = useToastRefreshHook()
+
 const list = ref('')
 const myDate = new Date()
 const nowMonth = myDate.getMonth() + 1
@@ -46,10 +49,12 @@ const getAction = async (id) => {
   let data = await $Http('apiDrawEnsure', { id })
   console.log('民生保障列表', data)
   if (!data) return
-  $base.showToast('领取成功')
-  setTimeout(() => {
-    getList()
-  }, 1500)
+
+  showToastRefresh('领取成功', getList)
+  // $base.showToast('领取成功')
+  // setTimeout(() => {
+  //   getList()
+  // }, 1500)
 }
 </script>
 

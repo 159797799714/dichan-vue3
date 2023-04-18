@@ -8,6 +8,7 @@ import pinia from './store/index'
 import './assets/style/common.css'
 
 import 'vant/es/toast/style'
+import 'vant/es/dialog/style';
 
 // 全局方法
 import base from './utils/base'

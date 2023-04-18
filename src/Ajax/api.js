@@ -21,6 +21,7 @@ const apiObj = {
   apiRealname: '/api/user/realname', // 用户实名
   apiBindPayment: '/api/user/bindPayment', // 绑定收款方式
   apiGetPayment: '/api/user/getPayment', // 获取收款方式
+  apiDeletePayment: '/api/user/deletePayment', // 删除收款方式
   apiUpload: '/api/common/upload', // 上传文件
   apiProfile: '/api/user/profile', // 修改个人信息
   apiWithdraw: '/api/user/withdraw', // 用户提现
