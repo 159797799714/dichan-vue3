@@ -132,13 +132,6 @@ base.uploadAvatar = async (file, headersData = {}) => {
       param,
       config,
     )
-
-    // const { res } = await request('apiUpload', 
-    //   param,
-    //   config.headers,
-    //   false,
-    //   true,
-    // )
     console.log('data', data)
     if (data.code != 1) {
       result = { picture: "error", msg: "图片上传失败，请重试", url: "" };
