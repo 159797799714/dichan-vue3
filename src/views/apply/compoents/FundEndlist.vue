@@ -15,7 +15,7 @@
           <div>{{ item.invest_day }}天</div>
         </div>
         <div>
-          <div>{{ item.invest_day }}天发放收益</div>
+          <div>{{ item.capital_day }}天发放收益</div>
           <div>{{ item.profit }}</div>
         </div>
         <div class="haveEnded" :style="setStatus(item).style">

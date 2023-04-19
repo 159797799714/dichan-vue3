@@ -12,7 +12,7 @@
         </div>
         <div>
           <div>期限</div>
-          <div>{{ item.capital_day }}天</div>
+          <div>{{ item.invest_day }}天</div>
         </div>
         <div>
           <div>赠送现金红包</div>
@@ -25,7 +25,7 @@
       </div>
       <div class="item_c">
         <div>
-          <div>{{ item.capital_day }}天发放收益</div>
+          <div>{{ item.invest_day }}天发放收益</div>
           <div>{{ item.profit }}</div>
         </div>
         <div>

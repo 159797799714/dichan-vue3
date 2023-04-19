@@ -5,7 +5,7 @@
         <div>{{ item.name }}</div>
         <!-- <div style="color: red; font-weight: bold">申请时间截止到3月21日22时</div> -->
         <div style="color: red; font-weight: bold">
-          申请时间截止到{{ setTime(new Date().getTime() / 1000) }}
+          申请时间截止到{{ setTime(item.end_time) }}
         </div>
       </div>
       <div class="item_c">
