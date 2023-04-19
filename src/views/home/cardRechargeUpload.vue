@@ -76,10 +76,13 @@ const uploadImg = ref('')
 
 const  handleFileChange = async e => {
   console.log('e', e)
+  $base.showLoadingToast('上传中')
   let file = e.target.files[0];
   //调用封装的uploadAvatar.js
   let res = await $base.uploadAvatar(file, {lang: userInfo.lang, token: userInfo.token})
   console.log('上传返回信息', res, file)
+
+  $base.closeToast()
 
   if (res.picture === 'error') return $base.showToast('上传失败')
 

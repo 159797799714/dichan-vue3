@@ -86,6 +86,16 @@ const submit = async () => {
     return false
   }
 
+  if (money - config.value.low_recharge_money < 0) {
+    $base.showToast('金额小于最低充值金额！')
+    return false
+  }
+
+  if (money - config.value.high_recharge_money > 0) {
+    $base.showToast('金额大于最高充值金额！')
+    return false
+  }
+
   
   // 银行卡时需跳转到新页面
   const channelArr = ChannelList.value.filter(item => item.id == state.formData.id)

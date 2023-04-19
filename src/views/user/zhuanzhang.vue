@@ -107,12 +107,12 @@ getUserInfo()
 
 const tabs = [
   {
-    name: '可用余额',
-    value: 'recharge_money'
+    name: '可提现余额',
+    value: 'cash_money'
   },
   {
-    name: '可用提现余额',
-    value: 'cash_money'
+    name: '可用余额',
+    value: 'recharge_money'
   }
 ]
 const state = reactive({
@@ -136,7 +136,7 @@ const formatTime = (time) => {
   return $base.DateFormat(time, 'MM-dd hh:mm:ss')
 }
 const formatType = (status) => {
-  return status == 'cash_money' ? '可用提现余额' : '可用余额'
+  return status == 'cash_money' ? '可提现余额' : '可用余额'
 }
 
 const Record = ref([])
@@ -172,11 +172,11 @@ const submit = async () => {
   }
 
   if (money_type === 'recharge_money' && parseFloat(money) > parseFloat(recharge_money)) {
-    $base.showToast('请转出金额不能大于可用余额！')
+    $base.showToast('转出金额不能大于可用余额！')
     return false
   }
   if (money_type === 'cash_money' && parseFloat(money) > parseFloat(cash_money)) {
-    $base.showToast('请转出金额不能大于可提现余额！')
+    $base.showToast('转出金额不能大于可提现余额！')
     return false
   }
   if (pay_password.length < 6 || pay_password.length > 16) {
