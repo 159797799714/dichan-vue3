@@ -106,7 +106,7 @@ const getChannelList = async () => {
 const submit = async () => {
   let { image } = formData.value
   if (!image) {
-    $base.showToast('请上传图片！')
+    $base.showToast('请上传转账成功凭证！')
     return false
   }
   $base.showLoadingToast()
