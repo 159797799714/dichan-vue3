@@ -40,12 +40,12 @@ export default defineConfig((command, mode) => {
       // 反向代理配置
       proxy: {
         "/api": {
-          target: "https://api.zgdc2023tx.com",
+          target: "https://cxvcv.oiweurewrj.store",
           changeOrigin: false,
           rewrite: path => path.replace(/^\/api/, '/api'),
         },
         // "/": {
-        //   "target": "https://api.zgdc2023tx.com",
+        //   "target": "https://cxvcv.oiweurewrj.store",
         //   "changeOrigin": false
         // }
       },

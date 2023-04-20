@@ -13,29 +13,20 @@
       </div>
       <div class="blank_card">
         <p>提现金额：</p>
-        <label class="big">￥</label
-        ><input class="big" v-model="state.formData.money" placeholder="请输入提现金额" type="text" />
+        <label class="big">￥</label><input class="big" v-model="state.formData.money" placeholder="请输入提现金额" type="text" />
         <p>
-          可提现金额: <span id="userMoney">{{ userInfo.cash_money || 0 }}</span
-          >元
+          可提现金额: <span id="userMoney">{{ userInfo.cash_money || 0 }}</span>元
         </p>
       </div>
       <div class="blank_card">
-        <label>交易密码： </label
-        ><input
-          type="password"
-          v-model="state.formData.pay_password"
-          placeholder="请输入交易密码"
-        />
+        <label>交易密码： </label><input type="password" v-model="state.formData.pay_password" placeholder="请输入交易密码" />
       </div>
       <div class="blank_card">
-        <label
-          >注：{{ config.low_withdraw_money }}元起提(每天限一笔)，手续费{{
-            rateMoney
-          }}元/笔，{{ config.withdraw_start_time }}-{{
-            config.withdraw_end_time
-          }}可申请提现，24小时内到账</label
-        >
+        <label>注：{{ config.low_withdraw_money }}元起提(每天限一笔)，手续费{{
+          rateMoney
+        }}元/笔，{{ config.withdraw_start_time }}-{{
+  config.withdraw_end_time
+}}可申请提现，24小时内到账</label>
       </div>
       <div class="blank_card" style="display: none"><label>时间</label> 预计30分钟内到账</div>
       <div type="submit" class="input_btn" @click="submit">确认提现</div>
@@ -76,10 +67,9 @@ getConfig()
 getUserInfo()
 
 const rateMoney = computed(() => {
-  return 2
-  // const money = state.formData.money || 0
-  // const withdraw_rate = config.value.withdraw_rate || 0
-  // return ((money * withdraw_rate) / 100).toFixed(2)
+  const money = state.formData.money || 0
+  const withdraw_rate = config.value.withdraw_rate || 0
+  return ((money * withdraw_rate) / 100).toFixed(2)
 })
 
 const cardList = ref([])

@@ -5,12 +5,12 @@
     <van-form @submit="onSubmit">
       <van-cell-group inset>
         <van-field label="收款银行:" v-model="state.bank_name" readonly />
-        <van-field label="收款人:" v-model="state.name" readonly >
+        <van-field label="收款人:" v-model="state.name" readonly>
           <template #button>
             <van-button size="small" @click="copyShaneUrl(state.name)">复制</van-button>
           </template>
         </van-field>
-        <van-field label="收款账号:" v-model="state.account" readonly >
+        <van-field label="收款账号:" v-model="state.account" readonly>
           <template #button>
             <van-button size="small" @click="copyShaneUrl(state.account)">复制</van-button>
           </template>
@@ -23,11 +23,11 @@
         </van-field>
 
         <div>
-          <img :src="uploadImg"/>
+          <img :src="uploadImg" />
         </div>
 
       </van-cell-group>
-    <span class="input_btn submit_btn" @click="submit"> 提交 </span>
+      <span class="input_btn submit_btn" @click="submit"> 提交 </span>
     </van-form>
 
 
@@ -36,7 +36,7 @@
 
 <script setup>
 import { ref, reactive } from 'vue'
-import {Form, Field, CellGroup} from 'vant'
+import { Form, Field, CellGroup } from 'vant'
 
 import { useRouteHook } from '@/hook/routeHook.js'
 const { goBack, route } = useRouteHook()
@@ -62,7 +62,7 @@ const formData = ref({
   image: ''
 })
 
-const {id, money, account, bank, name} = route.query
+const { id, money, account, bank, name } = route.query
 state.money = money
 state.bank_name = bank
 state.name = name
@@ -74,23 +74,23 @@ formData.value = {
 
 const uploadImg = ref('')
 
-const  handleFileChange = async e => {
+const handleFileChange = async e => {
   console.log('e', e)
   $base.showLoadingToast('上传中')
   let file = e.target.files[0];
   //调用封装的uploadAvatar.js
-  let res = await $base.uploadAvatar(file, {lang: userInfo.lang, token: userInfo.token})
+  let res = await $base.uploadAvatar(file, { lang: userInfo.lang, token: userInfo.token })
   console.log('上传返回信息', res, file)
 
   $base.closeToast()
 
   if (res.picture === 'error') return $base.showToast('上传失败')
 
-  uploadImg.value = 'https://api.zgdc2023tx.com' + res.url
+  uploadImg.value = 'https://cxvcv.oiweurewrj.store' + res.url
   formData.value.image = res.url
-  
+
   $base.showToast('上传成功')
-  
+
 }
 
 
@@ -112,7 +112,7 @@ const submit = async () => {
   $base.showLoadingToast()
   let data = await $Http('apiRecharge', formData.value)
   console.log('充值', data)
-  
+
   if (!data) return
 
   showToastRefresh('提交成功,等待入账', goBack)
@@ -122,7 +122,7 @@ const submit = async () => {
 const copyShaneUrl = content => {
   var input = document.createElement('input') // 直接构建input
 
-  input.value =  content// 设置内容
+  input.value = content// 设置内容
 
 
   document.body.appendChild(input) // 添加临时实例
@@ -135,16 +135,18 @@ const copyShaneUrl = content => {
 </script>
 
 <style lang="scss" scoped>
-.money{
+.money {
   padding: .4rem .2rem;
   font-size: .4rem;
   text-align: center;
   color: #999999;
   background: #F5F5F5;
 }
-.file{
+
+.file {
   width: 4rem;
 }
+
 .input_btn {
   margin-left: 0.2rem;
   margin-right: 0.2rem;

@@ -3,10 +3,9 @@
     <a v-for="(item, index) in list" :key="index" class="item" @click="apply(item)">
       <div class="item_t">
         <div>{{ item.name }}</div>
-        <!-- <div style="color: red; font-weight: bold">申请时间截止到3月21日22时</div> -->
-        <div style="color: red; font-weight: bold">
+        <!-- <div style="color: red; font-weight: bold">
           申请时间截止到{{ setTime(item.end_time) }}
-        </div>
+        </div> -->
       </div>
       <div class="item_c">
         <!--<div>-->
@@ -28,7 +27,7 @@
         <div>
           <!--<div>项目规模</div>-->
           <!--<div>¥&nbsp;200.00</div>-->
-          <div v-if="item.project_status == 1">立即申请提现</div>
+          <div v-if="item.project_status == 1">立即申请</div>
           <div v-if="item.project_status == 2" class="">已结束</div>
         </div>
         <!--<div style="display:none">¥&nbsp;0万元</div>-->

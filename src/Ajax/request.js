@@ -33,10 +33,9 @@ const request = async (urlName, data = {}, noToast = false) => {
 
   data = $base.dealObjectValue(data)
 
-  const baseURL = process.env.NODE_ENV == 'production' ? 'https://api.zgdc2023tx.com' : ''
+  const baseURL = process.env.NODE_ENV == 'production' ? 'https://cxvcv.oiweurewrj.store' : ''
 
   const requestData = {
-    // url: `https://api.zgdc2023tx.com${url}`,
     url: `${baseURL}${url}`,
     method,
     data: method !== 'GET' ? data : '',

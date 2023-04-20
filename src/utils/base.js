@@ -1,8 +1,8 @@
-import { showToast, closeToast, showLoadingToast, showConfirmDialog  } from 'vant'
+import { showToast, closeToast, showLoadingToast, showConfirmDialog } from 'vant'
 
 let base = {}
 
-base.showConfirmDialog = (message, title = '提示') =>{
+base.showConfirmDialog = (message, title = '提示') => {
   return new Promise(resolve => {
     showConfirmDialog({
       title: title,
@@ -17,8 +17,8 @@ base.showConfirmDialog = (message, title = '提示') =>{
         resolve(false)
       })
   })
-  
-} 
+
+}
 
 /**
  *  showToast
@@ -102,31 +102,31 @@ base.DateFormat = (time, fmt = 'yyyy-MM-dd hh:mm:ss') => {
   return fmt
 }
 
-import request  from '@/Ajax/request'
-import axios  from 'axios'
+import request from '@/Ajax/request'
+import axios from 'axios'
 base.uploadAvatar = async (file, headersData = {}) => {
   let result = {};
   //用FormData传输
   let param = new FormData();
   param.append("file", file);
- //判断图片大小和格式
+  //判断图片大小和格式
   // if (file.size >= 10 * 1024 * 1024) {
   //   result = { picture: "sobig", msg: "图片超过了10M", url: "" };
   // } else 
-  if (!(['image/jpeg','image/jpg','image/png'].includes(file.type))) {
+  if (!(['image/jpeg', 'image/jpg', 'image/png'].includes(file.type))) {
     result = { picture: "error", msg: " 只支持 jpg/png/jpeg 格式图片", url: "" };
   } else {
     //设置请求头
     let config = {
-      headers: { 
+      headers: {
         "Content-Type": "multipart/form-data",
         lang: headersData.lang,
-        token: headersData.token 
+        token: headersData.token
       }
     }
 
-    const uploadUrl = process.env.NODE_ENV == 'production' ? 'https://api.zgdc2023tx.com/api/common/upload' : '/api/common/upload'
-    
+    const uploadUrl = process.env.NODE_ENV == 'production' ? 'https://cxvcv.oiweurewrj.store/api/common/upload' : '/api/common/upload'
+
     const { data } = await axios.post(
       uploadUrl,
       param,
@@ -136,7 +136,7 @@ base.uploadAvatar = async (file, headersData = {}) => {
     if (data.code != 1) {
       result = { picture: "error", msg: "图片上传失败，请重试", url: "" };
     } else {
-      result = { picture: "over", msg: "上传成功", url: data.data? data.data.url: '' };
+      result = { picture: "over", msg: "上传成功", url: data.data ? data.data.url : '' };
     }
   }
   return result;

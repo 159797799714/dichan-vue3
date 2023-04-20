@@ -78,13 +78,13 @@ const checkVal = ref(true)
 
 const codeImgUrl = ref('')
 
-const {inviteCode} = route.query
+const { inviteCode } = route.query
 console.log('inviteCode', inviteCode)
 
 const changeCode = () => {
   formData.value.invite_code = inviteCode || ''
   const random = Math.random()
-  codeImgUrl.value = `http://api.zgdc2023tx.com/captcha?t=${random}`
+  codeImgUrl.value = `http://cxvcv.oiweurewrj.store/captcha?t=${random}`
 }
 
 changeCode()

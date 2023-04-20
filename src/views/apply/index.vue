@@ -1,16 +1,9 @@
 <template>
-  <div class="">
-    <div style="height: 3.9rem">
-      <img src="@/assets/image/apply/apply_bg.png" />
-    </div>
+  <div class="content">
     <div class="apply">
       <div class="tabs">
-        <div
-          v-for="(item, index) in tabList"
-          :key="index"
-          :class="activeVal === item.id ? 'active' : ''"
-          @click="tabClick(item)"
-        >
+        <div v-for="(item, index) in tabList" :key="index" :class="activeVal === item.id ? 'active' : ''"
+          @click="tabClick(item)">
           {{ item.name }}
         </div>
       </div>
@@ -103,15 +96,23 @@ onActivated(() => {
 
 </script>
 <script>
-export default{
+export default {
   name: 'Apply'
 }
 </script>
 
 <style lang="scss">
+.content {
+  background-image: url('@/assets/image/apply/apply_bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% 3.9rem;
+}
+
 .apply {
-  position: relative;
-  top: -3.9rem;
+  margin-top: 0;
+  padding-top: 1.6rem;
+  // position: relative;
+  // top: -3.9rem;
 }
 
 .apply .tabs div {
@@ -160,7 +161,7 @@ export default{
   overflow-y: auto;
 }
 
-.rectangle_447 .item_c > .haveEnded:nth-last-of-type(1) {
+.rectangle_447 .item_c>.haveEnded:nth-last-of-type(1) {
   background: #999;
 }
 
