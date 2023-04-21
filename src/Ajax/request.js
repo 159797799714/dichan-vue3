@@ -5,6 +5,8 @@ import API from './api'
 import service from '@/Ajax/service.js'
 import { withoutLoginApi } from './withoutLoginApi' // 无需登录白名单api列表
 
+import { baseUrl } from '@/config'
+
 // import { getAssetsFiles } from '@/utils/index'
 
 const userInfo = useUserStore()
@@ -33,7 +35,7 @@ const request = async (urlName, data = {}, noToast = false) => {
 
   data = $base.dealObjectValue(data)
 
-  const baseURL = process.env.NODE_ENV == 'production' ? 'https://cxvcv.oiweurewrj.store' : ''
+  const baseURL = process.env.NODE_ENV == 'production' ? baseUrl : ''
 
   const requestData = {
     url: `${baseURL}${url}`,

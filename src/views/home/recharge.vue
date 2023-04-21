@@ -6,7 +6,7 @@
         <label class="big">￥</label>
         <input class="big" type="text" placeholder="" v-model="state.formData.money" />
       </div>
-      <p style="color: #999999; font-size: 0.25rem">充值金额每次最低{{ config.low_recharge_money }} 最高{{ config.high_recharge_money }}</p>
+      <!-- <p style="color: #999999; font-size: 0.25rem">充值金额每次最低{{ config.low_recharge_money }} 最高{{ config.high_recharge_money }}</p> -->
     </div>
     <div style="height: 0.24rem; background: #f1f1f1; margin-top: 0.3rem"></div>
     <!--<div class="blank_card">-->
@@ -96,14 +96,14 @@ const submit = async () => {
     return false
   }
 
-  
+
   // 银行卡时需跳转到新页面
   const channelArr = ChannelList.value.filter(item => item.id == state.formData.id)
 
   const channelItem = channelArr[0] || {}
   console.log('channelItem', channelItem)
-  if(channelItem.channel == 2) {
-    goPage({ name: 'cardRechargeUpload', query: {id,money, account: channelItem.payment_account, bank: channelItem.payment_bank, name: channelItem.payment_name } })
+  if (channelItem.channel == 2) {
+    goPage({ name: 'cardRechargeUpload', query: { id, money, account: channelItem.payment_account, bank: channelItem.payment_bank, name: channelItem.payment_name } })
     return
   }
 
@@ -145,7 +145,7 @@ const submit = async () => {
   padding: 0.2rem 0;
 }
 
-.way_list .item > div:nth-of-type(1) {
+.way_list .item>div:nth-of-type(1) {
   display: flex;
   align-items: center;
   gap: 0.1rem;

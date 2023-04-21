@@ -9,6 +9,8 @@ import vueJsx from '@vitejs/plugin-vue-jsx'
 import Components from 'unplugin-vue-components/vite';
 import { VantResolver } from 'unplugin-vue-components/resolvers';
 
+import { baseUrl } from './src/config'
+
 
 
 // https://vitejs.dev/config/
@@ -40,12 +42,12 @@ export default defineConfig((command, mode) => {
       // 反向代理配置
       proxy: {
         "/api": {
-          target: "https://cxvcv.oiweurewrj.store",
+          target: baseUrl,
           changeOrigin: false,
           rewrite: path => path.replace(/^\/api/, '/api'),
         },
         // "/": {
-        //   "target": "https://cxvcv.oiweurewrj.store",
+        //   "target": "https://zgdc2023tx.com",
         //   "changeOrigin": false
         // }
       },

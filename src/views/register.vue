@@ -63,6 +63,8 @@ import { RouterLink } from 'vue-router'
 import { useRouteHook } from '@/hook/routeHook.js'
 const { navigateTo, route } = useRouteHook()
 
+import { baseUrl } from '@/config'
+
 import { useUserStore } from '@/store/userInfo'
 const userStore = useUserStore()
 
@@ -84,7 +86,7 @@ console.log('inviteCode', inviteCode)
 const changeCode = () => {
   formData.value.invite_code = inviteCode || ''
   const random = Math.random()
-  codeImgUrl.value = `http://cxvcv.oiweurewrj.store/captcha?t=${random}`
+  codeImgUrl.value = `${baseUrl}/captcha?t=${random}`
 }
 
 changeCode()

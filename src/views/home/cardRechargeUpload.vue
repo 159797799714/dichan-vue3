@@ -48,6 +48,8 @@ const { showToastRefresh } = useToastRefreshHook()
 import { useUserStore } from '@/store/userInfo'
 const userInfo = useUserStore()
 
+import { baseUrl } from '@/config'
+
 const state = reactive({
   hadLoad: false,
   money: 0,
@@ -86,7 +88,7 @@ const handleFileChange = async e => {
 
   if (res.picture === 'error') return $base.showToast('上传失败')
 
-  uploadImg.value = 'https://cxvcv.oiweurewrj.store' + res.url
+  uploadImg.value = baseUrl + res.url
   formData.value.image = res.url
 
   $base.showToast('上传成功')

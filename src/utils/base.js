@@ -102,8 +102,8 @@ base.DateFormat = (time, fmt = 'yyyy-MM-dd hh:mm:ss') => {
   return fmt
 }
 
-import request from '@/Ajax/request'
 import axios from 'axios'
+import { baseUrl } from '@/config'
 base.uploadAvatar = async (file, headersData = {}) => {
   let result = {};
   //用FormData传输
@@ -125,7 +125,7 @@ base.uploadAvatar = async (file, headersData = {}) => {
       }
     }
 
-    const uploadUrl = process.env.NODE_ENV == 'production' ? 'https://cxvcv.oiweurewrj.store/api/common/upload' : '/api/common/upload'
+    const uploadUrl = process.env.NODE_ENV == 'production' ? `${baseUrl}/api/common/upload` : '/api/common/upload'
 
     const { data } = await axios.post(
       uploadUrl,
