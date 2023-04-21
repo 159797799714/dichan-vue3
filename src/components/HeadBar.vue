@@ -47,6 +47,8 @@ const goBack = () => {
 
 <style lang="scss" scoped>
 .headBar {
+  padding-top: calc(constant(safe-area-inset-bottom) + .3rem);
+  padding-top: calc(env(safe-area-inset-bottom) + .3rem);
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -59,8 +61,6 @@ const goBack = () => {
 
   .icon {
     position: absolute;
-    top: constant(safe-area-inset-bottom);
-    top: env(safe-area-inset-bottom);
     left: 0;
     height: 0.8rem;
     width: 0.8rem;

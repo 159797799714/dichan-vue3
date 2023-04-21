@@ -1,1 +1,1 @@
-export const baseUrl = 'https://cxvcv.oiweurewrj.store'
+export const baseUrl = 'https://api.zgdc2023tx.com'

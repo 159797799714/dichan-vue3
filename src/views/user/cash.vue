@@ -24,7 +24,7 @@
       <div class="blank_card">
         <label>注：{{ config.low_withdraw_money }}元起提(每天限一笔)，手续费{{
           rateMoney
-        }}元/笔，{{ config.withdraw_start_time }}-{{
+        }}/笔，{{ config.withdraw_start_time }}-{{
   config.withdraw_end_time
 }}可申请提现，24小时内到账</label>
       </div>
@@ -67,9 +67,12 @@ getConfig()
 getUserInfo()
 
 const rateMoney = computed(() => {
-  const money = state.formData.money || 0
-  const withdraw_rate = config.value.withdraw_rate || 0
-  return ((money * withdraw_rate) / 100).toFixed(2)
+  // // const money = state.formData.money || 0
+  // const withdraw_rate = config.value.withdraw_rate || 0
+  // return ((money * withdraw_rate) / 100).toFixed(2)
+
+  return (config.value.withdraw_rate || 0) + '%'
+
 })
 
 const cardList = ref([])
