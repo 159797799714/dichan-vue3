@@ -3,9 +3,9 @@
     <a v-for="(item, index) in list" :key="index" class="item" @click="apply(item)">
       <div class="item_t">
         <div>{{ item.name }}</div>
-        <!-- <div style="color: red; font-weight: bold">
+        <div style="color: red; font-weight: bold">
           申请时间截止到{{ setTime(item.end_time) }}
-        </div> -->
+        </div>
       </div>
       <div class="item_c">
         <!--<div>-->

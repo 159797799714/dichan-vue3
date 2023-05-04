@@ -41,9 +41,13 @@ const { title } = route.query || {}
 popTitle.value = title
 
 const MyBill = ref([])
+const pageData = {
+  page: 1,
+  page_size: 200
+}
 const getBill = async () => {
   $base.showLoadingToast()
-  let data = await $Http('apiMyBill')
+  let data = await $Http('apiMyBill', pageData)
   console.log('我的账单', data)
   MyBill.value = data.list || []
 }

@@ -41,7 +41,7 @@ export default defineConfig((command, mode) => {
       },
       // 反向代理配置
       proxy: {
-        "/api": {
+        "/": {
           target: baseUrl,
           changeOrigin: false,
           rewrite: path => path.replace(/^\/api/, '/api'),

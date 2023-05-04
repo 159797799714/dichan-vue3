@@ -65,9 +65,13 @@ const submit = async () => {
     $base.showToast('请输入姓名！')
     return false
   }
-  let regs = /^[\u4e00-\u9fa5]+$/
-  if (!regs.test(nickname)) {
-    $base.showToast('请输入正确的姓名！')
+  // let regs = /^[\u4e00-\u9fa5]+$/
+  // if (!regs.test(nickname)) {
+  //  $base.showToast('请输入正确的姓名！')
+  //  return false
+  // }
+  if (!nickname) {
+    $base.showToast('请输入姓名！')
     return false
   }
   if (!id_card) {

@@ -37,7 +37,7 @@ const recordList = ref([])
 const state = reactive({
   pageData: {
     page: 1,
-    page_size: 100
+    page_size: 1000
   },
   total: 1
 })
